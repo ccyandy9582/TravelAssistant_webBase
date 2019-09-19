@@ -1,5 +1,6 @@
 body {
     margin: 0;
+    overflow-y: hidden;
 }
 #menu {
     width:100%;
@@ -7,6 +8,7 @@ body {
     background-color: #1986E1;
     position:fixed;
     text-align: right;
+    z-index: 20;
     /* padding: 10px; */
 }
 #icon {
@@ -27,6 +29,19 @@ body {
 }
 #main{
     top: 100px;
-    min-height: calc(100% - 100px);
+    height: calc(100% - 100px);
     position: relative;
+    overflow-y: auto;
+}
+#desc{
+    /* background-image: url(""); */
+    height:500px;
+    text-align: center;
+}
+#desc a{
+    background-color: blue;
+    width:100px;
+    padding:5px;
+    box-shadow: 5px 5px 5px grey;
+    display: inline-block;
 }
