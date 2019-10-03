@@ -19,4 +19,4 @@ Options All -Indexes
  RewriteCond %{REQUEST_FILENAME}\.php -f
  RewriteRule ^/?(.*)$ /$1.php [L]
  
-ErrorDocument 404 /home.php
+ErrorDocument 404 /fyp/home.php

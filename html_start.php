@@ -9,6 +9,6 @@
             <img id="icon" src="imgs/icon.png">
             <a class="menu_item">Plan</a>
             <a class="menu_item">Blog</a>
-            <a href="login.php" class="menu_item">Login</a>
+            <a href="login" class="menu_item">Login</a>
         </div>
         <div id="main">
