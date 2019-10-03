@@ -2,6 +2,14 @@ a {
     color:white;
     text-decoration: inherit;
 }
+form {
+    margin-bottom: 0;
+}
+input[type="text"], input[type="password"] {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
 body {
     margin: 0;
     overflow-y: hidden;
@@ -81,7 +89,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
-#login {
+#login_container {
     position: absolute;
     background-color: rgba(255,255,255,0.7);
     height: calc(100% - 20px);
@@ -89,9 +97,47 @@ body {
     right: 0;
     margin: 10px;
 }
-
+#login{
+    display: inline-block;
+    width: 70%;
+    height:100%;
+    position: absolute;;
+}
+#login_form {
+    left:15%;
+    right:15%;
+    position: absolute;
+    top:10px;
+}
+#login_form input {
+    width:100%;
+}
+#login_switch {
+    background-color: #FFAA35;
+    display:inline-block;
+    position: absolute;
+    width:30%;
+    height:100%;
+    left:70%;
+    animation-name: login_switch_r;
+}
+#login_switch.login_left {
+    animation-name: login_switch;
+    animation-fill-mode: forwards;
+    animation-duration: 2s;
+  }
+@keyframes login_switch {
+    0% {left: 70%; width: 30%;background-color: #FFAA35}
+    50% {width: 40%;}
+    100% {left:0; width:30%;background-color: #FFBB5D}
+}
+  @keyframes login_switch_r {
+    0% {left:0; width:30%;background-color: #FFBB5D}
+    50% {width: 40%;}
+    100% {left: 70%; width: 30%;background-color: #FFAA35}
+}
 @media only screen and (max-width: 940px) {
-    #login {
+    #login_container {
         margin:0;
         margin-top: 10px;
         width: 80%;
