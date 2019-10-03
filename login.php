@@ -5,15 +5,17 @@
             <tr><td>
             <a style="color:blue; position: absolute; bottom:0; left:0">forgot password?</a>
             <form id="login_form">
-                <input type="text" placeholder="email"><br><br>
+                <input type="text" placeholder="email" name="email">
+                <span></span><br><br>
                 <input type="password" placeholder="password"><br><br>
-                <button>login</button>
+                <center><button>login</button></center>
             </form>
             <form id="reg_form" class=hidden>
-                <input type="text" placeholder="email"><br><br>
+                <input type="text" placeholder="email" name="email">
+                <span></span><br><br>
                 <input type="password" placeholder="password"><br><br>
                 <input type="password" placeholder="confirm password"><br><br>
-                <button>register</button>
+                <center><button>register</button></center>
             </form>
         </td></tr>
         </table

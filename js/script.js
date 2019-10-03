@@ -16,4 +16,17 @@ $("document").ready(function() {
             },375);
         }
     })
+    function empty_input(e) {
+        e.next().text("* This field is required.");
+    }
+    $("input[name='email']").on("keyup change",function() {
+        if (!(/^.+@.+\..+$/.test($(this).val()+"")))
+            $(this).next().text("* Email is not valid.");
+        else 
+            $(this).next().text("");
+        if ($(this).val() == "") {
+            empty_input($(this));
+        }
+    })
+    //[!@#$%^&*()~`\-_=+,<.>;:/?'"[{\]}\\\|]
 })

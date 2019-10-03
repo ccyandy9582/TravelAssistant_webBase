@@ -5,6 +5,9 @@ a {
 form {
     margin-bottom: 0;
 }
+form span {
+    color: red;
+}
 input[type="text"], input[type="password"] {
   padding: 12px;
   border: 1px solid #ccc;
@@ -117,7 +120,6 @@ body {
     transition-timing-function: linear;
     transition-duration: 0.75s;
     background-color: white;
-    text-align: center;
 }
 #login.on {
     left:45%;
