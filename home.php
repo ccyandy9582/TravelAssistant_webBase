@@ -4,6 +4,7 @@
         PLAN YOUR TRIP
         <div>
             test
+            <?php //echo password_hash("!@3$%^&*()-_=+`~[{\]}\\|;:'\",<.>\/?]",PASSWORD_DEFAULT);?><br>
         </div>
     </div>
 </div>

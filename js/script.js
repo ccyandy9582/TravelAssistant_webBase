@@ -28,5 +28,10 @@ $("document").ready(function() {
             empty_input($(this));
         }
     })
+    $("input[name='password']").on("keyup change", function() {
+        if(!(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-_=+`~[{\]}\\|;:'",<.>\/?])(?=.{8,})/.test($(this).val()+""))) {
+            alert(1);
+        }
+    })
     //[!@#$%^&*()~`\-_=+,<.>;:/?'"[{\]}\\\|]
 })

@@ -7,7 +7,7 @@
             <form id="login_form">
                 <input type="text" placeholder="email" name="email">
                 <span></span><br><br>
-                <input type="password" placeholder="password"><br><br>
+                <input type="password" placeholder="password" name="password"><br><br>
                 <center><button>login</button></center>
             </form>
             <form id="reg_form" class=hidden>

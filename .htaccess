@@ -1,22 +1,8 @@
-# HTID:2197928: DO NOT REMOVE OR MODIFY THIS LINE AND THE LINES BELOW
 php_value display_errors 1
-# DO NOT REMOVE OR MODIFY THIS LINE AND THE LINES ABOVE HTID:2197928:
 DirectoryIndex home.php
-
 Options All -Indexes
-
- RewriteEngine On
- RewriteRule ^(wp-admin)($|/) - [L] # You don't want to mess with WordPress 
- RewriteCond %{REQUEST_FILENAME} !-d
- RewriteCond %{REQUEST_FILENAME}\.php -f
- RewriteRule .* $0.php
-
- # browser requests PHP
- #RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /([^\ ]+)\.php	
- #RewriteRule ^/?(.*)\.php$ /$1 [L,R=301]
-
- # check to see if the request is for a PHP file:
- RewriteCond %{REQUEST_FILENAME}\.php -f
- RewriteRule ^/?(.*)$ /$1.php [L]
- 
-ErrorDocument 404 /fyp/home.php
+RewriteEngine On
+ RewriteRule ^(.*)/(.*)$ $1/$2 [L]
+ RewriteRule ^([A-Za-z0-9]+)$ $1.php
+ RewriteRule ^(.*)\.[A-Za-z0-9]*$ $1.php
+ ErrorDocument 404 /home.php
