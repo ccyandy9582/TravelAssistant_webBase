@@ -7,4 +7,4 @@ RewriteEngine On
  RewriteRule ^(.*)\.[A-Za-z0-9]*$ $1.php
  #RewriteRule ^([A-Za-z0-9]+)$ home.php
  #RewriteRule ^(.*)\.[A-Za-z0-9]*$ home.php
- ErrorDocument 404 /fyp/home.php
+ ErrorDocument 404 /fyp/404.php

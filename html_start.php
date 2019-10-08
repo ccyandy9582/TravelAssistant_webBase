@@ -6,7 +6,7 @@
     </head>
     <body>
         <div id="menu">
-            <img id="icon" src="/fyp/imgs/icon.png">
+            <a href="/fyp/"><img id="icon" src="/fyp/imgs/hochilltrip_logo.svg" height="75px"></a>
             <a class="menu_item">Plan</a>
             <a class="menu_item">Blog</a>
             <a href="login" class="menu_item">Login</a>
