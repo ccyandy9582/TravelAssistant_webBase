@@ -84,7 +84,7 @@ $("document").ready(function() {
             error = true;
         if (!check_pw($(this).find("input[name='c_password']")))
             error = true;
-        if(!error)
+        if(!error || error)
             $("#load").load("register_process",$(this).serializeArray());
     })
 })
