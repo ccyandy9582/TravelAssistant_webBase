@@ -189,12 +189,6 @@ body {
     100% {left: 55%; width: 45%;background-position: right;}
     /* background-color: #FFAA35} */
 }
-/* @media only screen and (max-width: 940px) {
-    #login_container {
-        margin:0;
-        margin-top: 10px;
-        width: 80%;
-        left: 10%;
-    }
-
-} */
+@media only screen and (max-width: 590px) {
+    
+}

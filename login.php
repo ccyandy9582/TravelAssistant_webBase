@@ -3,7 +3,7 @@
     <div id="login_container">
         <table id="login">
             <tr><td>
-            <form id="login_form">
+            <form id="login_form" method="post">
                 <input type="text" placeholder="email" name="email">
                 <span></span><br><br>
                 <input type="password" placeholder="password" name="password">
@@ -11,7 +11,7 @@
                 <a style="color:blue">forgot password?</a>
                 <center><button>login</button></center>
             </form>
-            <form id="reg_form" class=hidden>
+            <form id="reg_form" class=hidden method="post">
                 <input type="text" placeholder="email" name="email">
                 <span></span><br><br>
                 <input type="password" placeholder="password" name="password">

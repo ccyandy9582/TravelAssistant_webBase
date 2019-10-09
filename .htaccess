@@ -3,8 +3,8 @@ DirectoryIndex home.php
 Options All -Indexes
 RewriteEngine On
  RewriteRule ^(.*)/(.*)$ $1/$2 [L]
- RewriteRule ^([A-Za-z0-9]+)$ $1.php
- RewriteRule ^(.*)\.[A-Za-z0-9]*$ $1.php
- #RewriteRule ^([A-Za-z0-9]+)$ home.php
- #RewriteRule ^(.*)\.[A-Za-z0-9]*$ home.php
+ RewriteRule ^([A-Za-z0-9_-]+)$ $1.php
+ RewriteRule ^(.*)\.[A-Za-z0-9_-]*$ $1.php
+ #RewriteRule ^([A-Za-z0-9_-]+)$ home.php
+ #RewriteRule ^(.*)\.[A-Za-z0-9_-]*$ home.php
  ErrorDocument 404 /fyp/404.php
