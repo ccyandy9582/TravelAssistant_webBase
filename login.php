@@ -1,5 +1,4 @@
 <?php require("html_start.php")?>
-    <div id="login_background" src="imgs/login.jpg">
     <div id="login_container">
         <table id="login">
             <tr><td>
@@ -18,13 +17,14 @@
                 <span></span><br><br>
                 <input type="password" placeholder="confirm password" name="c_password">
                 <span></span><br><br>
-                <center><button>register</button></center>
+                <center><button>Sign Up</button></center>
             </form>
         </td></tr>
         </table
         ><table id="login_switch">
             <tr><td>
-            <button class="login_switch_btn"><span>register</span><span class="hidden">login</span></button>
+            <span class="login_switch_msg">Don't have an account?</span><span class="login_switch_msg hidden">I have an account.</span><br><br>
+            <button id="login_switch_btn"><span>Sign Up</span><span class="hidden">login</span></button>
             </td></tr>
         </table>
     </div>
