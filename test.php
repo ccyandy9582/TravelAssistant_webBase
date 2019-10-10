@@ -12,8 +12,15 @@ require 'vendor/autoload.php';
 $mail = new PHPMailer(true);
 
 try {
+    $mail->SMTPOptions = array(
+        'ssl' => array(
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+            'allow_self_signed' => true
+        )
+    );
     //Server settings
-    //$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+    $mail->SMTPDebug = 3;                      // Enable verbose debug output
     $mail->isSMTP();                                            // Send using SMTP
     //$mail->Host       = 'ssl://smtp.gmail.com';                    // Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
@@ -27,7 +34,7 @@ try {
 
     //Recipients
     $mail->setFrom('fyp.travel.assistance@gmail.com', 'hoChillTrip');
-    $mail->addAddress('nixon123465@yahoo.com.hk', 'nixon');     // Add a recipient
+    $mail->addAddress('ccyandy9582@gmail.com', 'andy');     // Add a recipient
     //$mail->addAddress('ellen@example.com');               // Name is optional
     //$mail->addReplyTo('info@example.com', 'Information');
     //$mail->addCC('cc@example.com');

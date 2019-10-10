@@ -23,6 +23,18 @@
     } else {
         $required=true;
         require("database.php");
-        
+        $verify_email_link=md5(uniqid(rand(), true));
+        $verify_email_code=str_pad(rand(1,999999), 6, 0, STR_PAD_LEFT);
+        $sql="INSERT INTO users (email, password_hash, verify_email_code, verify_email_link) VALUES ('{$_POST["email"]}', '{$_POST["password"]}', '$verify_email_link', '$verify_email_code')";
+        if ($conn->query($sql) === TRUE) {
+            
+        } else {
+            echo "
+                <script>
+                    //$('#')
+                </script>
+            "
+        }
+        $conn->close();
     }
     ?>

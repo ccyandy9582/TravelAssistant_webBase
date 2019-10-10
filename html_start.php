@@ -1,5 +1,6 @@
 <html>
     <head>
+    <link rel="shortcut icon" type="image/png" href="imgs/icon.png"/>
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
     <script src="/fyp/js/jquery.js"></script>
     <script src="/fyp/js/script.js"></script>
