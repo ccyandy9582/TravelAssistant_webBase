@@ -17,7 +17,7 @@
                 <span></span><br><br>
                 <input type="password" placeholder="confirm password" name="c_password">
                 <span></span><br><br>
-                <center><button>Sign Up</button></center>
+                <center><button>Sign Up</button></center> 
             </form>
         </td></tr>
         </table
