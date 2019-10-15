@@ -33,7 +33,7 @@
                 <script>
                     //$('#')
                 </script>
-            "
+            ";
         }
         $conn->close();
     }
