@@ -34,7 +34,8 @@ try {
 
     //Recipients
     $mail->setFrom('fyp.travel.assistance@gmail.com', 'hoChillTrip');
-    $mail->addAddress('ccyandy9582@gmail.com', 'andy');     // Add a recipient
+    $mail->addAddress('nixon123465@gmail.com', 'nixon');     // Add a recipient
+    //$mail->addAddress('ccyandy9582@gmail.com', 'andy');     // Add a recipient
     //$mail->addAddress('ellen@example.com');               // Name is optional
     //$mail->addReplyTo('info@example.com', 'Information');
     //$mail->addCC('cc@example.com');
