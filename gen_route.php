@@ -1,6 +1,11 @@
 <?php //require("html_start.php");?>
     
 <?php //require("html_end.php");?>
+<?php
+    $string = file_get_contents("json/route.json"); 
+    $json = json_decode($string, true);
+    echo $json["day1"]["attraction1"]["name"];
+?>
 <html>
 <head>
     <link rel="shortcut icon" type="image/png" href="imgs/icon.png"/>

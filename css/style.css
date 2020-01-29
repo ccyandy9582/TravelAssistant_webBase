@@ -233,5 +233,6 @@ body {
   #recommendedRoute {
     display: none;
     text-align: center;
-    position: relative;
+    right:10px;
+    top:100px;
   }
