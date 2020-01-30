@@ -22,38 +22,38 @@
 <div id="popular_country">
     <h2>Popular countries </h2>
     <div>
-        <img src="/fyp/imgs/country/japan.jpg"><br>
+        <img src="imgs/country/japan.jpg"><br>
         <b>Japan</b>
     </div>
     <div>
-        <img src="/fyp/imgs/country/Taiwan.jpg"><br>
+        <img src="imgs/country/Taiwan.jpg"><br>
         <b>Taiwan</b>
     </div>
     <div>
-        <img src="/fyp/imgs/country/Switzerland.jpg"><br>
+        <img src="imgs/country/Switzerland.jpg"><br>
         <b>Switzerland</b>
     </div>
     <div>
-        <img src="/fyp/imgs/country/UK.jpg"><br>
+        <img src="imgs/country/UK.jpg"><br>
         <b>UK</b>
     </div>
 </div>
 <div id="explore_places">
     <h2>Explore places </h2>
     <div>
-        <img src="/fyp/imgs/attraction/osaka.jpg"><br>
+        <img src="imgs/attraction/osaka.jpg"><br>
         <b>Osaka</b>
     </div>
     <div>
-        <img src="/fyp/imgs/attraction/tokyo.jpg"><br>
+        <img src="imgs/attraction/tokyo.jpg"><br>
         <b>Tokyo</b>
     </div>
     <div>
-        <img src="/fyp/imgs/attraction/nara.jpg"><br>
+        <img src="imgs/attraction/nara.jpg"><br>
         <b>Nara</b>
     </div>
     <div>
-        <img src="/fyp/imgs/attraction/YasakaShrine.jpg"><br>
+        <img src="imgs/attraction/YasakaShrine.jpg"><br>
         <b>Yasaka Shrine</b>
     </div>
 </div>
