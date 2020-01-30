@@ -251,11 +251,35 @@ input:focus::placeholder{
     text-align: center;
     box-shadow: 0px 1px 10px 1px rgba(0,0,0,0.3);;
 }
-.blog_container {
+.blog_container,.day_container {
     padding:10px;
     border-radius: 20px;
     border: 1px solid #898f8d;
     margin: 0 20% 5px 20%;
+}
+.hotel_container {
+    padding:10px;
+    margin: 0 20% 5px 20%;
+}
+.hotel_container td {
+    width: 50%;
+}
+.blog_container h4 span,.day_container h4 span {
+    float:right;
+    font-weight:normal;
+}
+.day_container table, .hotel_container table {
+    border-collapse: collapse;
+    width:100%;
+}
+.day_container table tr:nth-child(odd) {
+    background-color:#eeeeee;
+}
+.day_container td {
+    width: 50%;
+}
+.day_container table img, .hotel_container table img{
+    height:100px;
 }
 #blog_sort {
     float: right;
