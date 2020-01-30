@@ -1,12 +1,12 @@
 $("document").ready(function() {
-    $(".login_switch_btn").click(function() {
+    $("#login_switch_btn").click(function() {
         if(!$("#login_switch").hasClass("cd")) {
             $("#login_switch").toggleClass("on").addClass("cd").css("animation-duration","0.75s");
             $("#login").toggleClass("on");
             setTimeout(function() {
                 $("#login_switch").removeClass("cd")
             },750);
-            $(".login_switch_btn span").each(function() {
+            $("#login_switch_btn span").each(function() {
                 $(this).toggleClass("hidden");
             })
             setTimeout(function() {
@@ -86,5 +86,13 @@ $("document").ready(function() {
             error = true;
         if(!error || error  )
             $("#load").load("register_process",$(this).serializeArray());
+    })
+    $("#forgot_pw_btn").click(function() {
+        if(!$("#login_switch").hasClass("cd")) {
+            $("#forget_pw").addClass("on");
+        }
+    })
+    $("#cancel_recovery").click(function() {
+        $("#forget_pw").toggleClass("on");
     })
 })

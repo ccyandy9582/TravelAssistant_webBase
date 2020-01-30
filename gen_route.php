@@ -12,7 +12,7 @@
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
     <script src="/fyp/js/jquery.js"></script>
     <script src="/fyp/js/script.js"></script>
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <meta name="robots" content="noindex">
     <meta name="googlebot" content="noindex">
 </head>

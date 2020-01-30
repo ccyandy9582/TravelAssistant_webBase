@@ -22,7 +22,7 @@ try {
     //Server settings
     $mail->SMTPDebug = 3;                      // Enable verbose debug output
     $mail->isSMTP();                                            // Send using SMTP
-    //$mail->Host       = 'ssl://smtp.gmail.com';                    // Set the SMTP server to send through
+    $mail->Host       = 'ssl://smtp.gmail.com';                    // Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
     $mail->SMTPSecure =  'ssl';
     $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
@@ -30,12 +30,12 @@ try {
     $mail->CharSet = "utf-8"; //郵件編碼
     $mail->Username   = 'fyp.travel.assistance@gmail.com';                     // SMTP username
     $mail->Password   = 'Fyp!123456';                               // SMTP password
-    //$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted                                  // TCP port to connect to
+    // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted                                  // TCP port to connect to
 
     //Recipients
     $mail->setFrom('fyp.travel.assistance@gmail.com', 'hoChillTrip');
-    $mail->addAddress('nixon123465@gmail.com', 'nixon');     // Add a recipient
-    //$mail->addAddress('ccyandy9582@gmail.com', 'andy');     // Add a recipient
+    // $mail->addAddress('', 'nixon');     // Add a recipient
+    $mail->addAddress('ccyandy9582@gmail.com', 'andy');     // Add a recipient
     //$mail->addAddress('ellen@example.com');               // Name is optional
     //$mail->addReplyTo('info@example.com', 'Information');
     //$mail->addCC('cc@example.com');

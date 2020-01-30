@@ -1,31 +1,52 @@
 <?php require("html_start.php")?>
-    <div id="login_container">
-        <table id="login">
+<div id="login_background">
+    <div id="login_align_container">
+        <table id="login_align">
             <tr><td>
-            <form id="login_form" method="post">
-                <input type="text" placeholder="email" name="email">
-                <span></span><br><br>
-                <input type="password" placeholder="password" name="password">
-                <span></span><br><br>
-                <a style="color:blue">forgot password?</a>
-                <center><button>login</button></center>
-            </form>
-            <form id="reg_form" class=hidden method="post">
-                <input type="text" placeholder="email" name="email">
-                <span></span><br><br>
-                <input type="password" placeholder="password" name="password">
-                <span></span><br><br>
-                <input type="password" placeholder="confirm password" name="c_password">
-                <span></span><br><br>
-                <center><button>Sign Up</button></center> 
-            </form>
-        </td></tr>
-        </table
-        ><table id="login_switch">
-            <tr><td>
-            <span class="login_switch_msg">Don't have an account?</span><span class="login_switch_msg hidden">I have an account.</span><br><br>
-            <button id="login_switch_btn"><span>Sign Up</span><span class="hidden">login</span></button>
+                <div id="login_container">
+                    <table id="login">
+                        <tr><td>
+                        <form id="login_form" method="post">
+                            <center><h1>Login</h1></center>
+                            <input type="text" placeholder="email" name="email">
+                            <span></span><br><br>
+                            <input type="password" placeholder="password" name="password">
+                            <span></span><br><br>
+                            <a id="forgot_pw_btn" style="color:blue">forgot password?</a>
+                            <center><button>login</button></center>
+                        </form>
+                        <form id="reg_form" class=hidden method="post">
+                            <center><h1>Sign Up</h1></center>
+                            <input type="text" placeholder="email" name="email">
+                            <span></span><br><br>
+                            <input type="password" placeholder="password" class="validate" name="password">
+                            <span></span><br><br>
+                            <input type="password" placeholder="confirm password" name="c_password">
+                            <span></span><br><br>
+                            <center><button>Sign Up</button></center>
+                        </form>
+                    </td></tr>
+                    </table
+                    ><table id="login_switch">
+                        <tr><td>
+                        <span class="login_switch_msg">Don't have an account?</span><span class="login_switch_msg hidden">I have an account.</span><br><br>
+                        <button id="login_switch_btn"><span>Sign Up</span><span class="hidden">login</span></button>
+                        </td></tr>
+                    </table>
+                    <table id="forget_pw">
+                        <tr><td>
+                            <form>
+                                <center><h1>Account recovery</h1></center>
+                                <input name="email" type="text" placeholder="email">
+                                <span></span><br><br>
+                                <center><button>submit</button></center>
+                            </form>
+                            <span id="cancel_recovery">cancel &#9654;</span>
+                        </td></tr>
+                    </table>
+                </div>
             </td></tr>
         </table>
     </div>
+</div>
 <?php require("html_end.php")?>

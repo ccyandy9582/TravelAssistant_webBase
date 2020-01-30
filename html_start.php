@@ -11,8 +11,8 @@
     <body>
         <div id="menu">
             <a href="/fyp/"><img id="icon" src="/fyp/imgs/hochilltrip_logo.svg" height="75px"></a>
-            <a class="menu_item">Plan</a>
-            <a class="menu_item">Blog</a>
+            <!-- <a class="menu_item">Plan</a> -->
+            <a class="menu_item" href="/fyp/blog">Blog</a>
             <a href="login" class="menu_item">Login</a>
         </div>
-        <div id="main">
+        <center><div id="main">
