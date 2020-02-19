@@ -95,4 +95,20 @@ $("document").ready(function() {
     $("#cancel_recovery").click(function() {
         $("#forget_pw").toggleClass("on");
     })
+    $("#createPlanFrm").submit(function() {
+        var country = $(this).find("select").eq(0).val();
+        var number = $(this).find("input[type='number']").eq(0).val();
+        var start = $(this).find("input[data='start']").eq(0).val();
+        var end = $(this).find("input[data='end']").eq(0).val();
+        var transport = $(this).find("input[type='checkbox']").eq(0).is(':checked');
+        $("#load").load("gen_step1",{"country": country, "number": number, "start": start, "end": end , "transport": transport});
+        return false;
+    })
+    var dt = new Date();
+    var tmr = new Date(dt);
+    tmr.setDate(tmr.getDate()+1);
+    var time = tmr.getFullYear() + "-" + ("0"+(tmr.getMonth()+1)).slice(-2) + "-" + ("0"+(tmr.getDate())).slice(-2);
+    $("#createPlanFrm").find("input[type='date']").each(function() {
+        $(this).attr("min",time);
+    })
 })

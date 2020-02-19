@@ -1,4 +1,4 @@
-<?php require("html_start.php")?>
+<?php $required=1;require("html_start.php")?>
     <br>
     <div class="day_container">
         <h4>Day 1 <span>starting time: 13:30</span></h4>
@@ -13,7 +13,7 @@
             </tr>
             <tr>
                 <td><img src="imgs/route/Shinsaibashi.JPG"></td>
-                <td><b>Shinsaibashi and Dotonbori</b><br>spend time: 4 hour<br>Type: Attraction</td>
+                <td><b>Dotonbori</b><br>spend time: 4 hour<br>Type: Attraction</td>
             </tr>
             <tr>
                 <td></td>
@@ -33,7 +33,7 @@
         <table>
             <tr>
                 <td><img src="imgs/route/hotel.jpg"></td>
-                <td><b>Hotel Granvia Osaka</b></td>
+                <td><b>	Osaka Marriott Miyako Hotel</b></td>
             </tr>
         </table>
     </div>
@@ -54,7 +54,7 @@
             </tr>   
             <tr>
                 <td><img src="imgs/route/Shinsaibashi.JPG"></td>
-                <td><b>Shinsaibashi and Dotonbori</b><br>spend time: 4 hour 30 min<br>Type: Attraction</td>
+                <td><b>Dotonbori</b><br>spend time: 4 hour 30 min<br>Type: Attraction</td>
             </tr>
             <tr>
                 <td></td>

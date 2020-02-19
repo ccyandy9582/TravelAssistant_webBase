@@ -1,4 +1,4 @@
-<?php require("html_start.php");?>
+<?php $required=1;require("html_start.php");?>
 <table id="blog_search_container">
     <tr><td>
         <input placeholder="Search.."> <button>search</button>

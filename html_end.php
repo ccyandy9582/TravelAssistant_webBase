@@ -1,3 +1,6 @@
+<?php if (!isset($required)) {
+    require("404.php");
+} else {?>
         </div></center>
         <div id="load" style="display: none;"></div>
         <noscript style="z-index:21;top:0;position:fixed;background-color:cyan; height:100%;width:100%">
@@ -5,3 +8,4 @@
         </noscript>
     </body>
 </html>
+<?php }?>

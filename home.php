@@ -1,14 +1,27 @@
-<?php require("html_start.php");?>
+<?php $required=1; require("html_start.php"); require("database.php");?>
 <div id="banner_container">
     <table style="width:100%; height:100%;text-align:center;">
             <tr><td>
         <div id="banner_content">
         <div>
-            <form>
+            <form id="createPlanFrm">
                 <formline>PLAN YOUR TRIP</formline>
-                <formline>Country <input style="width:300px"></input></formline>
-                <formline>Number of participate <input type="number" style="width:100px"></formline>
-                <formline>From <input type="date"> To <input type="date"></formline>
+                <formline>Country 
+                    <select style="width:500px">
+                        <option value='0'>------ SELECT A COUNTRY ------</option>
+<?php
+                        $sql = "SELECT * FROM country ORDER BY name";
+                        $result = $conn->query($sql);
+                        if ($result->num_rows > 0) {
+                            while($row = $result->fetch_assoc()) {
+                                echo "<option value='".$row["countryID"]."'>".$row["name"]."</option>";
+                            }
+                        }
+?>
+                    </select>
+                </formline>
+                <formline>Number of participate <input type="number" style="width:100px" value="1"></formline>
+                <formline>From <input type="date" data="start"> To <input type="date" data="end"></formline>
                 <formline><input type="checkbox"> I will travel by transport in this trip.</formline>
                 <button>Next Step</button>
             </form>
@@ -57,4 +70,4 @@
         <b>Yasaka Shrine</b>
     </div>
 </div>
-<?php require("html_end.php");?>
+<?php $conn->close();require("html_end.php");?>

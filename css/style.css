@@ -257,22 +257,38 @@ input:focus::placeholder{
     border: 1px solid #898f8d;
     margin: 0 20% 5px 20%;
 }
+.editDay_container {
+    padding:10px;
+    border-radius: 20px;
+    border: 1px solid #898f8d;
+    margin: 0 5% 5px 5%;
+}
 .hotel_container {
     padding:10px;
     margin: 0 20% 5px 20%;
 }
-.hotel_container td {
+.editHotel_container {
+    padding:10px;
+    margin: 0 5% 5px 5%;
+}
+.hotel_container td,.editHotel_container td {
     width: 50%;
 }
-.blog_container h4 span,.day_container h4 span {
+.blog_container h4 span,.day_container h4 span{
     float:right;
     font-weight:normal;
+}
+.editDay_container h4 span {
+    float:right;
+    color: #1986E1;
+    text-decoration: underline;
+    cursor: pointer;
 }
 .day_container table, .hotel_container table {
     border-collapse: collapse;
     width:100%;
 }
-.day_container table tr:nth-child(odd) {
+.day_container table:nth-child(odd) {
     background-color:#eeeeee;
 }
 .day_container td {
@@ -280,6 +296,57 @@ input:focus::placeholder{
 }
 .day_container table img, .hotel_container table img{
     height:100px;
+}
+.editDay_container table, .editHotel_container table {
+    border-collapse: collapse;
+    width:100%;
+}
+.editDay_container table tr:not(.start):not(.end):not(.space) {
+    cursor: move;
+}
+.editDay_container table tr:nth-child(even) {
+    background-color:#eeeeee;
+}
+.editDay_container .start div, .editDay_container .end div, .editHotel_container div {
+    height:100px; border:5px dashed black; border-radius:15px;
+    font-size: 30px;
+    text-align: center;
+    line-height: 90px;
+}
+.editDay_container .start div, .editDay_container .end div, .editHotel_container div{
+    cursor: pointer;
+}
+.editDay_container .start:hover div, .editDay_container .end:hover div, .editHotel_container:hover div{
+    height:100px; border:5px dashed #1986E1;
+    color: #1986E1;
+}
+.editDay_container td , #searchPlace td{
+    width: 50%;
+}
+.editDay_container table img, .editHotel_container table img{
+    height:100px;
+}
+#gen_btn {
+    background-color: white;
+    border-radius: 12px;
+    border: solid 1px #8DC8FA;
+    padding: 12px;
+    width: 200px;
+    cursor: pointer;
+}
+#gen_btn:hover {
+    border-width: 2px;
+    background-color: gainsboro;
+}
+#searchPlace {
+    padding:10px;
+    margin: 0 10% 5px 10%;
+}
+#searchPlace td{
+    width:50%;
+}
+#searchPlace img {
+    height: 100px;
 }
 #blog_sort {
     float: right;
@@ -307,14 +374,38 @@ input:focus::placeholder{
     width: 20px;
     display: inline-block;
 }
-#page div:hover{
-
-}
 #page div{
     cursor: pointer;
 }
 #page div:first-of-type, #page div:last-of-type{
     cursor: no-drop;
+}
+#editPlan {
+    width:600px;
+    height: 100%;
+    display: inline-block;
+    vertical-align: top;
+    padding-top: 20px;
+    overflow: auto;
+}
+#editPlanPanel {
+    width: calc(100% - 600px);
+    overflow-x: hidden;
+    min-height: 100%;
+    display: inline-block;
+    vertical-align: top;
+    height: 100%;
+}
+#addPlacePlan {
+    width:100%;
+    height: 100%;
+}
+.remove {
+    color:red;
+    cursor: pointer;
+}
+.remove:hover {
+    text-decoration: underline;
 }
 @keyframes login_switch {
     0% {left: 55%; width: 45%;background-position: right;}
