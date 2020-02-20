@@ -114,10 +114,12 @@
         </div>
         <br>
         <center><div id="gen_btn">generate</div></center><br>
+        <div class="loading"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
         <script>
             $("#gen_btn").click(function() {
                 // window.location.href = "resultPage";
-                window.location.href("resultPage");
+                $(".loading").show();
+                setTimeout(function() {window.location.replace("resultPage");},5000);
             })
         </script>
     </div
