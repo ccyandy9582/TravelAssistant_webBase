@@ -5,7 +5,7 @@
         <table>
             <tr>
                 <td><img src="imgs/route/OsakaAirport.jpg"></td>
-                <td><b>Osaka Airport</b><br>spend time: 10 min<br>Type: starting point</td>
+                <td><b>Osaka Airport</b><br>spend time: 60 min<br>Type: starting point</td>
             </tr>
             <tr>
                 <td></td>
@@ -50,19 +50,11 @@
             </tr>
             <tr>
                 <td></td>
-                <td><b>Travel</b><br>spend time: 29 min<br>View route</td>
-            </tr>   
-            <tr>
-                <td><img src="imgs/route/Shinsaibashi.JPG"></td>
-                <td><b>Dotonbori</b><br>spend time: 4 hour 30 min<br>Type: Attraction</td>
-            </tr>
-            <tr>
-                <td></td>
                 <td><b>Travel</b><br>spend time: 4 min<br>View route</td>
             </tr>   
             <tr>
                 <td><img src="imgs/route/TempozanKaiyukan.JPG"></td>
-                <td><b>Tempozan Kaiyukan</b><br>spend time: 2 hour 30 min<br>Type: Attraction</td>
+                <td><b>Tempozan Kaiyukan</b><br>spend time: 4 hour<br>Type: Attraction</td>
             </tr>
             <tr>
                 <td></td>
@@ -71,6 +63,14 @@
             <tr>
                 <td><img src="imgs/route/Umeda.jpg"></td>
                 <td><b>Umeda Sky Building</b><br>spend time: 2 hour<br>Type: Attraction</td>
+            </tr>
+        </table>
+    </div>
+    <div  class="hotel_container">
+        <table>
+            <tr>
+                <td><img src="imgs/route/hotel.jpg"></td>
+                <td><b>	Osaka Marriott Miyako Hotel</b></td>
             </tr>
         </table>
     </div>
@@ -89,6 +89,10 @@
                 <td></td>
                 <td><b>Travel</b><br>spend time: 37 min<br>View route</td>
             </tr>   
+            <tr>
+                <td><img src="imgs/route/OsakaAirport.jpg"></td>
+                <td><b>Osaka Airport</b><br>spend time: 60 min<br>Type: starting point</td>
+            </tr>
         </table>
     </div>
 <?php require("html_end.php")?>

@@ -33,7 +33,7 @@
             // if ($result["photos"]["photo_reference"])
 ?>
             <tr class="endplace">
-                <td><img src="<?php echo "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=".$results["photos"][0]["photo_reference"]."&key=".$googleapi?>"></td>
+                <td><img src="<?php echo "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=".$results["photos"][0]["photo_reference"]."&key=".$googleapi?>" style="margin:10px"></td>
                 <td><b><?php echo $results["name"]?></b><br><button>Set as Ending point</button></td>
             </tr>
 <?php
@@ -51,7 +51,7 @@
         var img = $(this).closest(".endplace").find("img").attr("src");
         var name = $(this).closest(".endplace").find("b").text();
         var html = "<td><img src="+img+"></td>"+
-                   "<td><b>"+name+"</b><br>start time (optional): <input><br>spend time: (in min) <input><br>Type: ending point<br><span class='remove'>remove</span>"+
+                   "<td><b>"+name+"</b><br>starting time (optional): <input><br>spend time: (in min) <input><br>Type: ending point<br><span class='remove'>remove</span>"+
                    "</td>";
         $(".end").html(html);
         $('.end').find('.remove').click(function() {

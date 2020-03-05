@@ -33,8 +33,8 @@
 </table>
 </div>
 <div id="popular_country">
-    <h2>Popular countries </h2>
-    <div>
+    <h2><?php for ($i=0;$i<52;$i++) {echo "&nbsp;";}?>Popular countries </h2>
+    <center><div>
         <img src="imgs/country/japan.jpg"><br>
         <b>Japan</b>
     </div>
@@ -49,11 +49,11 @@
     <div>
         <img src="imgs/country/UK.jpg"><br>
         <b>UK</b>
-    </div>
+    </div></center>
 </div>
 <div id="explore_places">
-    <h2>Explore places </h2>
-    <div>
+    <h2><?php for ($i=0;$i<52;$i++) {echo "&nbsp;";}?>Explore places </h2>
+    <center><div>
         <img src="imgs/attraction/osaka.jpg"><br>
         <b>Osaka</b>
     </div>
@@ -68,6 +68,6 @@
     <div>
         <img src="imgs/attraction/YasakaShrine.jpg"><br>
         <b>Yasaka Shrine</b>
-    </div>
+    </div></center>
 </div>
 <?php $conn->close();require("html_end.php");?>

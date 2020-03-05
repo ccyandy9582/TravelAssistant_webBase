@@ -17,6 +17,7 @@
         $query= str_replace(" ","+",$_POST["query"]);
 ?>
     <center><h2>Choose Your Hotel</h2>
+    <div id="hotelsetday" style="display:none"><?php echo $_POST["day"];?></div>
     <input id="setHotelSearch" value="<?php echo $_POST["query"]?>"></input> <button id="setHotelSearchBtn">search</button>
     <input type="checkbox" class="allHotel" <?php echo $_POST["check"]==1?"checked":"" ?>> Choose this hotel for all day(s).</center>
     <br>
@@ -38,7 +39,7 @@
                 $objPlace = json_decode($jsonPlace,true);
 ?>
             <tr class="hotel">
-                <td><img src="<?php echo "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=".$objPlace["candidates"][0]["photos"][0]["photo_reference"]."&key=".$googleapi?>"></td>
+                <td><img src="<?php echo "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=".$objPlace["candidates"][0]["photos"][0]["photo_reference"]."&key=".$googleapi?>" style="margin:10px"></td>
                 <td><b><?php echo $objPlace["candidates"][0]["name"]?></b><br><button>Set as Hotel</button></td>
             </tr>
 <?php
@@ -63,11 +64,12 @@
         if ($(".allHotel").is(':checked')) {
             $(".editHotel_container").html(html);
         } else {
-            $(".editHotel_container").eq(<?php echo $_POST["day"];?>).html(html);
+            $(".editHotel_container").eq($("#hotelsetday").html()).html(html);
         }
         $('.editHotel_container').find('.remove').click(function() {
             $(this).closest('.editHotel_container').html('<div>Set Hotel</div>');
             $(".editHotel_container div").click(function() {
+                $("#hotelsetday").html($(this).closest(".editHotel_container").attr("data"));
                 $(".panel").hide();
                 $("#setHotelPlan").show();
             })

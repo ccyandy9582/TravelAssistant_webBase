@@ -36,6 +36,8 @@
                 if (hotelFirst) {
                     $("#setHotelPlan").load("setHotelPlan",{country: <?php echo $_POST["country"]?>,query: "", day: $(this).closest(".editHotel_container").attr("data"), check:1});
                     hotelFirst = false;
+                } else {
+                    $("#hotelsetday").html($(this).closest(".editHotel_container").attr("data"));
                 }
                 $(".panel").hide();
                 $("#setHotelPlan").show();
@@ -98,13 +100,13 @@
                     <tr class="space">
                         <td colspan="2" height="20"></td>
                     </tr>
-                    <tr>
-                        <td colspan="2" style="display:none"></td>
-                    </tr> 
                     <tr class="space" style="display:none">
                         <td colspan="2"></td>
                     </tr>
-                    <tr class="space end">
+                    <tr>
+                        <td colspan="2" style="display:none"></td>
+                    </tr> 
+                    <tr class="space end" style="background-color: white;">
                         <td colspan="2">
                             <div>Set Ending Point</div>
                         </td>
@@ -119,7 +121,7 @@
             $("#gen_btn").click(function() {
                 // window.location.href = "resultPage";
                 $(".loading").show();
-                setTimeout(function() {window.location.replace("resultPage");},5000);
+                setTimeout(function() {window.location.replace("resultPage");},11346);
             })
         </script>
     </div
