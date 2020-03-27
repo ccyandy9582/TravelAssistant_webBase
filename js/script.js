@@ -53,6 +53,11 @@ $("document").ready(function() {
             valid = false;
         } else
             e.next().text("");
+        if(!(e.val()==e.parent().find('input[name="c_password"]').val())){
+            e.parent().find('input[name="c_password"]').next().text("* Password does not match.");
+            valid = false
+        } else
+            e.parent().find('input[name="c_password"]').next().text("");
         if(empty_input(e))
             valid = false;
         return valid;
@@ -68,6 +73,14 @@ $("document").ready(function() {
             valid = false;
         return valid;
     }
+    function check_lpw(e) {
+        var valid = true;
+        if(empty_input(e))
+            valid = false;
+        else
+            e.next().text("");
+        return valid;
+    }
     $("input[name='email']").on("keyup change",function() {
         check_email($(this));
     })
@@ -77,12 +90,15 @@ $("document").ready(function() {
     $("input[name='c_password']").on("keyup change", function() {
         check_cpw($(this));
     })
+    $("input[name='l_password']").on("keyup change", function() {
+        check_lpw($(this));
+    })
     $("#login_form").submit(function(e) {
         e.preventDefault();
         var error = false;
         if (!check_email($(this).find("input[name='email']")))
             error = true;
-        if (!check_pw($(this).find("input[name='password']")))
+        if (!check_lpw($(this).find("input[name='l_password']")))
             error = true;
         if(!error)
             $("#load").load("login_process",$(this).serializeArray());
@@ -122,5 +138,8 @@ $("document").ready(function() {
     var time = tmr.getFullYear() + "-" + ("0"+(tmr.getMonth()+1)).slice(-2) + "-" + ("0"+(tmr.getDate())).slice(-2);
     $("#createPlanFrm").find("input[type='date']").each(function() {
         $(this).attr("min",time);
+    })
+    $(".logout").click(function() {
+        $("#load").load("logout");
     })
 })

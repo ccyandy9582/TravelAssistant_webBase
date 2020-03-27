@@ -24,6 +24,10 @@ EOF;
             }
         }
         $conn->close();
+    } else {
+        if (isset($_SESSION["userid"])) {
+            header("Location: home");
+        }
     }
 ?>
 <div id="login_background">
@@ -37,7 +41,7 @@ EOF;
                             <center><h1>Login</h1></center>
                             <input type="text" placeholder="email" name="email">
                             <span></span><br><br>
-                            <input type="password" placeholder="password" name="password">
+                            <input type="password" placeholder="password" name="l_password">
                             <span></span><br><br>
                             <a id="forgot_pw_btn" style="color:blue">forgot password?</a>
                             <center><button>login</button></center>
