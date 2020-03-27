@@ -1,4 +1,16 @@
 $("document").ready(function() {
+    var modal = document.getElementById("popout");
+    var span = document.getElementById("popout_close");
+    span.onclick = function() {
+    // modal.style.display = "none";
+    window.location.replace("login");
+    }
+    window.onclick = function(event) {
+    if (event.target == modal) {
+        // modal.style.display = "none";
+        window.location.replace("login");
+    }
+    }
     $("#login_switch_btn").click(function() {
         if(!$("#login_switch").hasClass("cd")) {
             $("#login_switch").toggleClass("on").addClass("cd").css("animation-duration","0.75s");

@@ -1,6 +1,30 @@
 <?php
     $required=1;require("html_start.php");
     require("login_text.php");
+    if (isset($_GET["regid"])) {
+        $id = $_GET["regid"];
+        require("database.php");
+        $sql = "UPDATE user SET activated=true WHERE secret='$id'";
+
+        if ($conn->query($sql) === TRUE) {
+            if (mysqli_affected_rows($conn) == 1) {
+                echo <<<EOF
+                <script>
+                    $("#popout p").text("Your account has been activated.");
+                    $("#popout").show();
+                </script>
+EOF;
+            } else {
+                echo <<<EOF
+                <script>
+                    $("#popout p").text("Wrong/expired activation code, or activation has already been made.");
+                    $("#popout").show();
+                </script>
+EOF;
+            }
+        }
+        $conn->close();
+    }
 ?>
 <div id="login_background">
     <div id="login_align_container">
@@ -47,7 +71,7 @@
                             <span id="cancel_recovery">cancel &#9654;</span>
                         </td></tr>
                     </table>
-                </div>
+                </br>
             </td></tr>
         </table>
     </div>

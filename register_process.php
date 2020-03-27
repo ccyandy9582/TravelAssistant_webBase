@@ -17,7 +17,7 @@
         echo "
             <script>
                 alert('Error!\\nSomething went wrong');
-                location.reload();
+                window.location.replace('login.php');
             </script>
         ";
     } else {
@@ -26,17 +26,28 @@
         $secret=md5(uniqid(rand(), true));
         $sql="INSERT INTO user (email, password, secret, action_time) VALUES ('{$_POST["email"]}', '{$_POST["password"]}', '$secret', now())";
         if ($conn->query($sql) === TRUE) {
-            
+?>
+            <script>
+                $("#popout p").html("A confirmation email has been send to <?php echo $_POST["email"]?>.<br>Thank you for registering!");
+                $("#popout").show();
+            </script>
+<?php
+            require("mail_reg.php");
         } else {
             $sql="SELECT email FROM user WHERE email='{$_POST["email"]}'";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
-                // output data of each row
-                while($row = $result->fetch_assoc()) {
-                    echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
-                }
+                echo <<<EOF
+                    <script>
+                        $("#reg_form").find("input[name=email]").next().text("* This email has already been used.");
+                    </script>
+EOF;
             } else {
-                echo "0 results";
+                echo <<<EOF
+                <script>
+                    alert("ERROR!\r\nSomething went wrong please try again.")
+                </script>
+EOF;
             }
         }
         $conn->close();

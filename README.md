@@ -2,6 +2,8 @@
 This project is our FYP  
 ### ADD OIL!!!
 
+turn this on https://myaccount.google.com/u/0/lesssecureapps
+
 # Notice
 `Please create your own branch for your work`  
 `Make sure the latest version will not crash the current version then push to master  `  

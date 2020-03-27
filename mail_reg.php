@@ -1,4 +1,5 @@
 <?php
+    
 // Import PHPMailer classes into the global namespace
 // These must be at the top of your script, not inside a function
 use PHPMailer\PHPMailer\PHPMailer;
@@ -6,6 +7,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 // Load Composer's autoloader
+if (isset($required)) {
 require 'vendor/autoload.php';
 
 // Instantiation and passing `true` enables exceptions
@@ -20,7 +22,7 @@ try {
         )
     );
     //Server settings
-    $mail->SMTPDebug = 3;                      // Enable verbose debug output
+    $mail->SMTPDebug = 0;                      // Enable verbose debug output
     $mail->isSMTP();                                            // Send using SMTP
     $mail->Host       = 'ssl://smtp.gmail.com';                    // Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
@@ -35,8 +37,7 @@ try {
     //Recipients
     $mail->setFrom('fyp.travel.assistance@gmail.com', 'hoChillTrip');
     // $mail->addAddress('', 'nixon');     // Add a recipient
-    // $mail->addAddress('ccyandy9582@gmail.com', 'andy');     // Add a recipient
-    $mail->addAddress('nixon123465@yahoo.com.hk');     // Add a recipient
+    $mail->addAddress($_POST["email"]);     // Add a recipient
     //$mail->addAddress('ellen@example.com');               // Name is optional
     //$mail->addReplyTo('info@example.com', 'Information');
     //$mail->addCC('cc@example.com');
@@ -48,12 +49,14 @@ try {
 
     // Content
     $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = 'Here is the subject';
-    $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
-    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+    $mail->Subject = 'Registration on hochilltrip';
+    $mail->Body    = "<span style='color:black'>Thank you for registering!<br>Please click </span><a href='http://".$_SERVER["HTTP_HOST"]."/fyp/login?regid=".$secret."'>here</a><span style='color:black'> or use the following link to activate your account.</span><br>http://".$_SERVER["HTTP_HOST"]."/fyp/login?regid=".$secret;
+    // $mail->AltBody = 'Thank you for registering';
 
     $mail->send();
     echo 'Message has been sent';
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
+}
+?>

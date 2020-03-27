@@ -14,6 +14,12 @@
     <meta name="googlebot" content="noindex">
     </head>
     <body>
+        <div id="popout">
+            <div id="popout_content">
+                <span id="popout_close">&times;</span>
+                <p></p>
+            </div>
+        </div>
         <div id="menu">
             <a href="/fyp/"><img id="icon" src="imgs/hochilltrip_logo.svg" height="75px"></a>
             <!-- <a class="menu_item">Plan</a> -->
