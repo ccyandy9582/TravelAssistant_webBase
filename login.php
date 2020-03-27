@@ -1,4 +1,7 @@
-<?php $required=1;require("html_start.php")?>
+<?php
+    $required=1;require("html_start.php");
+    require("login_text.php");
+?>
 <div id="login_background">
     <div id="login_align_container">
         <table id="login_align">
