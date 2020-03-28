@@ -48,6 +48,24 @@
                     }
                 } 
 ?> 
+                $(".endplace button").off("click");
+                $(".endplace button").click(function() {
+                    var img = $(this).closest(".endplace").find("img").attr("src");
+                    var name = $(this).closest(".endplace").find("b").text();
+                    var html = "<td><img src="+img+"></td>"+
+                            "<td><b>"+name+"</b><br>starting time (optional): <input><br>spend time: (in min) <input><br>Type: ending point<br><span class='remove'>remove</span>"+
+                            "</td>";
+                    $(".end").html(html);
+                    $('.end').find('.remove').click(function() {
+                        $(this).closest('.end').html('<td colspan="2">'+
+                            "<div>Set Ending Point</div>"+
+                        "</td>");
+                        $(".end div").click(function() {
+                            $(".panel").hide();
+                            $("#endPointPlan").show();
+                        })
+                    })
+                })
             </script>
 <?php
         }

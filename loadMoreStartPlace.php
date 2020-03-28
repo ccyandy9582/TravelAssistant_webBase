@@ -48,6 +48,24 @@
                     }
                 } 
 ?> 
+                $(".startplace button").off("click");
+                $(".startplace button").click(function() {
+                    var img = $(this).closest(".startplace").find("img").attr("src");
+                    var name = $(this).closest(".startplace").find("b").text();
+                    var html = "<td><img src="+img+"></td>"+
+                            "<td><b>"+name+"</b><br>starting time (optional): <input><br>spend time: (in min) <input><br>Type: starting point<br><span class='remove'>remove</span>"+
+                            "</td>";
+                    $(".start").html(html);
+                    $('.start').find('.remove').click(function() {
+                        $(this).closest('.start').html('<td colspan="2">'+
+                            "<div>Set Starting Point</div>"+
+                        "</td>");
+                        $(".start div").click(function() {
+                            $(".panel").hide();
+                            $("#startPointPlan").show();
+                        })
+                    })
+                })
             </script>
 <?php
         }

@@ -38,6 +38,12 @@
                 </tr>
 <?php
             }
+        } else {
+?>
+            <script>
+                $("#load").load("loadMoreEndPlace",{"query":"<?php echo $query.'+'.$countryname?>"});
+            </script>
+<?php
         }
     }
     $conn->close();

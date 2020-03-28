@@ -42,26 +42,41 @@
         <center><table>
             <tbody>
 <?php
-        $json = file_get_contents('https://maps.googleapis.com/maps/api/place/textsearch/json?query='.$query.'+'.$countryname.'&key='.$googleapi.'&type='.$_POST["type"]);
-        $obj = json_decode($json,true);
-        foreach ($obj["results"] as $results) {
-            // if ($result["photos"]["photo_reference"])
+        $sql_type = "";
+        if ($_POST["type"]!="any") {
+            $sql_type="AND type = '".$_POST["type"]."'";
+        }
+        $sql = "SELECT name,img,attractionId,googleid FROM attraction, attraction_type WHERE countryID = ".$_POST["country"]." AND attraction.attractionID = attraction_type.id $sql_type GROUP BY attractionId";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
 ?>
-            <tr class="place">
-                <td><img src="<?php echo "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=".$results["photos"][0]["photo_reference"]."&key=".$googleapi?>" style="margin:10px"></td>
-                <td><b><?php echo $results["name"]?></b><br><button>Add</button></td>
-            </tr>
+                <tr class="place" data="<?php echo $row["googleid"]?>">
+                    <td><a href="attraction?id=<?php echo $row["attractionId"]?>"><img src="<?php echo "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=".$row["img"]."&key=".$googleapi?>" style="margin:10px"></a></td>
+                    <td><a href="attraction?id=<?php echo $row["attractionId"]?>"><b style="color:black"><?php echo $row["name"]?></b></a><br><button>Add</button></td>
+                </tr>
+<?php
+            }
+        } else {
+?>
+            <script>
+                $("#load").load("loadMoreAddPlace",{"query":"<?php echo $query.'+'.$countryname?>",type: "<?php echo $_POST["type"]?>"});
+            </script>
 <?php
         }
     }
+    $conn->close();
 ?>
         </tbody>
-    </table></center>
+    </table><button class="loadMoreAddPlace">load more</button></center>
 </div>
 
 
 
 <script>
+    $(".loadMoreAddPlace").click(function() {
+        $("#load").load("loadMoreAddPlace",{"query":"<?php echo $query.'+'.$countryname?>",type: "<?php echo $_POST["type"]?>"});
+    })
     $(".place button").click(function() {
         var img = $(this).closest(".place").find("img").attr("src");
         var name = $(this).closest(".place").find("b").text();

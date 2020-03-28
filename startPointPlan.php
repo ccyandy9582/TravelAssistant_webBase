@@ -37,6 +37,12 @@
                 </tr>
 <?php
             }
+        } else {
+?>
+            <script>
+                $("#load").load("loadMoreStartPlace",{"query":"<?php echo $query.'+'.$countryname?>"});
+            </script>
+<?php
         }
     }
     $conn->close();
