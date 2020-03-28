@@ -24,29 +24,35 @@
         })
     </script>
     <div class="searchPlace">
-        <center><table>
+        
+    <center><table>
             <tbody>
 <?php
-        $json = file_get_contents('https://maps.googleapis.com/maps/api/place/textsearch/json?query='.$query.'+'.$countryname.'&key='.$googleapi.'&type=airport');
-        $obj = json_decode($json,true);
-        foreach ($obj["results"] as $results) {
-            // if ($result["photos"]["photo_reference"])
+        $sql = "SELECT name,img,attractionId,googleid FROM attraction, attraction_type WHERE countryID = ".$_POST["country"]." AND attraction.attractionID = attraction_type.id AND type = 'airport' GROUP BY attractionId";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
 ?>
-            <tr class="endplace">
-                <td><img src="<?php echo "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=".$results["photos"][0]["photo_reference"]."&key=".$googleapi?>" style="margin:10px"></td>
-                <td><b><?php echo $results["name"]?></b><br><button>Set as Ending point</button></td>
-            </tr>
+                <tr class="endplace" data="<?php echo $row["googleid"]?>">
+                    <td><a href="attraction?id=<?php echo $row["attractionId"]?>"><img src="<?php echo "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=".$row["img"]."&key=".$googleapi?>" style="margin:10px"></a></td>
+                    <td><a href="attraction?id=<?php echo $row["attractionId"]?>"><b style="color:black"><?php echo $row["name"]?></b></a><br><button>Set as starting point</button></td>
+                </tr>
 <?php
+            }
         }
     }
+    $conn->close();
 ?>
         </tbody>
-    </table></center>
+    </table><button class="loadMoreEndPlace">load more</button></center>
 </div>
 
 
 
 <script>
+    $(".loadMoreEndPlace").click(function() {
+        $("#load").load("loadMoreEndPlace",{"query":"<?php echo $query.'+'.$countryname?>"});
+    })
     $(".endplace button").click(function() {
         var img = $(this).closest(".endplace").find("img").attr("src");
         var name = $(this).closest(".endplace").find("b").text();
