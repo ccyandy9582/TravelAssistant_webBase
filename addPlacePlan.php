@@ -23,7 +23,7 @@
             $("#addPlacePlan").load("addPlacePlan",{country: <?php echo $_POST["country"]?>,query: $("#addLocationSearch").val()});
         })
     </script>
-    <div id="searchPlace">
+    <div class="searchPlace">
         <center><table>
             <tbody>
 <?php

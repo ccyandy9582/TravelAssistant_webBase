@@ -26,16 +26,17 @@
                 } else if (strtotime($end[0]."-".$end[1]."-".$end[2]) < strtotime($start[0]."-".$start[1]."-".$start[2])) {
                     echo "alert('There\\'s some error in the dates.');";
                 } else {
-                    // $required = 1;
-                    // require("database.php");
-                    // $sql = "INSERT INTO plan (useTransport, noOfParty, countryID, startTime, endTime, state)
-                    // VALUES (".$_POST["transport"].", '".$_POST["number"]."', '".$_POST["country"]."', '".$_POST["start"]."', '".$_POST["end"]."' ,0)";
-                    // if ($conn->query($sql) === TRUE) {
+                    $required = 1;
+                    require("database.php");
+                    $sql = "INSERT INTO plan (useTransport, noOfParty, countryID, startTime, endTime, state)
+                    VALUES (".$_POST["transport"].", '".$_POST["number"]."', '".$_POST["country"]."', '".$_POST["start"]."', '".$_POST["end"]."' ,0)";
+                    if ($conn->query($sql) === TRUE) {
                     $ok = true;
-                    // } else {
-                    //     echo "alert('Error!\\r\\nPlease try again.');";
-                    // }
-                    // $conn->close();
+                    $id = $conn->insert_id;
+                    } else {
+                        echo "alert('Error!\\r\\nPlease try again.');";
+                    }
+                    $conn->close();
                 }
             }
         }
@@ -43,16 +44,12 @@
         if($ok) {
 ?>
             <form id="temp_frm" method="post" action="generatePlan">
-                <input name="transport" value="<?php echo $_POST["transport"]?>">
-                <input name="number" value="<?php echo $_POST["number"]?>">
-                <input name="country" value="<?php echo $_POST["country"]?>">
-                <input name="start" value="<?php echo $_POST["start"]?>">
-                <input name="end" value="<?php echo $_POST["end"]?>">
+                <input name="planid" value="<?php echo $id?>">
             </form>
             <script>
                 $("#temp_frm").submit();
             </script>
 <?php
         }
-    } 
+    }
 ?>

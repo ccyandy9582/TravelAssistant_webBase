@@ -26,7 +26,7 @@
             $("#setHotelPlan").load("setHotelPlan",{country: <?php echo $_POST["country"]?>,query: $("#setHotelSearch").val(),day: <?php echo $_POST["day"]?>,check: $(".allHotel").is(':checked')?1:0});
         })
     </script>
-    <div id="searchPlace">
+    <div class="searchPlace">
         <center><table>
             <tbody>
 <?php

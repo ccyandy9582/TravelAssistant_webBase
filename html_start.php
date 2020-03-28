@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <meta name="robots" content="noindex">
     <meta name="googlebot" content="noindex">
+    <title>HoChillTrip</title>
     </head>
     <body>
         <div id="popout">

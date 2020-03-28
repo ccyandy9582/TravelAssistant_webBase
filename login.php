@@ -4,7 +4,7 @@
     if (isset($_GET["regid"])) {
         $id = $_GET["regid"];
         require("database.php");
-        $sql = "UPDATE user SET activated=true WHERE secret='$id'";
+        $sql = "UPDATE user SET activated=true WHERE secret='$id' AND now() - action_time <= 86400";
 
         if ($conn->query($sql) === TRUE) {
             if (mysqli_affected_rows($conn) == 1) {

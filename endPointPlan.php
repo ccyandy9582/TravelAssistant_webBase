@@ -23,7 +23,7 @@
             $("#endPointPlan").load("endPointPlan",{country: <?php echo $_POST["country"]?>,query: $("#endAirportSearch").val()});
         })
     </script>
-    <div id="searchPlace">
+    <div class="searchPlace">
         <center><table>
             <tbody>
 <?php

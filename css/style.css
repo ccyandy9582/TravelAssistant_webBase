@@ -362,9 +362,9 @@ input:focus::placeholder{
 .editDay_container table tr:not(.start):not(.end):not(.space) {
     cursor: move;
 }
-.editDay_container table tr:nth-child(even) {
+/* .editDay_container table tr:nth-child(even) {
     background-color:#eeeeee;
-}
+} */
 .editDay_container .start div, .editDay_container .end div, .editHotel_container div {
     height:100px; border:2px dashed black; border-radius:15px;
     font-size: 30px;
@@ -378,7 +378,7 @@ input:focus::placeholder{
     height:100px; border:2px dashed #1986E1;
     color: #1986E1;
 }
-.editDay_container td , #searchPlace td{
+.editDay_container td , .searchPlace td{
     width: 50%;
 }
 .editDay_container table img, .editHotel_container table img{
@@ -396,14 +396,14 @@ input:focus::placeholder{
     border-width: 2px;
     background-color: gainsboro;
 }
-#searchPlace {
+.searchPlace {
     padding:10px;
     margin: 0 10% 5px 10%;
 }
-#searchPlace td{
+.searchPlace td{
     width:50%;
 }
-#searchPlace img {
+.searchPlace img {
     height: 100px;
 }
 #blog_sort {
