@@ -1,5 +1,5 @@
 <?php
-    if(!isset($_POST["country"]) || !isset($_POST["query"])) {
+    if(!isset($_POST["country"]) || !isset($_POST["query"]) || !isset($_POST["type"])) {
         require("404.php");
     } else {
         $required=1;
@@ -8,7 +8,6 @@
         $sql = "SELECT name FROM country WHERE countryID = ".$_POST["country"];
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
-            // output data of each row
             while($row = $result->fetch_assoc()) {
                 $countryname = $row["name"];
             }
@@ -17,17 +16,33 @@
         $query= str_replace(" ","+",$_POST["query"]);
 ?>
     <center><h2>Add a location</h2>
+    <select id="addLocationType">
+        <option value="tourist_attraction">tourist attraction</option>
+        <option value="amusement_park">amusement park</option>
+        <option value="museum">museum</option>
+        <option value="aquarium">aquarium</option>
+        <option value="natural_feature">natural feature</option>
+        <option value="any">any place</option>
+    </select>
+    <script>
+        $("#addLocationType").val("<?php echo$_POST["type"]?>");
+        // $("#addLocationType option").each(function() {
+        //     if ($(this).val() == <?php echo$_POST["type"]?>) {
+        //         $(this).attr("selected","true");
+        //     }
+        // })
+    </script>
     <input id="addLocationSearch" value="<?php echo $_POST["query"]?>"></input> <button id="addLocationSearchBtn">search</button></center><br>
     <script>
         $("#addLocationSearchBtn").click(function() {
-            $("#addPlacePlan").load("addPlacePlan",{country: <?php echo $_POST["country"]?>,query: $("#addLocationSearch").val()});
+            $("#addPlacePlan").load("addPlacePlan",{country: <?php echo $_POST["country"]?>,query: $("#addLocationSearch").val(),type:$("#addLocationType").val()});
         })
     </script>
     <div class="searchPlace">
         <center><table>
             <tbody>
 <?php
-        $json = file_get_contents('https://maps.googleapis.com/maps/api/place/textsearch/json?query='.$query.'+'.$countryname.'&key='.$googleapi.'&type=tourist_attraction');
+        $json = file_get_contents('https://maps.googleapis.com/maps/api/place/textsearch/json?query='.$query.'+'.$countryname.'&key='.$googleapi.'&type='.$_POST["type"]);
         $obj = json_decode($json,true);
         foreach ($obj["results"] as $results) {
             // if ($result["photos"]["photo_reference"])

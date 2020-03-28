@@ -40,7 +40,7 @@
             var addFirst = true;
             $(".ptg span").click(function() {
                 if (addFirst) {
-                    $("#addPlacePlan").load("addPlacePlan",{country: <?php echo $countryID?>,query: ""});
+                    $("#addPlacePlan").load("addPlacePlan",{country: <?php echo $countryID?>,query: "", type:"tourist_attraction"});
                     addFirst = false;
                 }
                 $(".panel").hide();

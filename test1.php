@@ -1,7 +1,8 @@
 <?php
-$temp = file_get_contents("https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CmRaAAAAub56cWl-MJK7NV-D635B-eY_QZuV5mu-7U6g4XlCLqap29dzsDhFiI0bCDQ5-KLxvTlhyfYczBsGFGLpZ59uLjID6of6vaaRGjYh0v6p5QFy8c3wnA426pOoYO8K2wG4EhD1NGU72eIValQWSJKbqjY_GhTxXZrpiSE8NfabbciKIA7gABWx4w&key=AIzaSyDog7hXlhQFMMuvI4PWVeMnhG_R_v8oFsk");
+echo "a"/2;
+//$temp = file_get_contents("https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CmRaAAAAub56cWl-MJK7NV-D635B-eY_QZuV5mu-7U6g4XlCLqap29dzsDhFiI0bCDQ5-KLxvTlhyfYczBsGFGLpZ59uLjID6of6vaaRGjYh0v6p5QFy8c3wnA426pOoYO8K2wG4EhD1NGU72eIValQWSJKbqjY_GhTxXZrpiSE8NfabbciKIA7gABWx4w&key=AIzaSyDog7hXlhQFMMuvI4PWVeMnhG_R_v8oFsk");
 // echo $temp;
-echo "<img src='".$temp."'>";
+//echo "<img src='".$temp."'>";
 // set_time_limit ( 10000 );
 // $required = 1;
 // require("database.php");
