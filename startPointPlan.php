@@ -13,7 +13,7 @@
             }
         }
         $countryname = str_replace(" ","+",$countryname);
-        $query= str_replace(" ","+",$_POST["query"]);
+        $query = trim($_POST["query"]);
 ?>
     <center><h2>Choose Your Starting Location</h2>
     <input id="startAirportSearch" value="<?php echo $_POST["query"]?>"></input> <button id="startAirportSearchBtn">search</button></center><br>
@@ -26,14 +26,14 @@
         <center><table>
             <tbody>
 <?php
-        $sql = "SELECT name,img,attractionId,googleid FROM attraction, attraction_type WHERE countryID = ".$_POST["country"]." AND attraction.attractionID = attraction_type.id AND type = 'airport' GROUP BY attractionId";
+        $sql = "SELECT name,img,attractionId,googleid FROM attraction, attraction_type WHERE name LIKE '%$query%' AND countryID = ".$_POST["country"]." AND attraction.attractionID = attraction_type.id AND type = 'airport' GROUP BY attractionId";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
 ?>
                 <tr class="startplace" data="<?php echo $row["googleid"]?>">
-                    <td><a href="attraction?id=<?php echo $row["attractionId"]?>"><img src="<?php echo "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=".$row["img"]."&key=".$googleapi?>" style="margin:10px"></a></td>
-                    <td><a href="attraction?id=<?php echo $row["attractionId"]?>"><b style="color:black"><?php echo $row["name"]?></b></a><br><button>Set as starting point</button></td>
+                    <td><a href="place?id=<?php echo $row["attractionId"]?>"><img src="<?php echo "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=".$row["img"]."&key=".$googleapi?>" style="margin:10px"></a></td>
+                    <td><a href="place?id=<?php echo $row["attractionId"]?>"><b style="color:black"><?php echo $row["name"]?></b></a><br><button>Set as starting point</button></td>
                 </tr>
 <?php
             }

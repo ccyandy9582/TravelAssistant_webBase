@@ -13,7 +13,7 @@
             }
         }
         $countryname = str_replace(" ","+",$countryname);
-        $query= str_replace(" ","+",$_POST["query"]);
+        $query = trim($_POST["query"]);
 ?>
     <center><h2>Add a location</h2>
     <select id="addLocationType">
@@ -26,11 +26,6 @@
     </select>
     <script>
         $("#addLocationType").val("<?php echo$_POST["type"]?>");
-        // $("#addLocationType option").each(function() {
-        //     if ($(this).val() == <?php echo$_POST["type"]?>) {
-        //         $(this).attr("selected","true");
-        //     }
-        // })
     </script>
     <input id="addLocationSearch" value="<?php echo $_POST["query"]?>"></input> <button id="addLocationSearchBtn">search</button></center><br>
     <script>
@@ -46,14 +41,14 @@
         if ($_POST["type"]!="any") {
             $sql_type="AND type = '".$_POST["type"]."'";
         }
-        $sql = "SELECT name,img,attractionId,googleid FROM attraction, attraction_type WHERE countryID = ".$_POST["country"]." AND attraction.attractionID = attraction_type.id $sql_type GROUP BY attractionId";
+        $sql = "SELECT name,img,attractionId,googleid FROM attraction, attraction_type WHERE name LIKE '%$query%' AND countryID = ".$_POST["country"]." AND attraction.attractionID = attraction_type.id $sql_type GROUP BY attractionId";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
 ?>
                 <tr class="place" data="<?php echo $row["googleid"]?>">
-                    <td><a href="attraction?id=<?php echo $row["attractionId"]?>"><img src="<?php echo "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=".$row["img"]."&key=".$googleapi?>" style="margin:10px"></a></td>
-                    <td><a href="attraction?id=<?php echo $row["attractionId"]?>"><b style="color:black"><?php echo $row["name"]?></b></a><br><button>Add</button></td>
+                    <td><a href="place?id=<?php echo $row["attractionId"]?>"><img src="<?php echo "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=".$row["img"]."&key=".$googleapi?>" style="margin:10px"></a></td>
+                    <td><a href="place?id=<?php echo $row["attractionId"]?>"><b style="color:black"><?php echo $row["name"]?></b></a><br><button>Add</button></td>
                 </tr>
 <?php
             }

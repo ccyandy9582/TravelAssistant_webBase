@@ -14,7 +14,8 @@
             }
         }
         $countryname = str_replace(" ","+",$countryname);
-        $query= str_replace(" ","+",$_POST["query"]);
+        $query = trim($_POST["query"]);
+        // $query= str_replace(" ","+",$_POST["query"]);
 ?>
     <center><h2>Choose Your Hotel</h2>
     <div id="hotelsetday" style="display:none"><?php echo $_POST["day"];?></div>
@@ -30,30 +31,39 @@
         <center><table>
             <tbody>
 <?php
-        if ($query!="") {
-            $json = file_get_contents('http://engine.hotellook.com/api/v2/lookup.json?query='.$query.'&lang=en&lookFor=both&limit=10&token='.$hotelapi);
-            $obj = json_decode($json,true);
-            foreach ($obj["results"]["hotels"] as $results) {
-
-                $jsonPlace = file_get_contents("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=".str_replace(" ","%20",$results["fullName"])."&inputtype=textquery&fields=photos,name&key=".$googleapi);
-                $objPlace = json_decode($jsonPlace,true);
+            $sql = "SELECT name,img,attractionId,googleid FROM attraction, attraction_type WHERE name LIKE '%$query%' AND countryID = ".$_POST["country"]." AND attraction.attractionID = attraction_type.id AND type = 'lodging' GROUP BY attractionId";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
 ?>
-            <tr class="hotel">
-                <td><img src="<?php echo "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=".$objPlace["candidates"][0]["photos"][0]["photo_reference"]."&key=".$googleapi?>" style="margin:10px"></td>
-                <td><b><?php echo $objPlace["candidates"][0]["name"]?></b><br><button>Set as Hotel</button></td>
-            </tr>
+                    <tr class="startplace" data="<?php echo $row["googleid"]?>">
+                        <td><a href="place?id=<?php echo $row["attractionId"]?>"><img src="<?php echo "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=".$row["img"]."&key=".$googleapi?>" style="margin:10px"></a></td>
+                        <td><a href="place?id=<?php echo $row["attractionId"]?>"><b style="color:black"><?php echo $row["name"]?></b></a><br><button>Set as starting point</button></td>
+                    </tr>
 <?php
+                }
+            } else {
+                if ($query!="") {
+?>
+                <script>
+                    $("#load").load("loadMoreStartPlace",{"query":"<?php echo $query.'+'.$countryname?>"});
+                </script>
+<?php
+                }
             }
-        }
     }
+    $conn->close();
 ?>
         </tbody>
-    </table></center>
+    </table><?php if ($query!="") {echo '<button class="loadMoreHotel">load more</button>';}?></center>
 </div>
 
 
 
 <script>
+    $(".loadMoreHotel").click(function() {
+        $("#load").load("loadMoreHotel",{"query":"<?php echo $query.'+'.$countryname?>"});
+    })
     $(".hotel button").click(function() {
         var img = $(this).closest(".hotel").find("img").attr("src");
         var name = $(this).closest(".hotel").find("b").text();

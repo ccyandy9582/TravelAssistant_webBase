@@ -2,6 +2,7 @@
     if (!(isset($_POST["query"]) xor isset($_POST["next"]))) {
         require("404.php");
     } else {
+        $_POST["query"]= str_replace(" ","+",trim($_POST["query"]));
         $required=1;
         require("api_key.php");
         if (isset($_POST["query"])) {
@@ -30,8 +31,8 @@
                     })
                     if (!skip) {
                         var html = '<tr class="startplace">'+
-                                        '<td><a href="attraction?gid=<?php echo $results["place_id"]?>"><img src="<?php echo $img?>" style="margin:10px"></a></td>'+
-                                        '<td><a href="attraction?gid=<?php echo $results["place_id"]?>"><b style="color:black"><?php echo str_replace("'","\\'",$results["name"])?></b></a><br><button>Set as starting point</button></td>+'
+                                        '<td><a href="place?gid=<?php echo $results["place_id"]?>"><img src="<?php echo $img?>" style="margin:10px"></a></td>'+
+                                        '<td><a href="place?gid=<?php echo $results["place_id"]?>"><b style="color:black"><?php echo str_replace("'","\\'",$results["name"])?></b></a><br><button>Set as starting point</button></td>+'
                                     '</tr>';
                         $("#startPointPlan .searchplace").find("tbody").append(html);
                     }

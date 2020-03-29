@@ -2,6 +2,7 @@
     if (!((isset($_POST["query"]) && isset($_POST["type"]))xor isset($_POST["next"]))) {
         require("404.php");
     } else {
+        $_POST["query"]= str_replace(" ","+",trim($_POST["query"]));
         $required=1;
         require("api_key.php");
         if (isset($_POST["query"])) {
@@ -34,8 +35,8 @@
                     })
                     if (!skip) {
                         var html = '<tr class="place">'+
-                                        '<td><a href="attraction?gid=<?php echo $results["place_id"]?>"><img src="<?php echo $img?>" style="margin:10px"></a></td>'+
-                                        '<td><a href="attraction?gid=<?php echo $results["place_id"]?>"><b style="color:black"><?php echo str_replace("'","\\'",$results["name"])?></b></a><br><button>Add</button></td>+'
+                                        '<td><a href="place?gid=<?php echo $results["place_id"]?>"><img src="<?php echo $img?>" style="margin:10px"></a></td>'+
+                                        '<td><a href="place?gid=<?php echo $results["place_id"]?>"><b style="color:black"><?php echo str_replace("'","\\'",$results["name"])?></b></a><br><button>Add</button></td>+'
                                     '</tr>';
                         $("#addPlacePlan .searchplace").find("tbody").append(html);
                     }
@@ -68,22 +69,3 @@
         }
     }
 ?>
-
-
-
-
-
-
-
-
-
-
-<!-- $json = file_get_contents('https://maps.googleapis.com/maps/api/place/textsearch/json?query='.$query.'+'.$countryname.'&key='.$googleapi.'&type='.$_POST["type"]);
-        $obj = json_decode($json,true);
-        foreach ($obj["results"] as $results) {
-            // if ($result["photos"]["photo_reference"])
-?>
-            <tr class="place">
-                <td><img src="<?php echo "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=".$results["photos"][0]["photo_reference"]."&key=".$googleapi?>" style="margin:10px"></td>
-                <td><b><?php echo $results["name"]?></b><br><button>Add</button></td>
-            </tr> -->

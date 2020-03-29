@@ -34,14 +34,29 @@
 <?php
             require("mail_reg.php");
         } else {
-            $sql="SELECT email FROM user WHERE email='{$_POST["email"]}'";
+            $sql="SELECT email, now() - action_time AS time, activated FROM user WHERE email='{$_POST["email"]}'";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
-                echo <<<EOF
-                    <script>
-                        $("#reg_form").find("input[name=email]").next().text("* This email has already been used.");
-                    </script>
+                if($row = $result->fetch_assoc()) {
+                    if ($row["time"]<=1800 || $row["activated"]==1) {
+                        echo <<<EOF
+                        <script>
+                            $("#reg_form").find("input[name=email]").next().text("* This email has already been used.");
+                        </script>
 EOF;
+                    } else {
+                        $sql = "UPDATE user SET action_time = now(), password = '{$_POST["password"]}', secret = '$secret' WHERE email = '{$_POST["email"]}'";
+                        if ($conn->query($sql) === TRUE) {
+?>
+                            <script>
+                                $("#popout p").html("A confirmation email has been send to <?php echo $_POST["email"]?>.<br>Thank you for registering!");
+                                $("#popout").show();
+                            </script>
+<?php
+                            require("mail_reg.php");
+                        }
+                    }
+                }
             } else {
                 echo <<<EOF
                 <script>
