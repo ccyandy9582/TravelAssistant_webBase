@@ -31,8 +31,8 @@
                     })
                     if (!skip) {
                         var html = '<tr class="startplace">'+
-                                        '<td><a href="place?gid=<?php echo $results["place_id"]?>"><img src="<?php echo $img?>" style="margin:10px"></a></td>'+
-                                        '<td><a href="place?gid=<?php echo $results["place_id"]?>"><b style="color:black"><?php echo str_replace("'","\\'",$results["name"])?></b></a><br><button>Set as starting point</button></td>+'
+                                        '<td><a href="place?gid=<?php echo $results["place_id"]?>" target="_blank"><img src="<?php echo $img?>" style="margin:10px"></a></td>'+
+                                        '<td><a href="place?gid=<?php echo $results["place_id"]?>" target="_blank"><b style="color:black"><?php echo str_replace("'","\\'",$results["name"])?></b></a><br><button>Set as starting point</button></td>+'
                                     '</tr>';
                         $("#startPointPlan .searchplace").find("tbody").append(html);
                     }
@@ -53,8 +53,10 @@
                 $(".startplace button").click(function() {
                     var img = $(this).closest(".startplace").find("img").attr("src");
                     var name = $(this).closest(".startplace").find("b").text();
-                    var html = "<td><img src="+img+"></td>"+
-                            "<td><b>"+name+"</b><br>starting time (optional): <input><br>spend time: (in min) <input><br>Type: starting point<br><span class='remove'>remove</span>"+
+                    var link = $(this).closest(".startplace").find("a").eq(0).attr("href");
+                    var html = "<td><a href="+link+" target='_blank'><img src="+img+"></a></td>"+
+                            "<td><a href="+link+" target='_blank'><b style='color:black'>"+name+"</b></a><br>starting time (optional) (hh:mm):<br>"+
+                            "<input style='width:70'>:<input style='width:70'><br>spend time: (in min) <input><br>Type: starting point<br><span class='remove'>remove</span>"+
                             "</td>";
                     $(".start").html(html);
                     $('.start').find('.remove').click(function() {

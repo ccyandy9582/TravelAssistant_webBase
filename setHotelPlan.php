@@ -36,9 +36,9 @@
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
 ?>
-                    <tr class="startplace" data="<?php echo $row["googleid"]?>">
-                        <td><a href="place?id=<?php echo $row["attractionId"]?>"><img src="<?php echo "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=".$row["img"]."&key=".$googleapi?>" style="margin:10px"></a></td>
-                        <td><a href="place?id=<?php echo $row["attractionId"]?>"><b style="color:black"><?php echo $row["name"]?></b></a><br><button>Set as starting point</button></td>
+                    <tr class="hotel" data="<?php echo $row["googleid"]?>">
+                        <td><a href="place?id=<?php echo $row["attractionId"]?>" target='_blank'><img src="<?php echo "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=".$row["img"]."&key=".$googleapi?>" style="margin:10px"></a></td>
+                        <td><a href="place?id=<?php echo $row["attractionId"]?>" target='_blank'><b style="color:black"><?php echo $row["name"]?></b></a><br><button>Choose this hotel</button></td>
                     </tr>
 <?php
                 }
@@ -67,9 +67,10 @@
     $(".hotel button").click(function() {
         var img = $(this).closest(".hotel").find("img").attr("src");
         var name = $(this).closest(".hotel").find("b").text();
+        var link = $(this).closest(".hotel").find("a").attr("href");
         var html = "<table><tr>"+
-                    "<td><img src='"+img+"'></td>"+
-                    "<td><b>"+name+"</b><br>Type: Hotel<br><span class='remove'>remove</span></td>"+
+                    "<td><a href='"+link+"' target='_blank'><img src='"+img+"'></a></td>"+
+                    "<td><a href='"+link+"' target='_blank'><b style='color:black;'>"+name+"</b></a><br>Type: Hotel<br><span class='remove'>remove</span></td>"+
                 "</tr></table>";
         if ($(".allHotel").is(':checked')) {
             $(".editHotel_container").html(html);

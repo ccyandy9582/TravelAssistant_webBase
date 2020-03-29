@@ -28,7 +28,7 @@
         if ($conn->query($sql) === TRUE) {
 ?>
             <script>
-                $("#popout p").html("A confirmation email has been send to <?php echo $_POST["email"]?>.<br>Thank you for registering!");
+                $("#popout p").html("A confirmation email has been send to <?php echo $_POST["email"]?>.<br>Please activate your account in 30 minutes.<br>Thank you for registering!");
                 $("#popout").show();
             </script>
 <?php
@@ -49,7 +49,7 @@ EOF;
                         if ($conn->query($sql) === TRUE) {
 ?>
                             <script>
-                                $("#popout p").html("A confirmation email has been send to <?php echo $_POST["email"]?>.<br>Thank you for registering!");
+                                $("#popout p").html("A confirmation email has been send to <?php echo $_POST["email"]?>.<br>Please activate your account in 30 minutes.<br>Thank you for registering!");
                                 $("#popout").show();
                             </script>
 <?php
