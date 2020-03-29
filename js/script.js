@@ -115,6 +115,14 @@ $("document").ready(function() {
         if(!error)
             $("#load").load("register_process",$(this).serializeArray());
     })
+    $("#recovery_form").submit(function(e) {
+        e.preventDefault();
+        var error = false;
+        if (!check_email($(this).find("input[name='email']")))
+            error = true;
+        if(!error)
+        $("#load").load("recovery_process",$(this).serializeArray());
+    })
     $("#forgot_pw_btn").click(function() {
         if(!$("#login_switch").hasClass("cd")) {
             $("#forget_pw").addClass("on");

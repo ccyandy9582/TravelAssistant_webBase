@@ -28,7 +28,7 @@
                 if ($row["activated"]==1) {
                     SESSION_START();
                     $_SESSION["userid"] = $row["userid"];
-                    header("Location: home");
+                    echo "<script>window.location.replace('home')</script>";
                 } else {
                     echo <<<EOF
                     <script>

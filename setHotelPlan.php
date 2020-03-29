@@ -46,7 +46,7 @@
                 if ($query!="") {
 ?>
                 <script>
-                    $("#load").load("loadMoreStartPlace",{"query":"<?php echo $query.'+'.$countryname?>"});
+                     $("#load").load("loadMoreHotel",{"query":"<?php echo $query.'+'.$countryname?>"});
                 </script>
 <?php
                 }

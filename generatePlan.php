@@ -137,7 +137,7 @@
                         start["place"]["gid"] = temp.substring(temp.indexOf("?gid")+5,temp.length);
                     }
                     if($(".start").find("input").eq(0).val().trim()!="") {
-                        if(($(".start").find("input").eq(0).val().trim()-0)>0 && ($(".start").find("input").eq(0).val().trim()-0)<24) {
+                        if(($(".start").find("input").eq(0).val().trim()-0)>=0 && ($(".start").find("input").eq(0).val().trim()-0)<24) {
                             start["place"]["start_h"] = $(".start").find("input").eq(0).val().trim();
                         } else {
                             $(".start").find("input").eq(0).css("border-color", "#ed4337");
@@ -145,7 +145,7 @@
                         }
                     }
                     if($(".start").find("input").eq(1).val().trim()!="") {
-                        if(($(".start").find("input").eq(1).val().trim()-0)>0 && ($(".start").find("input").eq(1).val().trim()-0)<60) {
+                        if(($(".start").find("input").eq(1).val().trim()-0)>=0 && ($(".start").find("input").eq(1).val().trim()-0)<60) {
                             start["place"]["start_m"] = $(".start").find("input").eq(1).val().trim();
                         } else {
                             $(".start").find("input").eq(1).css("border-color", "#ed4337");
@@ -177,7 +177,7 @@
                         end["place"]["gid"] = temp.substring(temp.indexOf("?gid")+5,temp.length);
                     }
                     if($(".end").find("input").eq(0).val().trim()!="") {
-                        if(($(".end").find("input").eq(0).val().trim()-0)>0 && ($(".end").find("input").eq(0).val().trim()-0)<24) {
+                        if(($(".end").find("input").eq(0).val().trim()-0)>=0 && ($(".end").find("input").eq(0).val().trim()-0)<24) {
                             end["place"]["start_h"] = $(".end").find("input").eq(0).val().trim();
                         } else {
                             $(".end").find("input").eq(0).css("border-color", "#ed4337");
@@ -185,7 +185,7 @@
                         }
                     }
                     if($(".end").find("input").eq(1).val().trim()!="") {
-                        if(($(".end").find("input").eq(1).val().trim()-0)>0 && ($(".end").find("input").eq(1).val().trim()-0)<60) {
+                        if(($(".end").find("input").eq(1).val().trim()-0)>=0 && ($(".end").find("input").eq(1).val().trim()-0)<60) {
                             end["place"]["start_m"] = $(".end").find("input").eq(1).val().trim();
                         } else {
                             $(".end").find("input").eq(1).css("border-color", "#ed4337");
@@ -213,12 +213,12 @@
                             if ($(placeBlock).eq(y).find("a").eq(0).attr("href").includes("?id")) {
                                 var temp = $(placeBlock).eq(y).find("a").eq(0).attr("href");
                                 place["place"][i][y]["id"] = temp.substring(temp.indexOf("?id")+4,temp.length);
-                            } else if ($(temp).find("a").eq(0).attr("href").includes("?gid")) {
+                            } else if ($(placeBlock).eq(y).find("a").eq(0).attr("href").includes("?gid")) {
                                 var temp = $(placeBlock).eq(y).find("a").eq(0).attr("href");
                                 place["place"][i][y]["gid"] = temp.substring(temp.indexOf("?gid")+5,temp.length);
                             }
                             if($(placeBlock).eq(y).find("input").eq(0).val().trim()!="") {
-                                if(($(placeBlock).eq(y).find("input").eq(0).val().trim()-0)>0 && ($(placeBlock).eq(y).find("input").eq(0).val().trim()-0)<24) {
+                                if(($(placeBlock).eq(y).find("input").eq(0).val().trim()-0)>=0 && ($(placeBlock).eq(y).find("input").eq(0).val().trim()-0)<24) {
                                     place["place"][i][y]["start_h"] = $(placeBlock).eq(y).find("input").eq(0).val().trim();
                                 } else {
                                     $(placeBlock).eq(y).find("input").eq(0).css("border-color", "#ed4337");
@@ -226,7 +226,7 @@
                                 }
                             }
                             if($(placeBlock).eq(y).find("input").eq(1).val().trim()!="") {
-                                if(($(placeBlock).eq(y).find("input").eq(1).val().trim()-0)>0 && ($(placeBlock).eq(y).find("input").eq(1).val().trim()-0)<60) {
+                                if(($(placeBlock).eq(y).find("input").eq(1).val().trim()-0)>=0 && ($(placeBlock).eq(y).find("input").eq(1).val().trim()-0)<60) {
                                     place["place"][i][y]["start_m"] = $(placeBlock).eq(y).find("input").eq(1).val().trim();
                                 } else {
                                     $(placeBlock).eq(y).find("input").eq(1).css("border-color", "#ed4337");
@@ -258,15 +258,19 @@
                             if ($(placeBlock).find("a").eq(0).attr("href").includes("?id")) {
                                 var temp = $(placeBlock).find("a").eq(0).attr("href");
                                 hotel["place"][i]["id"] = temp.substring(temp.indexOf("?id")+4,temp.length);
-                            } else if ($(temp).find("a").eq(0).attr("href").includes("?gid")) {
+                            } else if ($(placeBlock).find("a").eq(0).attr("href").includes("?gid")) {
                                 var temp = $(placeBlock).find("a").eq(0).attr("href");
                                 hotel["place"][i]["gid"] = temp.substring(temp.indexOf("?gid")+5,temp.length);
                             }
                         }
                     }
                 }
-                $("#load").load("gen_step2.php",{"start":start,"end":end,"place":place,"hotel":hotel,"plan": "<?php echo $_POST["planid"]?>"});
-                $(".loading").show();
+                if (error) {
+                    alert("error!\r\nPlease check your input.")
+                } else {
+                    $("#load").load("gen_step2.php",{"start":start,"end":end,"place":place,"hotel":hotel,"plan": "<?php echo $_POST["planid"]?>"});
+                    $(".loading").show();
+                }
             })
         </script>
     </div

@@ -2,10 +2,10 @@
     if (!((isset($_POST["query"]) && isset($_POST["type"]))xor isset($_POST["next"]))) {
         require("404.php");
     } else {
-        $_POST["query"]= str_replace(" ","+",trim($_POST["query"]));
         $required=1;
         require("api_key.php");
         if (isset($_POST["query"])) {
+            $_POST["query"]= str_replace(" ","+",trim($_POST["query"]));
             if ($_POST["type"]=="any"){
                 $json = file_get_contents('https://maps.googleapis.com/maps/api/place/textsearch/json?query='.$_POST["query"].'&language=en&key='.$googleapi);
             } else {

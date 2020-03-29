@@ -5,8 +5,8 @@
     } else {
         $required=1;
         require("database.php");
-        // $sql = "UPDATE plan set state = 1 WHERE state = 0 AND planID = '{$_POST["plan"]}'";
-        // if ($conn->query($sql) === TRUE) {
+        $sql = "UPDATE plan set state = 1 WHERE state = 0 AND planID = '{$_POST["plan"]}'";
+        if ($conn->query($sql) === TRUE) {
             if (is_array($_POST["start"]["place"])) {
                 if ($_POST["start"]["place"]["id"]!=null) {
                     $id_field = "attractionID";
@@ -64,9 +64,9 @@
                     $conn->query($sql); 
                 }
             }
-        // } else {
-        //     echo "<script>alert('Error!')</script>";
-        // }
+        } else {
+            echo "<script>alert('Error!')</script>";
+        }
         $conn->close();
     }
 ?>

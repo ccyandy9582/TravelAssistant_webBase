@@ -66,7 +66,7 @@ EOF;
                     </table>
                     <table id="forget_pw">
                         <tr><td>
-                            <form>
+                            <form id="recovery_form">
                                 <center><h1>Account recovery</h1></center>
                                 <input name="email" type="text" placeholder="email">
                                 <span></span><br><br>
