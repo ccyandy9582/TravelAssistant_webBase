@@ -4,7 +4,8 @@
 
     if(isset($_POST["l_password"])&&isset($_POST["email"])) {
         $error=false;
-        if (!(preg_match("/^.+@.+\\..+$/", $_POST["email"])))
+        $email = trim($_POST["email"]);
+        if (!(preg_match("/^.+@.+\\..+$/", $email)))
             $error=true;
             if (!strlen($_POST["l_password"]) > 0)
             $error=true;
@@ -21,7 +22,7 @@
     } else {
         $required=true;
         require("database.php");
-        $sql="SELECT userid, activated FROM user WHERE email='{$_POST["email"]}' AND password = '{$_POST["l_password"]}'";
+        $sql="SELECT userid, activated FROM user WHERE email='$email' AND password = '{$_POST["l_password"]}'";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {

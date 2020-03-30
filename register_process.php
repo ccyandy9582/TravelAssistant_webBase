@@ -4,7 +4,8 @@
 
     if(isset($_POST["password"])&&isset($_POST["c_password"])&&isset($_POST["email"])) {
         $error=false;
-        if (!(preg_match("/^.+@.+\\..+$/", $_POST["email"])))
+        $email = trim($_POST["email"]);
+        if (!(preg_match("/^.+@.+\\..+$/", $email)))
             $error=true;
         if (!(preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-_=+`~[{\]}\\\\|;:'\\\",<.>\/?])(?=.{8,})/",$_POST["password"])))
             $error=true;
@@ -24,17 +25,17 @@
         $required=true;
         require("database.php");
         $secret=md5(uniqid(rand(), true));
-        $sql="INSERT INTO user (email, password, secret, action_time) VALUES ('{$_POST["email"]}', '{$_POST["password"]}', '$secret', now())";
+        $sql="INSERT INTO user (email, password, secret, action_time) VALUES ('$email', '{$_POST["password"]}', '$secret', now())";
         if ($conn->query($sql) === TRUE) {
 ?>
             <script>
-                $("#popout p").html("A confirmation email has been send to <?php echo $_POST["email"]?>.<br>Please activate your account in 30 minutes.<br>Thank you for registering!");
+                $("#popout p").html("A confirmation email has been send to <?php echo $email?>.<br>Please activate your account in 30 minutes.<br>Thank you for registering!");
                 $("#popout").show();
             </script>
 <?php
             require("mail_reg.php");
         } else {
-            $sql="SELECT email, now() - action_time AS time, activated FROM user WHERE email='{$_POST["email"]}'";
+            $sql="SELECT email, now() - action_time AS time, activated FROM user WHERE email='$email}'";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 if($row = $result->fetch_assoc()) {
@@ -45,11 +46,11 @@
                         </script>
 EOF;
                     } else {
-                        $sql = "UPDATE user SET action_time = now(), password = '{$_POST["password"]}', secret = '$secret' WHERE email = '{$_POST["email"]}'";
+                        $sql = "UPDATE user SET action_time = now(), password = '{$_POST["password"]}', secret = '$secret' WHERE email = '$email'";
                         if ($conn->query($sql) === TRUE) {
 ?>
                             <script>
-                                $("#popout p").html("A confirmation email has been send to <?php echo $_POST["email"]?>.<br>Please activate your account in 30 minutes.<br>Thank you for registering!");
+                                $("#popout p").html("A confirmation email has been send to <?php echo $email?>.<br>Please activate your account in 30 minutes.<br>Thank you for registering!");
                                 $("#popout").show();
                             </script>
 <?php

@@ -2,17 +2,18 @@
     if(!isset($_POST["email"])) {
         require("404.php");
     } else {
+        $email = trim($_POST["email"]);
         $required = 1;
         require("database.php");
         $secret=md5(uniqid(rand(), true));
-        $sql = "UPDATE user SET action_time=now(),secret='$secret' WHERE email='".$_POST["email"]."'";
+        $sql = "UPDATE user SET action_time=now(),secret='$secret' WHERE email='$email'";
 
         if ($conn->query($sql) === TRUE) {
             if (mysqli_affected_rows($conn) > 0) {
                 require("mail_recovery.php");
 ?>
                 <script>
-                    $("#popout p").html("An account recovery email has been send to <?php echo $_POST["email"]?>.<br>You can change your password within 30 minutes.");
+                    $("#popout p").html("An account recovery email has been send to <?php echo $email?>.<br>You can change your password within 30 minutes.");
                     $("#popout").show();
                 </script>
 <?php
