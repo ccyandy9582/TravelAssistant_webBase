@@ -2,7 +2,11 @@
     if (!(isset($_POST["query"]) xor isset($_POST["next"]))) {
         require("404.php");
     } else {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         $required=1;
+        require("loadMoreEndPlace_text.php");
         require("api_key.php");
         if (isset($_POST["query"])) {
             $_POST["query"]= str_replace(" ","+",trim($_POST["query"]));
@@ -32,7 +36,7 @@
                     if (!skip) {
                         var html = '<tr class="endplace">'+
                                         '<td><a href="place?gid=<?php echo $results["place_id"]?>" target="_blank"><img src="<?php echo $img?>" style="margin:10px"></a></td>'+
-                                        '<td><a href="place?gid=<?php echo $results["place_id"]?>" target="_blank"><b style="color:black"><?php echo str_replace("'","\\'",$results["name"])?></b></a><br><button>Set as starting point</button></td>+'
+                                        '<td><a href="place?gid=<?php echo $results["place_id"]?>" target="_blank"><b style="color:black"><?php echo str_replace("'","\\'",$results["name"])?></b></a><br><button><?php echo $loadMoreEndPlace_text["setPoint"]?></button></td>+'
                                     '</tr>';
                         $("#endPointPlan .searchplace").find("tbody").append(html);
                     }
@@ -41,7 +45,7 @@
                 if (isset($obj["next_page_token"])) {
                     if ($obj["next_page_token"] != null) {
 ?>
-                        $("#endPointPlan .searchplace").find("center").append('<button class="loadMoreEndPlace">load more</button>');
+                        $("#endPointPlan .searchplace").find("center").append('<button class="loadMoreEndPlace"><?php echo $loadMoreEndPlace_text["loadmore"]?></button>');
                         $(".loadMoreEndPlace").click(function() {
                             $("#load").load("loadMoreEndPlace",{"next":"<?php echo $obj["next_page_token"]?>"});
                         })
@@ -55,12 +59,13 @@
                     var name = $(this).closest(".endplace").find("b").text();
                     var link = $(this).closest(".endplace").find("a").eq(0).attr("href");
                     var html = "<td><a href="+link+" target='_blank'><img src="+img+"></a></td>"+
-                            "<td><a href="+link+" target='_blank'><b style='color:black'>"+name+"</b></a><br>arriving time (optional):<br><input style='width:70'>:<input style='width:70'><br>Type: ending point<br><span class='remove'>remove</span>"+
+                            "<td><a href="+link+" target='_blank'><b style='color:black'>"+name+"</b></a><br><?php echo $loadMoreEndPlace_text["arrivingtime"]?>:<br><input style='width:70'>:<input style='width:70'><br>"+
+                            "<?php echo $loadMoreEndPlace_text["type"]?><br><span class='remove'><?php echo $loadMoreEndPlace_text["remove"]?></span>"+
                             "</td>";
                     $(".end").html(html);
                     $('.end').find('.remove').click(function() {
                         $(this).closest('.end').html('<td colspan="2">'+
-                            "<div>Set Ending Point</div>"+
+                            "<div><?php echo $loadMoreEndPlace_text["endpoint"]?></div>"+
                         "</td>");
                         $(".end div").click(function() {
                             $(".panel").hide();

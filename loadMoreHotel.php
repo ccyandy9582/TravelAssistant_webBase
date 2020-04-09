@@ -2,8 +2,12 @@
     if (!isset($_POST["query"])) {
         require("404.php");
     } else {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         $_POST["query"]= str_replace(" ","+",trim($_POST["query"]));
         $required=1;
+        require("loadMoreHotel_text.php");
         require("api_key.php");
             if ($_POST["query"]!="") {
                 $json = file_get_contents('http://engine.hotellook.com/api/v2/lookup.json?query='.$_POST["query"].'&lang=en&lookFor=both&limit=10&token='.$hotelapi);
@@ -32,7 +36,7 @@
                     if (!skip) {
                         var html = '<tr class="hotel">'+
                                         '<td><a href="place?gid=<?php echo $objPlace["candidates"][0]["place_id"]?>"  target="_blank"><img src="<?php echo $img?>" style="margin:10px"></td>'+
-                                        '<td><a href="place?gid=<?php echo $objPlace["candidates"][0]["place_id"]?>"  target="_blank"><b style="color:black"><?php echo $objPlace["candidates"][0]["name"]?></b></a><br><button>Choose this hotel</button></td>+'
+                                        '<td><a href="place?gid=<?php echo $objPlace["candidates"][0]["place_id"]?>"  target="_blank"><b style="color:black"><?php echo $objPlace["candidates"][0]["name"]?></b></a><br><button><?php echo $loadMoreHotel_text["choosetitle"]?></button></td>+'
                                     '</tr>';
                         $("#setHotelPlan .searchplace").find("tbody").append(html);
                     }
@@ -47,7 +51,7 @@
                         var link = $(this).closest(".hotel").find("a").attr("href");
                         var html = "<table><tr>"+
                                     "<td><a href='"+link+"' target='_blank'><img src='"+img+"'></a></td>"+
-                                    "<td><a href='"+link+"' target='_blank'><b style='color:black;'>"+name+"</b></a><br>Type: Hotel<br><span class='remove'>remove</span></td>"+
+                                    "<td><a href='"+link+"' target='_blank'><b style='color:black;'>"+name+"</b></a><br><?php echo $loadMoreHotel_text["type"]?><br><span class='remove'>remove</span></td>"+
                                 "</tr></table>";
                         if ($(".allHotel").is(':checked')) {
                             $(".editHotel_container").html(html);

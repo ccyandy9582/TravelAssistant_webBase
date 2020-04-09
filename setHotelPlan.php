@@ -2,10 +2,14 @@
     if(!isset($_POST["country"]) || !isset($_POST["query"]) || !isset($_POST["day"]) || !isset($_POST["check"])) {
         require("404.php");
     } else {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         $required=1;
+        require("setHotelPlan_text.php");
         require("api_key.php");
         require("database.php");
-        $sql = "SELECT name FROM country WHERE countryID = ".$_POST["country"];
+        $sql = "SELECT EN AS name FROM country WHERE countryID = ".$_POST["country"];
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             // output data of each row
@@ -17,10 +21,10 @@
         $query = trim($_POST["query"]);
         // $query= str_replace(" ","+",$_POST["query"]);
 ?>
-    <center><h2>Choose Your Hotel</h2>
+    <center><h2><?php echo $setHotelPlan_text["choosetitle"]?></h2>
     <div id="hotelsetday" style="display:none"><?php echo $_POST["day"];?></div>
-    <input id="setHotelSearch" value="<?php echo $_POST["query"]?>"></input> <button id="setHotelSearchBtn">search</button>
-    <input type="checkbox" class="allHotel" <?php echo $_POST["check"]==1?"checked":"" ?>> Choose this hotel for all day(s).</center>
+    <input id="setHotelSearch" value="<?php echo $_POST["query"]?>"></input> <button id="setHotelSearchBtn"><?php echo $setHotelPlan_text["search"]?></button>
+    <input type="checkbox" class="allHotel" <?php echo $_POST["check"]==1?"checked":"" ?>> <?php echo $setHotelPlan_text["changeall"]?></center>
     <br>
     <script>
         $("#setHotelSearchBtn").click(function() {
@@ -38,7 +42,7 @@
 ?>
                     <tr class="hotel" data="<?php echo $row["googleid"]?>">
                         <td><a href="place?id=<?php echo $row["attractionId"]?>" target='_blank'><img src="<?php echo "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=".$row["img"]."&key=".$googleapi?>" style="margin:10px"></a></td>
-                        <td><a href="place?id=<?php echo $row["attractionId"]?>" target='_blank'><b style="color:black"><?php echo $row["name"]?></b></a><br><button>Choose this hotel</button></td>
+                        <td><a href="place?id=<?php echo $row["attractionId"]?>" target='_blank'><b style="color:black"><?php echo $row["name"]?></b></a><br><button><?php echo $setHotelPlan_text["choosehotel"]?></button></td>
                     </tr>
 <?php
                 }
@@ -55,7 +59,7 @@
     $conn->close();
 ?>
         </tbody>
-    </table><?php if ($query!="") {echo '<button class="loadMoreHotel">load more</button>';}?></center>
+    </table><?php if ($query!="") {echo '<button class="loadMoreHotel">'.$setHotelPlan_text["loadmore"].'</button>';}?></center>
 </div>
 
 
@@ -70,7 +74,7 @@
         var link = $(this).closest(".hotel").find("a").attr("href");
         var html = "<table><tr>"+
                     "<td><a href='"+link+"' target='_blank'><img src='"+img+"'></a></td>"+
-                    "<td><a href='"+link+"' target='_blank'><b style='color:black;'>"+name+"</b></a><br>Type: Hotel<br><span class='remove'>remove</span></td>"+
+                    "<td><a href='"+link+"' target='_blank'><b style='color:black;'>"+name+"</b></a><br><?php echo $setHotelPlan_text["type"]?><br><span class='remove'><?php echo $setHotelPlan_text["remove"]?></span></td>"+
                 "</tr></table>";
         if ($(".allHotel").is(':checked')) {
             $(".editHotel_container").html(html);
@@ -78,7 +82,7 @@
             $(".editHotel_container").eq($("#hotelsetday").html()).html(html);
         }
         $('.editHotel_container').find('.remove').click(function() {
-            $(this).closest('.editHotel_container').html('<div>Set Hotel</div>');
+            $(this).closest('.editHotel_container').html('<div><?php echo $setHotelPlan_text["sethotel"]?></div>');
             $(".editHotel_container div").click(function() {
                 $("#hotelsetday").html($(this).closest(".editHotel_container").attr("data"));
                 $(".panel").hide();

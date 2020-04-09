@@ -2,10 +2,14 @@
     if(!isset($_POST["country"]) || !isset($_POST["query"]) || !isset($_POST["type"])) {
         require("404.php");
     } else {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         $required=1;
+        require("addPlacePlan_text.php");
         require("api_key.php");
         require("database.php");
-        $sql = "SELECT name FROM country WHERE countryID = ".$_POST["country"];
+        $sql = "SELECT EN AS name FROM country WHERE countryID = ".$_POST["country"];
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
@@ -15,19 +19,20 @@
         $countryname = str_replace(" ","+",$countryname);
         $query = trim($_POST["query"]);
 ?>
-    <center><h2>Add a location</h2>
+    <center><h2><?php echo $addPlacePlan_text["choosetitle"]?></h2>
     <select id="addLocationType">
-        <option value="tourist_attraction">tourist attraction</option>
-        <option value="amusement_park">amusement park</option>
-        <option value="museum">museum</option>
-        <option value="aquarium">aquarium</option>
-        <option value="natural_feature">natural feature</option>
-        <option value="any">any place</option>
+        <option value="tourist_attraction"><?php echo $addPlacePlan_text["touristattraction"]?></option>
+        <option value="amusement_park"><?php echo $addPlacePlan_text["amusementpark"]?></option>
+        <option value="museum"><?php echo $addPlacePlan_text["museum"]?></option>
+        <option value="aquarium"><?php echo $addPlacePlan_text["aquarium"]?></option>
+        <option value="natural_feature"><?php echo $addPlacePlan_text["naturalfeature"]?></option>
+        <option value="zoo"><?php echo $addPlacePlan_text["zoo"]?></option>
+        <option value="any"><?php echo $addPlacePlan_text["anytype"]?></option>
     </select>
     <script>
         $("#addLocationType").val("<?php echo$_POST["type"]?>");
     </script>
-    <input id="addLocationSearch" value="<?php echo $_POST["query"]?>"></input> <button id="addLocationSearchBtn">search</button></center><br>
+    <input id="addLocationSearch" value="<?php echo $_POST["query"]?>"></input> <button id="addLocationSearchBtn"><?php echo $addPlacePlan_text["search"]?></button></center><br>
     <script>
         $("#addLocationSearchBtn").click(function() {
             $("#addPlacePlan").load("addPlacePlan",{country: <?php echo $_POST["country"]?>,query: $("#addLocationSearch").val(),type:$("#addLocationType").val()});
@@ -48,7 +53,7 @@
 ?>
                 <tr class="place" data="<?php echo $row["googleid"]?>">
                     <td><a href="place?id=<?php echo $row["attractionId"]?>" target='_blank'><img src="<?php echo "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=".$row["img"]."&key=".$googleapi?>" style="margin:10px"></a></td>
-                    <td><a href="place?id=<?php echo $row["attractionId"]?>" target='_blank'><b style="color:black"><?php echo $row["name"]?></b></a><br><button>Add</button></td>
+                    <td><a href="place?id=<?php echo $row["attractionId"]?>" target='_blank'><b style="color:black"><?php echo $row["name"]?></b></a><br><button><?php echo $addPlacePlan_text["add"]?></button></td>
                 </tr>
 <?php
             }
@@ -63,7 +68,7 @@
     $conn->close();
 ?>
         </tbody>
-    </table><button class="loadMoreAddPlace">load more</button></center>
+    </table><button class="loadMoreAddPlace"><?php echo $addPlacePlan_text["loadmore"]?></button></center>
 </div>
 
 
@@ -77,8 +82,8 @@
         var name = $(this).closest(".place").find("b").text();
         var link = $(this).closest(".place").find("a").eq(0).attr("href");
         var html = "<tr class='addPlace'><td><a href="+link+" target='_blank'><img src='"+img+"'></a></td>"+
-                        "<td><a href="+link+" target='_blank'><b style='color:black;'>"+name+"</b></a><br>starting time (optional):<br>"+
-                        "<input style='width:70'>:<input style='width:70'><br>spend time: (in min) <input><br>Type: attraction<br><span class='remove'>remove</span></td></tr>";
+                        "<td><a href="+link+" target='_blank'><b style='color:black;'>"+name+"</b></a><br><?php echo $addPlacePlan_text["starttime"]?><br>"+
+                        "<input style='width:70'>:<input style='width:70'><br><?php echo $addPlacePlan_text["timespend"]?> <input><br><?php echo $addPlacePlan_text["type"]?><br><span class='remove'><?php echo $addPlacePlan_text["remove"]?></span></td></tr>";
         $(".ptg tbody").append(html);
         $('.ptg tbody').find('.remove').click(function() {
             $(this).closest('tr').remove();

@@ -4,8 +4,9 @@
     } else { 
         $required=1;
         require("html_start.php");
+        require("generatePlan_text.php");
         require("database.php");
-        $sql = "SELECT plan.countryID,DATEDIFF(endTime, startTime)+1 AS day,country.name FROM plan,country WHERE planID = {$_POST["planid"]} AND state = 0 AND country.countryID = plan.countryID";
+        $sql = "SELECT plan.countryID,DATEDIFF(endTime, startTime)+1 AS day,country.".$_SESSION["lang"]." AS name FROM plan,country WHERE planID = {$_POST["planid"]} AND state = 0 AND country.countryID = plan.countryID";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
@@ -61,7 +62,7 @@
     </script>
     <div id="editPlan">
         <div class="editDay_container ptg">
-            <h4>Place to go (<?php echo $countryName;?>) <span>Add</span></h4>
+            <h4><?php echo $generatePlan_text["placetogo"]?> (<?php echo $countryName;?>) <span><?php echo $generatePlan_text["add"]?></span></h4>
             <table>
                 <tbody class="drag" >
                     <tr class="space">
@@ -75,14 +76,14 @@
         </div>
 <?php for ($i = 1; $i<=$day; $i++) {?>
         <div class="editDay_container">
-            <h4>Day <?php echo $i?></h4>
+            <h4><?php printf($generatePlan_text["day"],$i)?></h4>
             <!-- <div style="height:102px; border:5px dashed black; border-radius:15px"></div> -->
             <table>
                 <tbody class="drag">
                     <?php if($i == 1){?>
                     <tr class="start">
                         <td colspan="2">
-                            <div>Set Starting Point</div>
+                            <div><?php echo $generatePlan_text["startpoint"]?></div>
                         </td>
                     </tr>
                     <?php } ?>
@@ -98,7 +99,7 @@
                     <?php if($i == $day){?>
                     <tr class="space end" style="background-color: white;">
                         <td colspan="2">
-                            <div>Set Ending Point</div>
+                            <div><?php echo $generatePlan_text["endingpoint"]?></div>
                         </td>
                     </tr>
                     <?php } ?>
@@ -107,12 +108,12 @@
         </div>
         <?php if ($i != $day) {?>
         <div class="editHotel_container" data="<?php echo ($i-1)?>">
-            <div>Set Hotel</div>
+            <div><?php echo $generatePlan_text["hotel"]?></div>
         </div>
         <?php }?>
 <?php }?>
         <br>
-        <center><div id="gen_btn">generate</div></center><br>
+        <center><div id="gen_btn"><?php echo $generatePlan_text["generate"]?></div></center><br>
         <div class="loading"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
         <script>
             $("#gen_btn").click(function() {

@@ -2,7 +2,11 @@
     if (!((isset($_POST["query"]) && isset($_POST["type"]))xor isset($_POST["next"]))) {
         require("404.php");
     } else {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         $required=1;
+        require("loadMoreAddPlace_text.php");
         require("api_key.php");
         if (isset($_POST["query"])) {
             $_POST["query"]= str_replace(" ","+",trim($_POST["query"]));
@@ -36,7 +40,7 @@
                     if (!skip) {
                         var html = '<tr class="place">'+
                                         '<td><a href="place?gid=<?php echo $results["place_id"]?>" target="_blank"><img src="<?php echo $img?>" style="margin:10px"></a></td>'+
-                                        '<td><a href="place?gid=<?php echo $results["place_id"]?>"  target="_blank"><b style="color:black"><?php echo str_replace("'","\\'",$results["name"])?></b></a><br><button>Add</button></td>+'
+                                        '<td><a href="place?gid=<?php echo $results["place_id"]?>"  target="_blank"><b style="color:black"><?php echo str_replace("'","\\'",$results["name"])?></b></a><br><button><?php echo $loadMoreAddPlace_text["add"]?></button></td>+'
                                     '</tr>';
                         $("#addPlacePlan .searchplace").find("tbody").append(html);
                     }
@@ -45,7 +49,7 @@
                 if (isset($obj["next_page_token"])) {
                     if ($obj["next_page_token"] != null) {
 ?>
-                        $("#addPlacePlan .searchplace").find("center").append('<button class="loadMoreAddPlace">load more</button>');
+                        $("#addPlacePlan .searchplace").find("center").append('<button class="loadMoreAddPlace"><?php echo $loadMoreAddPlace_text["loadmore"]?></button>');
                         $(".loadMoreAddPlace").click(function() {
                             $("#load").load("loadMoreAddPlace",{"next":"<?php echo $obj["next_page_token"]?>"});
                         })
@@ -59,8 +63,8 @@
                     var name = $(this).closest(".place").find("b").text();
                     var link = $(this).closest(".place").find("a").eq(0).attr("href");
                     var html = "<tr class='addPlace'><td><a href="+link+" target='_blank'><img src='"+img+"'></a></td>"+
-                                    "<td><a href="+link+" target='_blank'><b style='color:black;'>"+name+"</b></a><br>starting time (optional):<br>"+
-                                    "<input style='width:70'>:<input style='width:70'><br>spend time: (in min) <input><br>Type: attraction<br><span class='remove'>remove</span></td></tr>";
+                                    "<td><a href="+link+" target='_blank'><b style='color:black;'>"+name+"</b></a><br><?php echo $loadMoreAddPlace_text["starttime"]?><br>"+
+                                    "<input style='width:70'>:<input style='width:70'><br><?php echo $loadMoreAddPlace_text["timespend"]?> <input><br><?php echo $loadMoreAddPlace_text["type"]?><br><span class='remove'><?php echo $loadMoreAddPlace_text["remove"]?></span></td></tr>";
                     $(".ptg tbody").append(html);
                     $('.ptg tbody').find('.remove').click(function() {
                         $(this).closest('tr').remove();

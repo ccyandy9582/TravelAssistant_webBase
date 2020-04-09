@@ -2,6 +2,10 @@
     if(!isset($_POST["email"])) {
         require("404.php");
     } else {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $_POST["email"] = addslashes($_POST["email"]);
         $email = trim($_POST["email"]);
         $required = 1;
         require("database.php");

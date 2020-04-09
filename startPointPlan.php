@@ -2,10 +2,14 @@
     if(!isset($_POST["country"]) || !isset($_POST["query"])) {
         require("404.php");
     } else {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         $required=1;
+        require("startPointPlan_text.php");
         require("api_key.php");
         require("database.php");
-        $sql = "SELECT name FROM country WHERE countryID = ".$_POST["country"];
+        $sql = "SELECT EN AS name FROM country WHERE countryID = ".$_POST["country"];
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
@@ -15,8 +19,8 @@
         $countryname = str_replace(" ","+",$countryname);
         $query = trim($_POST["query"]);
 ?>
-    <center><h2>Choose Your Starting Location</h2>
-    <input id="startAirportSearch" value="<?php echo $_POST["query"]?>"></input> <button id="startAirportSearchBtn">search</button></center><br>
+    <center><h2><?php echo $startPointPlan_text["choosetitle"]?></h2>
+    <input id="startAirportSearch" value="<?php echo $_POST["query"]?>"></input> <button id="startAirportSearchBtn"><?php echo $startPointPlan_text["search"]?></button></center><br>
     <script>
         $("#startAirportSearchBtn").click(function() {
             $("#startPointPlan").load("startPointPlan",{country: <?php echo $_POST["country"]?>,query: $("#startAirportSearch").val()});
@@ -33,7 +37,7 @@
 ?>
                 <tr class="startplace" data="<?php echo $row["googleid"]?>">
                     <td><a href="place?id=<?php echo $row["attractionId"]?>" target='_blank'><img src="<?php echo "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=".$row["img"]."&key=".$googleapi?>" style="margin:10px"></a></td>
-                    <td><a href="place?id=<?php echo $row["attractionId"]?>" target='_blank'><b style="color:black"><?php echo $row["name"]?></b></a><br><button>Set as starting point</button></td>
+                    <td><a href="place?id=<?php echo $row["attractionId"]?>" target='_blank'><b style="color:black"><?php echo $row["name"]?></b></a><br><button><?php echo $startPointPlan_text["setPoint"] ?></button></td>
                 </tr>
 <?php
             }
@@ -48,7 +52,7 @@
     $conn->close();
 ?>
         </tbody>
-    </table><button class="loadMoreStartPlace">load more</button></center>
+    </table><button class="loadMoreStartPlace"><?php echo $startPointPlan_text["loadmore"]?>></button></center>
 </div>
 
 
@@ -62,13 +66,13 @@
         var name = $(this).closest(".startplace").find("b").text();
         var link = $(this).closest(".startplace").find("a").eq(0).attr("href");
         var html = "<td><a href="+link+" target='_blank'><img src="+img+"></a></td>"+
-                   "<td><a href="+link+" target='_blank'><b style='color:black'>"+name+"</b></a><br>starting time (optional) (hh:mm):<br>"+
-                   "<input style='width:70'>:<input style='width:70'><br>spend time: (in min) <input><br>Type: starting point<br><span class='remove'>remove</span>"+
+                   "<td><a href="+link+" target='_blank'><b style='color:black'>"+name+"</b></a><br><?php echo $startPointPlan_text["starttime"]?>:<br>"+
+                   "<input style='width:70'>:<input style='width:70'><br><?php echo $startPointPlan_text["timespend"]?> <input><br><?php echo $startPointPlan_text["type"]?><br><span class='remove'><?php echo $startPointPlan_text["remove"]?></span>"+
                    "</td>";
         $(".start").html(html);
         $('.start').find('.remove').click(function() {
             $(this).closest('.start').html('<td colspan="2">'+
-                "<div>Set Starting Point</div>"+
+                "<div><?php echo $startPointPlan_text["startpoint"]?></div>"+
             "</td>");
             $(".start div").click(function() {
                 $(".panel").hide();
