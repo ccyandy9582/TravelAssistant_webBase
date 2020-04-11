@@ -56,6 +56,11 @@ $("document").ready(function() {
         $(this).attr("min",time);
     })
     $(".logout").click(function() {
-        $("#load").load("logout");
+        $("#load").load("logout", {"a": 1});
+    })
+    $(".ch_lang span").click(function() {
+        if ($(this).attr("data") != null) {
+            $("#load").load("ch_lang", {"lang" : $(this).attr("data")});
+        }
     })
 })

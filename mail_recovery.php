@@ -51,7 +51,7 @@ if (isset($required)) {
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML
         $mail->Subject = $mail_recovery_text["title"];
-        $mail->Body    = "<span style='color:black'>We have received your account recovery request.<br>You can click </span><a href='http://".$_SERVER["HTTP_HOST"]."/fyp/recovery?code=".$secret."'>here</a><span style='color:black'> or use the following link to change your password.</span><br>http://".$_SERVER["HTTP_HOST"]."/fyp/recovery?code=".$secret;
+        $mail->Body    = $mail_recovery_text["content"];
         // $mail->AltBody = 'Thank you for registering';
 
         $mail->send();

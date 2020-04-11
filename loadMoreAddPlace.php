@@ -11,9 +11,9 @@
         if (isset($_POST["query"])) {
             $_POST["query"]= str_replace(" ","+",trim($_POST["query"]));
             if ($_POST["type"]=="any"){
-                $json = file_get_contents('https://maps.googleapis.com/maps/api/place/textsearch/json?query='.$_POST["query"].'&language=en&key='.$googleapi);
+                $json = file_get_contents('https://maps.googleapis.com/maps/api/place/textsearch/json?query='.rawurlencode($_POST["query"]).'&language=en&key='.$googleapi);
             } else {
-                $json = file_get_contents('https://maps.googleapis.com/maps/api/place/textsearch/json?query='.$_POST["query"].'&language=en&key='.$googleapi.'&type='.$_POST["type"]);
+                $json = file_get_contents('https://maps.googleapis.com/maps/api/place/textsearch/json?query='.rawurlencode($_POST["query"]).'&language=en&key='.$googleapi.'&type='.$_POST["type"]);
             }
         } else {
             $json = file_get_contents('https://maps.googleapis.com/maps/api/place/textsearch/json?pagetoken='.$_POST["next"].'&language=en&key='.$googleapi);
@@ -69,6 +69,9 @@
                     $('.ptg tbody').find('.remove').click(function() {
                         $(this).closest('tr').remove();
                     })
+                })
+                $("img").on('error', function() {
+                    $(this).attr("src", "imgs/imgNotAvaliable.jpeg")
                 })
             </script>
 <?php

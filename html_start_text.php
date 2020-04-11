@@ -10,6 +10,7 @@
             $html_start_text["myplan"] = "My Plan";
             $html_start_text["setting"] = "Setting";
             $html_start_text["logout"] = "Logout";
+            $html_start_text["language"] = "Language";
         } else if ($_SESSION["lang"] == "ZH") {
             $html_start_text["login"] = "登入";
             $html_start_text["blog"] = "探索行程";
@@ -17,6 +18,7 @@
             $html_start_text["myplan"] = "我的行程";
             $html_start_text["setting"] = "設定";
             $html_start_text["logout"] = "登出";
+            $html_start_text["language"] = "語言";
         }
     }
 ?>

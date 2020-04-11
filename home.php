@@ -33,41 +33,34 @@
 </table>
 </div>
 <div id="popular_country">
-    <h2><?php for ($i=0;$i<52;$i++) {echo "&nbsp;";}?>Popular countries </h2>
-    <center><div>
-        <img src="imgs/country/japan.jpg"><br>
-        <b>Japan</b>
-    </div>
-    <div>
-        <img src="imgs/country/Taiwan.jpg"><br>
-        <b>Taiwan</b>
-    </div>
-    <div>
-        <img src="imgs/country/Switzerland.jpg"><br>
-        <b>Switzerland</b>
-    </div>
-    <div>
-        <img src="imgs/country/UK.jpg"><br>
-        <b>UK</b>
-    </div></center>
+    <h2><?php echo $home_text["popularcountries"]?></h2>
+    <center>
+        <?php
+            $sql = "SELECT country.countryID,".$_SESSION["lang"]." AS name, EN FROM country left join plan on country.countryID = plan.countryID AND state = 2 GROUP BY country.countryID ORDER BY count(EN) DESC, name";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                echo "<div class='drag'>";
+                while($row = $result->fetch_assoc()) {
+                    echo 
+                        "<div data='".$row["countryID"]."'>".
+                            "<img src='imgs/country/".$row["EN"].".jpg'><br>".
+                            "<b style='cursor: pointer'>".$row["name"]."</b>".
+                        "</div>";
+                }
+                echo "</div>";
+            }
+        ?>
+    </center>
 </div>
+<script>
+    $("#popular_country .drag").dragscroll();
+</script>
 <div id="explore_places">
-    <h2><?php for ($i=0;$i<52;$i++) {echo "&nbsp;";}?>Explore places </h2>
-    <center><div>
-        <img src="imgs/attraction/osaka.jpg"><br>
-        <b>Osaka</b>
-    </div>
-    <div>
-        <img src="imgs/attraction/tokyo.jpg"><br>
-        <b>Tokyo</b>
-    </div>
-    <div>
-        <img src="imgs/attraction/nara.jpg"><br>
-        <b>Nara</b>
-    </div>
-    <div>
-        <img src="imgs/attraction/YasakaShrine.jpg"><br>
-        <b>Yasaka Shrine</b>
-    </div></center>
 </div>
+<script>
+    $("#popular_country b").click(function() {
+        $("#explore_places").load("explorePlace",{"country": $(this).closest("div").attr("data")});
+    })
+    $("#explore_places").load("explorePlace",{"country": $("#popular_country div div").eq(0).attr("data")});
+</script>
 <?php $conn->close();require("html_end.php");?>

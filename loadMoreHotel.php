@@ -10,7 +10,7 @@
         require("loadMoreHotel_text.php");
         require("api_key.php");
             if ($_POST["query"]!="") {
-                $json = file_get_contents('http://engine.hotellook.com/api/v2/lookup.json?query='.$_POST["query"].'&lang=en&lookFor=both&limit=10&token='.$hotelapi);
+                $json = file_get_contents('http://engine.hotellook.com/api/v2/lookup.json?query='.rawurlencode($_POST["query"]).'&lang=en&lookFor=both&limit=10&token='.$hotelapi);
                 $obj = json_decode($json,true);
                 if ($obj["status"]=="ok") {
 ?>
@@ -66,6 +66,9 @@
                                 $("#setHotelPlan").show();
                             })
                         })
+                    })
+                    $("img").on('error', function() {
+                        $(this).attr("src", "imgs/imgNotAvaliable.jpeg")
                     })
                     </script>
 <?php

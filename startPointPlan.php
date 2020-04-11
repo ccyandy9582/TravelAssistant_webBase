@@ -80,4 +80,7 @@
             })
         })
     })
+    $("img").on('error', function() {
+        $(this).attr("src", "imgs/imgNotAvaliable.jpeg")
+    })
 </script>

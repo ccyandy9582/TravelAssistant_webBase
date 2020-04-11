@@ -1,7 +1,7 @@
 <?php 
     // echo password_hash($_POST["password"], PASSWORD_BCRYPT);
     // echo "<br>".strlen('$2y$10$GoMVmM/EF2AigmhsFj66out2YPhW27oqNfsLsbIQwyi2nbPXbQ9HG');
-
+    $error=false;
     if(isset($_POST["password"])&&isset($_POST["c_password"])&&isset($_POST["email"])) {
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -9,7 +9,6 @@
         $_POST["password"] = addslashes($_POST["password"]);
         $_POST["c_password"] = addslashes($_POST["c_password"]);
         $_POST["email"] = addslashes($_POST["email"]);
-        $error=false;
         $email = trim($_POST["email"]);
         if (!(preg_match("/^(?!\\.)(?!.*\\.$)(?!.*?\\.\\.)[\\w\\.]+@\\w+\\.[\\w\\.]+$/", $email)))
             $error=true;

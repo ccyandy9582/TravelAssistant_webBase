@@ -1,35 +1,38 @@
-<?php
-    $required=1;require("html_start.php");
-    require("login_script.php");
-    require("login_text.php");
-    if (isset($_GET["regid"])) {
-        $id = $_GET["regid"];
-        require("database.php");
-        $sql = "UPDATE user SET activated=true WHERE secret='$id' AND now() - action_time <= 1800";
 
-        if ($conn->query($sql) === TRUE) {
-            if (mysqli_affected_rows($conn) == 1) {
-                echo <<<EOF
-                <script>
-                    $("#popout p").text("Your account has been activated.");
-                    $("#popout").show();
-                </script>
+<?php
+        $required=1;require("html_start.php");
+        require("login_script.php");
+        require("login_text.php");
+        if (isset($_GET["regid"])) {
+            $id = $_GET["regid"];
+            require("database.php");
+            $sql = "UPDATE user SET activated=true, action_time = now() - INTERVAL 30 MINUTE WHERE secret='$id' AND TIMESTAMPDIFF(SECOND,action_time , now()) <= 1800";
+
+            if ($conn->query($sql) === TRUE) {
+                if (mysqli_affected_rows($conn) == 1) {
+                    echo <<<EOF
+                    <script>
+                        $("#popout p").text("Your account has been activated.");
+                        $("#popout").show();
+                    </script>
 EOF;
-            } else {
-                echo <<<EOF
-                <script>
-                    $("#popout p").text("Wrong/expired activation code, or activation has already been made.");
-                    $("#popout").show();
-                </script>
+                } else {
+                    echo <<<EOF
+                    <script>
+                        $("#popout p").text("Wrong/expired activation code, or activation has already been made.");
+                        $("#popout").show();
+                    </script>
 EOF;
+                }
             }
+            $conn->close();
+        } else if (isset($_SESSION["userid"])) {
+?>
+        <script>
+            window.location.replace('home');
+        </script>
+<?php
         }
-        $conn->close();
-    } else {
-        if (isset($_SESSION["userid"])) {
-            header("Location: home");
-        }
-    }
 ?>
 <div id="login_background">
     <div id="login_align_container">

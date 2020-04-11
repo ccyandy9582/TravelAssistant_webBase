@@ -14,6 +14,7 @@
     <script src="/fyp/js/script.js"></script>
     <script src="/fyp/js/sortable.js"></script>
     <script src="/fyp/js/mouse.js"></script>
+    <script src="/fyp/js/jquery.dragscroll.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <meta name="robots" content="noindex">
     <meta name="googlebot" content="noindex">
@@ -29,12 +30,19 @@
         <div id="menu">
             <a href="/fyp/"><img id="icon" src="imgs/hochilltrip_logo.svg" height="75px"></a>
             <!-- <a class="menu_item">Plan</a> -->
+            <div class="menu_item ch_lang"><?php echo $html_start_text["language"]?>
+                <div class="ch_lang_dropdown">
+                    <span class="dropdown_item" data="EN">ENGLISH</span>
+                    <span class="dropdown_item" data="ZH">繁體中文</span>
+                    <div style="background-color: white; width: 8px;height:8px;position:absolute;top:-3; left:71 ; transform: rotateZ(45deg);"></div>
+                </div>
+            </div>
             <a class="menu_item" href="blog"><?php echo $html_start_text["blog"]?></a>
             <?php if (isset($_SESSION["userid"])) {?>
                 <div class="menu_item menu_ac"><?php echo $html_start_text["myaccount"]?>
-                    <div class="dropdown">
+                    <div class="menu_ac_dropdown">
                         <a class="dropdown_item"><?php echo $html_start_text["myplan"]?></a>
-                        <a class="dropdown_item"><?php echo $html_start_text["setting"]?></a>
+                        <a class="dropdown_item" href="setting"><?php echo $html_start_text["setting"]?></a>
                         <span class="dropdown_item logout"><?php echo $html_start_text["logout"]?></span>
                         <div style="background-color: white; width: 8px;height:8px;position:absolute;top:-3; left:71 ; transform: rotateZ(45deg);"></div>
                     </div>

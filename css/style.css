@@ -4,7 +4,7 @@ a {
 }
 body {
     margin: 0;
-    overflow-y: hidden;
+    overflow: hidden;
     width: 100%;
     height: 100%;
     background-color: white;
@@ -90,12 +90,12 @@ input:focus::placeholder{
 .menu_item:hover {
     color:white;
 }
-.menu_ac:hover .dropdown {
+.menu_ac:hover .menu_ac_dropdown, .ch_lang:hover .ch_lang_dropdown {
     display: block;
     position: relative;
     /* top: 15px; */
 }
-.dropdown {    
+.menu_ac_dropdown, .ch_lang_dropdown {    
     background-color: white;
     box-shadow: 5px 10px 8px #888888;
     z-index: 10;
@@ -282,7 +282,7 @@ input:focus::placeholder{
 .hidden {
     display:none;
 }
-#login form button,#login_switch button ,#forget_pw form button{
+#login form button,#login_switch button ,#forget_pw form button, #recovery_pw_form button{
     background-color: white;
     border-radius: 12px;
     border: solid 1px #8DC8FA;
@@ -292,6 +292,11 @@ input:focus::placeholder{
 #login form button:hover,#login_switch button:hover,#forget_pw form button:hover { 
     border-width: 2px;
     background-color: gainsboro;
+}
+#popular_country center, #explore_places center {
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: grab;
 }
 #popular_country div,#explore_places div {
     margin: 0 5 0 5;
@@ -465,6 +470,14 @@ input:focus::placeholder{
 }
 .remove:hover {
     text-decoration: underline;
+}
+#content_bar {
+    background-color: lightgray;
+    line-height: 30px;
+    padding: 0 10;
+}
+#content_bar span {
+    cursor: pointer;
 }
 .loading {
     position: fixed;
