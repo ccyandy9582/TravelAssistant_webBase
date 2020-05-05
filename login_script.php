@@ -15,7 +15,7 @@
         }
         function check_email(e) {
             var valid = true;
-            if (!(/^(?!\.)(?!.*\.$)(?!.*?\.\.)[\w\.]+@\w+\.[\w\.]+$/.test(e.val()+""))) {
+            if (!(/^(?!\.)(?!.*\.$)(?!.*?\.\.)(?!.*?\.@)[\w\.]+@\w+\.[\w\.]+$/.test(e.val()+""))) {
                 e.next().text("* <?php echo $login_script_text["invalidemail"] ?>");
                 valid = false;
             } else 
@@ -26,7 +26,7 @@
         }
         function check_pw(e) {
             var valid = true;
-            if(!(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-_=+`~[{\]}\\|;:'",<.>\/?])(?=.{8,})/.test(e.val()+""))) {
+            if(!(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+`~[{\]}\\|;:'",<.>\/?])(?=.{8,})(?!.*[^\\w!@#$%^&*()\-_=+`~[{\]}\\|;:'",<.>\/?]).*$/.test(e.val()+""))) {
                 e.next().text("* <?php echo $login_script_text["invalidpassword"]?>");
                 valid = false;
             } else
