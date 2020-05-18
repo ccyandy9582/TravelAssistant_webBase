@@ -247,11 +247,11 @@
                 }
                 var hotel = {}
                 hotel["place"] = null;
-                if($(".editHotel_container tr").length>0) {
+                if($(".editHotel_container").length>0) {
                     hotel["place"] = {};
-                    for (var i = 0; i<$(".editHotel_container tr").length; i++) {
+                    for (var i = 0; i<$(".editHotel_container").length; i++) {
                         hotel["place"][i]=null;
-                        var placeBlock = $(".editHotel_container tr").eq(i);
+                        var placeBlock = $(".editHotel_container").eq(i).find("tr");
                         if (placeBlock.length>0) {
                             hotel["place"][i] = {};
                             hotel["place"][i]["id"] = null;
@@ -269,8 +269,11 @@
                 if (error) {
                     alert("error!\r\nPlease check your input.")
                 } else {
-                    $("#load").load("gen_step2.php",{"start":start,"end":end,"place":place,"hotel":hotel,"plan": "<?php echo $_POST["planid"]?>"});
+                    $("#load").load("gen_step2",{"start":start,"end":end,"place":place,"hotel":hotel,"plan": "<?php echo $_POST["planid"]?>"});
                     $(".loading").show();
+                    setInterval(function(){ 
+                        $("#load").load("gen_step3",{"planid":<?php echo$_POST["planid"]?> });
+                    }, 5000);
                 }
             })
         </script>

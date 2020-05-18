@@ -18,11 +18,17 @@
         $email = trim($_POST["email"]);
         $required=true;
         require("database.php");
-        $sql="SELECT userid, activated, Lang FROM user WHERE email='$email' AND password = '{$_POST["l_password"]}'";
+        $sql="SELECT userid, activated, Lang, banned FROM user WHERE email='$email' AND password = '{$_POST["l_password"]}'";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
-                if ($row["activated"]==1) {
+                if ($row["banned"]==1) {
+                    echo <<<EOF
+                    <script>
+                        $("#login_form").find("input[name=l_password]").next().text("* Your account has been banned.");
+                    </script>
+EOF;
+                } else if ($row["activated"]==1) {
                     $_SESSION["userid"] = $row["userid"];
                     if ($row["Lang"] != null) {
                         $_SESSION["lang"] = $row["Lang"];

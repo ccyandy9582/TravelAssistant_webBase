@@ -26,20 +26,13 @@
             if ($conn->query($sql) === TRUE) {
                 if (mysqli_affected_rows($conn) > 0) {
                     require("mail_recovery.php");
-?>
-                    <script>
-                        $("#popout p").html("<?php echo $recovery_process_text["emailsent"]?>");
-                        $("#popout").show();
-                    </script>
-<?php
-                } else { /////// fake email sent
-?>
-                    <script>
-                        $("#popout p").html("<?php echo $recovery_process_text["emailsent"]?>");
-                        $("#popout").show();
-                    </script>
-<?php
                 }
+            ?>
+            <script>
+                $("#popout p").html("<?php echo $recovery_process_text["emailsent"]?>");
+                $("#popout").show();
+            </script>
+            <?php
             } else {
                 echo "<script>alert('Error!')</script>";
             }

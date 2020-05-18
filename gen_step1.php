@@ -43,11 +43,11 @@
         echo "</script>";
         if($ok) {
 ?>
-            <form id="temp_frm" method="post" action="generatePlan">
+            <form id="gen_step1_frm" method="post" action="generatePlan">
                 <input name="planid" value="<?php echo $id?>">
             </form>
             <script>
-                $("#temp_frm").submit();
+                $("#gen_step1_frm").submit();
             </script>
 <?php
         }

@@ -296,6 +296,8 @@ input:focus::placeholder{
 #popular_country center, #explore_places center {
     white-space: nowrap;
     overflow: hidden;
+}
+.drag {
     cursor: grab;
 }
 #popular_country div,#explore_places div {
@@ -307,6 +309,7 @@ input:focus::placeholder{
 #popular_country div img ,#explore_places div img{
     height: 200px;
 }
+
 #blog_search_container {
     width:100%;
     height: 50px;
