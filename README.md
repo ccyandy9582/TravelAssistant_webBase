@@ -10,20 +10,20 @@ ___________________________
 `Everytime when you updated the master, please address pull request  `  
 ___________________________
 # Main functions
-1.  Travel planning service  
-    1.  Auto generate  
-    2.  Self-customize planning  
-    3.  Applying travel guide  
-    4.  Plan editing function  
-    5.  Activity recommendations  
-2.  Adding new travel spot  
-3.  Travel guide  
-4.  Login system  
+1. Travel planning service  
+    1. Auto generate  
+    2. Self-customize planning  
+    3. Applying travel guide  
+    4. Plan editing function  
+    5. Activity recommendations  
+2. Adding new travel spot  
+3. Travel guide  
+4. Login system  
 ____________________________
 # May be added  
-1.  Special recommendation for unexpected weather  
-2.  A very convenient hotel and ticket booking  
-3.  Local activities suggestion  
+1. Special recommendation for unexpected weather  
+2. A very convenient hotel and ticket booking  
+3. Local activities suggestion  
 _______________________
 # Knot  
 1. How to do it  
