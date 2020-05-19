@@ -5,7 +5,7 @@
         //echo print_r($_POST);
         $required=1;
         require("database.php");
-        $sql = "UPDATE plan set state = 1 WHERE state = 0 AND planID = '{$_POST["plan"]}'";
+        $sql = "UPDATE plan set state = 9 WHERE state = 0 AND planID = '{$_POST["plan"]}'";
         if ($conn->query($sql) === TRUE) {
             if (mysqli_affected_rows($conn) == 1) {
                 if (is_array($_POST["start"]["place"])) {
@@ -65,6 +65,8 @@
                         }
                     }
                 }
+                $sql = "UPDATE plan set state = 1 WHERE state = 9 AND planID = '{$_POST["plan"]}'";
+                $conn->query($sql); 
             } else {
                 echo "<script>alert('Error!')</script>";
             }

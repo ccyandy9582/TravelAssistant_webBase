@@ -13,6 +13,8 @@
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
+        $required = true;
+        require("login_process_text.php");
         $_POST["l_password"] = addslashes($_POST["l_password"]);
         $_POST["email"] = addslashes($_POST["email"]);
         $email = trim($_POST["email"]);
@@ -23,11 +25,11 @@
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
                 if ($row["banned"]==1) {
-                    echo <<<EOF
+                    echo '
                     <script>
-                        $("#login_form").find("input[name=l_password]").next().text("* Your account has been banned.");
+                        $("#login_form").find("input[name=l_password]").next().text("* '.$login_process_text["banned"].'");
                     </script>
-EOF;
+';
                 } else if ($row["activated"]==1) {
                     $_SESSION["userid"] = $row["userid"];
                     if ($row["Lang"] != null) {
@@ -35,19 +37,19 @@ EOF;
                     }
                     echo "<script>window.location.replace('home')</script>";
                 } else {
-                    echo <<<EOF
+                    echo '
                     <script>
-                        $("#login_form").find("input[name=l_password]").next().text("* Your account has not been activated.");
+                        $("#login_form").find("input[name=l_password]").next().text("* '.$login_process_text["unactivated"].'");
                     </script>
-EOF;
+';
                 }
             }
         } else {
-            echo <<<EOF
+            echo '
             <script>
-                $("#login_form").find("input[name=l_password]").next().text("* Wrong email or password");
+                $("#login_form").find("input[name=l_password]").next().text("* '.$login_process_text["wronglogin"].'");
             </script>
-EOF;
+';
         }
         $conn->close();
     }

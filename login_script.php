@@ -26,7 +26,7 @@
         }
         function check_pw(e) {
             var valid = true;
-            if(!(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+`~[{\]}\\|;:'",<.>\/?])(?=.{8,})(?!.*[^\\w!@#$%^&*()\-_=+`~[{\]}\\|;:'",<.>\/?]).*$/.test(e.val()+""))) {
+            if(!(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+`~[{\]}\\|;:'",<.>\/?])(?=.{8,}).*$/.test(e.val()+""))) {
                 e.next().text("* <?php echo $login_script_text["invalidpassword"]?>");
                 valid = false;
             } else
@@ -88,7 +88,7 @@
                 error = true;
             if (!check_pw($(this).find("input[name='password']")))
                 error = true;
-            if (!check_pw($(this).find("input[name='c_password']")))
+            if (!check_cpw($(this).find("input[name='c_password']")))
                 error = true;
             if(!error)
                 $("#load").load("register_process",$(this).serializeArray());

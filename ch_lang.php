@@ -2,7 +2,9 @@
     if (!isset($_POST["lang"])) {
         require("404.php");
     } else {
-        SESSION_START();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if (isset($_SESSION["userid"])) {
             $required = 1;
             require("database.php");

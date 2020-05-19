@@ -17,7 +17,7 @@
             }
         }
         for ($i = 1; $i<= $daynum; $i++){
-            $sql = "select start_time from plan_content where add_by <> 2 and placeOrder = 1 and day = ".$i." and planid=".$_POST["planid"];
+            $sql = "select start_time from plan_content where add_by <> 2 and type <> 2 and day = ".$i." and planid=".$_POST["planid"]." order by placeOrder limit 1";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 if ($row = $result->fetch_assoc()) {
@@ -42,7 +42,7 @@
                     $array["content"][$i][$row["placeOrder"]]["type"] = $row["type"];
                 }
             }
-            $sql = "select name,img,type from attraction,plan_content where attraction.attractionid = plan_content.attractionid and type = 2 and add_by <> 2 and day = ".$i." and planid=".$_POST["planid"];
+            echo $sql = "select name,img,type from attraction,plan_content where attraction.attractionid = plan_content.attractionid and type = 2 and placeOrder <> 1 and add_by <> 2 and day = ".$i." and planid=".$_POST["planid"];
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
@@ -98,7 +98,7 @@
                     <table>
                         <tr>
                             <td><img src='https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=".$array["hotel"][$key]["img"]."&key=".$googleapi."'></td>
-                            <td><b>	Osaka Marriott Miyako Hotel</b></td>
+                            <td><b>".$array["hotel"][$key]["name"]."</b></td>
                         </tr>
                     </table>
                 </div>
