@@ -10,8 +10,8 @@
         require("api_key.php");
         require("html_start.php");
         require("database.php");
+        require("place_text.php");  
         if (isset($_GET["id"])) {
-            require("place_text.php");
             $sql = "select attractionID from attraction where attractionID = ".$_GET["id"];
             $result = $conn->query($sql);
             if ($result->num_rows == 0) {
@@ -108,7 +108,7 @@
 ?>
                     </div></div>
                     <div id="place_commentSection">
-                        <h2>my rating:
+                        <h2><?php echo $place_text["myrating"];?>:
 <?php
                             $sql = "select rating from userrate_attraction where attractionID = ".$_GET["id"]." and userid = ".$_SESSION["userid"];
                             $result = $conn->query($sql);
@@ -168,7 +168,7 @@
 <?php 
             }
         } else {
-            $sql = "select attractionid from attraction where googleid = ".$_GET["gid"];
+            $sql = "select attractionid from attraction where googleid = '".$_GET["gid"]."'";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 if ($row = $result->fetch_assoc()) {
@@ -177,6 +177,57 @@
                         window.location.replace("place?id=<?php echo $row["attractionid"]?>");
                     </script>
 <?php
+                }
+            } else {
+                $json = file_get_contents("https://maps.googleapis.com/maps/api/place/details/json?place_id=".$_GET["gid"]."&fields=photos/photo_reference,address_components/long_name,address_components/types,name,rating,international_phone_number,formatted_address,geometry/location&language=EN&key=".$googleapi);
+                $obj = json_decode($json,true);
+                if ($obj["status"] != "OK") {
+                    echo "<h2>".$place_text["notFound"]."!</h2>";
+                } else {
+                    // print_r($obj["results"]["international_phone_number"]);
+                    for ($i = 0;$i <sizeof($obj["result"]["address_components"]);$i++) {
+                        if (in_array("country",$obj["result"]["address_components"][$i]["types"])) {
+                            $countryIndex = $i;
+                        }
+                    }
+                    if (isset($countryIndex)) {
+                        $country = $obj["result"]["address_components"][$countryIndex]["long_name"];
+                    }
+                    if (isset($country)) {
+                        $sql = "select countryid from country WHERE EN = '{$country}'";
+                        $result = $conn->query($sql);
+                        if ($result->num_rows > 0) {
+                            if ($row = $result->fetch_assoc()) {
+                                $countryid = $row["countryid"];
+                                $phone = "null";
+                                if (isset($obj["result"]["international_phone_number"])) {
+                                    $phone = "'".$obj["result"]["international_phone_number"]."'";
+                                }
+                                $lat = $obj["result"]["geometry"]["location"]["lat"];
+                                $lon = $obj["result"]["geometry"]["location"]["lng"];
+                                $address = $obj["result"]["formatted_address"];
+                                $name = $obj["result"]["name"];
+                                $rating = "null";
+                                if (isset($obj["result"]["rating"])) {
+                                    $rating = $obj["result"]["rating"];
+                                }
+                                $img = "null";
+                                if (isset($obj["result"]["photos"][0]["photo_reference"])) {
+                                    $img = "'".$obj["result"]["photos"][0]["photo_reference"]."'";
+                                }
+                                echo $sql = "INSERT INTO attraction (googleid,name,lat,lon,img,phone,address,rating,countryid) VALUES ('{$_GET["gid"]}','$name',$lat,$lon,$img,$phone,'$address',$rating,$countryid)";
+                                if ($conn->query($sql) === TRUE) {
+                                    echo "<script>location.reload();</script>";
+                                } else {
+                                    echo "<h2>".$place_text["notFound"]."!</h2>";
+                                }
+                            }
+                        } else {
+                            echo "<h2>".$place_text["notFound"]."!</h2>";
+                        }
+                    }
+                    // echo $obj["result"]["address_components"];    
+                    // if (isset($obj["result"]["address_components"]))
                 }
             }
         }

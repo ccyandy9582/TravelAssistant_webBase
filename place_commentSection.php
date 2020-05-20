@@ -13,7 +13,7 @@
         $result = $conn->query($sql);
         echo '
             <div style="text-align:right">
-                page:<select id="page">
+                '.$place_commentSection_text["page"].':<select id="page">
                     <option>1</option>';
         if ($result->num_rows > 0) {
             if ($row = $result->fetch_assoc()) {
@@ -43,7 +43,7 @@
             </div>
         ";
         if ($row["num"] == 0) {
-            echo "No comment avaliable";
+            echo $place_commentSection_text["noComment"];
         } else {
             $sql = "select name,comment,commentid,banned,user.userid from attraction_comment,user where attraction_comment.userid = user.userid and attractionid = ".$_POST["attractionid"]." Order by commentid desc Limit ".($currentpage*10-10).",".$commentPerPage;
             $result = $conn->query($sql);

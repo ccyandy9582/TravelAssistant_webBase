@@ -14,6 +14,7 @@
             $place_text["rating"] = "Rating";
             $place_text["page"] = "page";
             $place_text["nodisplaynamemsg"] = "page";
+            $place_text["myrating"] = "My rating";
         } else if ($_SESSION["lang"] == "ZH") {
             $place_text["notFound"]="此地方不存在";
             $place_text["phone"] = "Phone No.";
@@ -25,6 +26,7 @@
             $place_text["rating"] = "評分";
             $place_text["page"] = "頁";
             $place_text["nodisplaynamemsg"] = "page";
+            $place_text["myrating"] = "我的評分";
         }
         
     }
