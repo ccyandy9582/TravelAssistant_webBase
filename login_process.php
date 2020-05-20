@@ -20,7 +20,7 @@
         $email = trim($_POST["email"]);
         $required=true;
         require("database.php");
-        $sql="SELECT userid, activated, Lang, banned FROM user WHERE email='$email' AND password = '{$_POST["l_password"]}'";
+        $sql="SELECT userid, activated, Lang, banned, type FROM user WHERE email='$email' AND password = '{$_POST["l_password"]}'";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
@@ -34,6 +34,9 @@
                     $_SESSION["userid"] = $row["userid"];
                     if ($row["Lang"] != null) {
                         $_SESSION["lang"] = $row["Lang"];
+                    }
+                    if ($row["type"]=="A") {
+                        $_SESSION["admin"]=true;
                     }
                     echo "<script>window.location.replace('home')</script>";
                 } else {

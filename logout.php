@@ -7,6 +7,7 @@
         }
         if (isset($_SESSION["userid"])) {
             unset($_SESSION["userid"]);
+            unset($_SESSION["admin"]);
             echo <<<EOF
             <script>
                 location.reload();

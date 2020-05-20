@@ -12,8 +12,7 @@
         $sql = "SELECT EN AS name FROM country WHERE countryID = ".$_POST["country"];
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
-            // output data of each row
-            while($row = $result->fetch_assoc()) {
+            if($row = $result->fetch_assoc()) {
                 $countryname = $row["name"];
             }
         }
@@ -39,9 +38,14 @@
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
+                    if ($row["img"]!=null) {
+                        $img = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='.$row["img"].'&key='.$googleapi;
+                    } else {
+                        $img = "imgs/noimg.png";
+                    }
 ?>
                     <tr class="hotel" data="<?php echo $row["googleid"]?>">
-                        <td><a href="place?id=<?php echo $row["attractionId"]?>" target='_blank'><img src="<?php echo "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=".$row["img"]."&key=".$googleapi?>" style="margin:10px"></a></td>
+                        <td><a href="place?id=<?php echo $row["attractionId"]?>" target='_blank'><img src="<?php echo $img;?>" style="margin:10px"></a></td>
                         <td><a href="place?id=<?php echo $row["attractionId"]?>" target='_blank'><b style="color:black"><?php echo $row["name"]?></b></a><br><button><?php echo $setHotelPlan_text["choosehotel"]?></button></td>
                     </tr>
 <?php

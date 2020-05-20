@@ -16,7 +16,7 @@
             <span></span><br><br>
             <input type="password" name="c_password" placeholder="<?php echo $setting_pw_text["confirmPassword"];?>">
             <span></span><br><br><span></span><br>
-            <button><?php echo $setting_pw_text["submit"];?></button>
+            <button style="width: 100px"><?php echo $setting_pw_text["submit"];?></button>
         </form>
         <script>
         $("document").ready(function() {

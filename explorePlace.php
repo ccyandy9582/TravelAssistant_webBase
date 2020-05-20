@@ -21,7 +21,7 @@
                     echo 
                         "<div>".
                             "<img src='https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=".$row["img"]."&key=".$googleapi."'><br>".
-                            "<a href='place?gid=".$row["attractionID"]."'><b style='color:black'>".$row["name"]."</b></a>".
+                            "<a href='place?id=".$row["attractionID"]."'><b style='color:black'>".$row["name"]."</b></a>".
                         "</div>";
                 }
                 echo "</div>";

@@ -22,7 +22,7 @@
             <?php echo $displayName==null?"":$setting_name_text["currentName"]." : ".$displayName."<br>"; ?>
             <input type="text" name="name">
             <span></span><br><br>
-            <button><?php echo $setting_name_text["submit"];?></button>
+            <button style="width: 100px"><?php echo $setting_name_text["submit"];?></button>
         </form>
         <script>
             $("#ch_displayName_frm").submit(function(e) {

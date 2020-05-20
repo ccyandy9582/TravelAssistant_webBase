@@ -1,3 +1,4 @@
+
 a {
     text-decoration: inherit;
     cursor: pointer;
@@ -5,10 +6,12 @@ a {
 }
 body {
     margin: 0;
-    overflow: hidden;
+    overflow-y: hidden;
+    overflow-x: auto;
     width: 100%;
     height: 100%;
     background-color: #a8e3ff;
+    min-width:590;   
 }
 div {
     box-sizing: border-box;
@@ -33,7 +36,7 @@ button {
 input:focus::placeholder{
     color:transparent;
 }
-#popout {
+#popout,#popout1 {
     display: none;
     position: fixed;
     z-index: 20;
@@ -45,14 +48,14 @@ input:focus::placeholder{
     background-color: rgb(0,0,0); 
     background-color: rgba(0,0,0,0.4); 
 }
-#popout_content {
+#popout_content,#popout1_content {
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
   }
-#popout_close {
+#popout_close,#popout1_close {
     color: #aaaaaa;
     float: right;
     font-size: 28px;
@@ -69,9 +72,10 @@ input:focus::placeholder{
     width:100%;
     height: 75px;
     background-color: #1986E1;
-    position:fixed;
+    position: absolute;;
     text-align: right;
     z-index: 20;
+    min-width:590;   
     /* padding: 10px; */
 }
 #icon {
@@ -284,14 +288,15 @@ input:focus::placeholder{
 .hidden {
     display:none;
 }
-#login form button,#login_switch button ,#forget_pw form button, #recovery_pw_form button{
+#login form button,#login_switch button ,#forget_pw form button, #recovery_pw_form button, #ch_pw_frm button, #ch_displayName_frm button,#post_comment{
     background-color: white;
     border-radius: 12px;
     border: solid 1px #8DC8FA;
     padding: 12px;
     width:30%;
 }
-#login form button:hover,#login_switch button:hover,#forget_pw form button:hover { 
+#login form button:hover,#login_switch button:hover,#forget_pw form button:hover,
+#recovery_pw_form button:hover, #ch_pw_frm button:hover, #ch_displayName_frm button:hover,#post_comment:hover { 
     border-width: 2px;
     background-color: gainsboro;
 }
@@ -469,7 +474,7 @@ input:focus::placeholder{
     width:100%;
     height: 100%;
 }
-.remove {
+.remove, .ban {
     color:red;
     cursor: pointer;
 }
@@ -483,6 +488,61 @@ input:focus::placeholder{
 }
 #content_bar span {
     cursor: pointer;
+}
+#place_flex {
+    display:flex; 
+    width:100%;
+    flex-wrap: wrap;
+}
+#place_detail {
+    flex-grow: 1;
+    max-width: calc(100% - 366px);
+    padding: 0 20%;
+}
+#place_ratebox {
+    text-align: center;
+}
+#place_ratebox img{
+    width:350px;
+}
+#place_ratebox_container {
+    background-color: #FFBB5D;
+    border: 3px #FF980B solid;
+    margin: 5px;
+}
+#place_map_container {
+    flex-basis: 100%;
+    height:350px;
+}
+#place_map {
+    height:100%;
+    width: 100%;
+}
+#place_commentSection {
+    flex-basis: 100%;
+    padding: 0 20%;
+}
+.comment_user {
+    background-color: #64B4F6 ;
+    display: inline-block;
+    padding: 3px 15px;
+    border-radius: 50px;
+}
+#command_input {
+    width: 100%;
+    overflow: hidden; 
+    resize: none;
+}
+.comment_container {
+    border: 1px solid #898f8d;
+    border-radius: 5px;
+    margin: 2px 0;
+}
+.rating {
+    cursor: pointer;
+    font-size: 50px;
+    position:relative;
+    top: 10px;
 }
 .loading {
     position: fixed;
@@ -545,9 +605,6 @@ input:focus::placeholder{
     100% {left: 55%; width: 45%;background-position: right;}
     /* background-color: #FFAA35} */
 }
-@media only screen and (max-width: 590px) {
-    
-}
 #loader {
     position: absolute;
     left: 50%;
@@ -600,15 +657,7 @@ input:focus::placeholder{
     right:10px;
     top:100px;
 }
-@media(max-height: 530px){
-    #login_background {
-        overflow-y: auto;
-    }
-    #login_align_container {
-        height: 530px;
-    }
-}
-@media(max-height: 710px) and (max-width: 820px){
+@media only screen and (max-height: 710px) and (max-width: 820px){
     #login_background {
         overflow-y: auto;
     }
@@ -649,9 +698,24 @@ input:focus::placeholder{
     #forget_pw.on {
         left: 0%;
     }
-}
-@media only screen and (min-width: 1920px) {
-    /* body {
-        width: 1920px;
-    } */
+    #place_detail    {
+        flex-basis: 100%;
+        order: 3;
+        max-width: none;
+    }
+    #place_ratebox {
+        order: 2;
+        flex-basis: 100%;
+        margin: 0 10%;
+    }
+    
+    #place_ratebox img{
+        width: 43%;
+    }
+    #place_map_container {
+        order: 1;
+    }
+    #place_commentSection {
+        order: 4;
+    }
 }

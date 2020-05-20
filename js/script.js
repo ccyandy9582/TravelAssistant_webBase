@@ -5,11 +5,21 @@ $("document").ready(function() {
     // modal.style.display = "none";
     window.location.replace("login");
     }
-    window.onclick = function(event) {
-    if (event.target == modal) {
-        // modal.style.display = "none";
-        window.location.replace("login");
+    var modal1 = document.getElementById("popout1");
+    var span1 = document.getElementById("popout1_close");
+    span1.onclick = function() {
+    modal1.style.display = "none";
+    // location.reload();
     }
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            // modal.style.display = "none";
+            window.location.replace("login");
+        }
+        if (event.target == modal1) {
+            modal1.style.display = "none";
+            // location.reload();
+        }
     }
     $("#login_switch_btn").click(function() {
         if(!$("#login_switch").hasClass("cd")) {
