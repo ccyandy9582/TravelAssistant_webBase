@@ -1,5 +1,5 @@
 <?php 
-    if (!(isset($_POST["query"]) xor isset($_POST["next"]))) {
+    if (!((isset($_POST["query"]) && isset($_POST["countryname"])) xor isset($_POST["next"]))) {
         require("404.php");
     } else {
         if (session_status() == PHP_SESSION_NONE) {
@@ -9,13 +9,24 @@
         require("loadMoreEndPlace_text.php");
         require("api_key.php");
         if (isset($_POST["query"])) {
-            $_POST["query"]= str_replace(" ","+",trim($_POST["query"]));
-            $json = file_get_contents('https://maps.googleapis.com/maps/api/place/textsearch/json?query='.rawurlencode($_POST["query"]).'&language=en&key='.$googleapi.'&type=airport');
+            $_POST["query"] = trim($_POST["query"]);
+            $temp = explode(" ",$_POST["query"]);
+            foreach ($temp as $val) {
+                $val = rawurlencode($val);
+            }
+            $_POST["query"]= implode("+",$temp);
+            $json = file_get_contents('https://maps.googleapis.com/maps/api/place/textsearch/json?query='.$_POST["query"].'&language=en&key='.$googleapi.'&type=airport');
         } else {
             $json = file_get_contents('https://maps.googleapis.com/maps/api/place/textsearch/json?pagetoken='.$_POST["next"].'&language=en&key='.$googleapi);
         }
         $obj = json_decode($json,true);
-        if ($obj["status"] == "OK") {
+        if ($obj["status"] == "ZERO_RESULTS") {
+?>
+            <script>
+                $(".loadMoreEndPlace").remove();
+            </script>
+<?php
+        } else if ($obj["status"] == "OK") {
 ?>
             <script>
                 $(".loadMoreEndPlace").remove();
@@ -33,6 +44,12 @@
                             skip = true;
                         }
                     })
+<?php
+                    $temp = explode($_POST["countryname"],$results["formatted_address"]);
+                    if (sizeof($temp) == 1 || $temp[sizeof($temp)-1] != "") {
+                        echo "skip = true;";
+                    }
+?>
                     if (!skip) {
                         var html = '<tr class="endplace">'+
                                         '<td><a href="place?gid=<?php echo $results["place_id"]?>" target="_blank"><img src="<?php echo $img?>" style="margin:10px"></a></td>'+

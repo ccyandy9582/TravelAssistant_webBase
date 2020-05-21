@@ -31,7 +31,7 @@
         require("register_process_text.php");
         require("database.php");
         $secret=md5(uniqid(rand(), true));
-        $sql="INSERT INTO user (email, password, secret, action_time) VALUES ('$email', '{$_POST["password"]}', '$secret', now())";
+        $sql="INSERT INTO user (email, password, secret, action_time, lang) VALUES ('$email', '{$_POST["password"]}', '$secret', now(),'{$_SESSION["lang"]}')";
         if ($conn->query($sql) === TRUE) {
 ?>
             <script>
@@ -52,7 +52,7 @@
                         </script>
 EOF;
                     } else {
-                        $sql = "UPDATE user SET action_time = now(), password = '{$_POST["password"]}', secret = '$secret' WHERE email = '$email'";
+                        $sql = "UPDATE user SET action_time = now(), password = '{$_POST["password"]}', secret = '$secret', lang = '{$_SESSION["lang"]}' WHERE email = '$email'";
                         if ($conn->query($sql) === TRUE) {
 ?>
                             <script>

@@ -15,7 +15,9 @@
     <script src="/fyp/js/sortable.js"></script>
     <script src="/fyp/js/mouse.js"></script>
     <script src="/fyp/js/jquery.dragscroll.min.js"></script>
+    <script src="/fyp/js/quill.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/quillsnow.css">
     <meta name="robots" content="noindex">
     <meta name="googlebot" content="noindex">
     <title>HoChillTrip</title>

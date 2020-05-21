@@ -16,7 +16,6 @@
                 $countryname = $row["name"];
             }
         }
-        $countryname = str_replace(" ","+",$countryname);
         $query = trim($_POST["query"]);
 ?>
     <center><h2><?php echo $startPointPlan_text["choosetitle"]?></h2>
@@ -49,7 +48,7 @@
         } else {
 ?>
             <script>
-                $("#load").load("loadMoreStartPlace",{"query":"<?php echo $query.'+'.$countryname?>"});
+                $("#load").load("loadMoreStartPlace",{"query":"<?php echo $query.' '.$countryname?>",countryname: "<?php echo $countryname?>"});
             </script>
 <?php
         }
@@ -64,7 +63,7 @@
 
 <script>
     $(".loadMoreStartPlace").click(function() {
-        $("#load").load("loadMoreStartPlace",{"query":"<?php echo $query.'+'.$countryname?>"});
+        $("#load").load("loadMoreStartPlace",{"query":"<?php echo $query.' '.$countryname?>",countryname: "<?php echo $countryname?>"});
     })
     $(".startplace button").click(function() {
         var img = $(this).closest(".startplace").find("img").attr("src");

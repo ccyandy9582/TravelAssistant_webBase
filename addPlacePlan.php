@@ -16,7 +16,6 @@
                 $countryname = $row["name"];
             }
         }
-        $countryname = str_replace(" ","+",$countryname);
         $query = trim($_POST["query"]);
 ?>
     <center><h2><?php echo $addPlacePlan_text["choosetitle"]?></h2>
@@ -27,7 +26,7 @@
         <option value="aquarium"><?php echo $addPlacePlan_text["aquarium"]?></option>
         <option value="natural_feature"><?php echo $addPlacePlan_text["naturalfeature"]?></option>
         <option value="zoo"><?php echo $addPlacePlan_text["zoo"]?></option>
-        <option value="any"><?php echo $addPlacePlan_text["anytype"]?></option>
+        <!-- <option value="any"><?php echo $addPlacePlan_text["anytype"]?></option> -->
     </select>
     <script>
         $("#addLocationType").val("<?php echo$_POST["type"]?>");
@@ -65,7 +64,7 @@
         } else {
 ?>
             <script>
-                $("#load").load("loadMoreAddPlace",{"query":"<?php echo $query.'+'.$countryname?>",type: "<?php echo $_POST["type"]?>"});
+                $("#load").load("loadMoreAddPlace",{"query":"<?php echo $query.' '.$countryname?>",type: "<?php echo $_POST["type"]?>",countryname: "<?php echo $countryname?>"});
             </script>
 <?php
         }
@@ -80,7 +79,7 @@
 
 <script>
     $(".loadMoreAddPlace").click(function() {
-        $("#load").load("loadMoreAddPlace",{"query":"<?php echo $query.'+'.$countryname?>",type: "<?php echo $_POST["type"]?>"});
+        $("#load").load("loadMoreAddPlace",{"query":"<?php echo $query.' '.$countryname?>",type: "<?php echo $_POST["type"]?>",countryname: "<?php echo $countryname?>"});
     })
     $(".place button").click(function() {
         var img = $(this).closest(".place").find("img").attr("src");

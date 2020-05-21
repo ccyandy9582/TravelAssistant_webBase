@@ -16,7 +16,6 @@
                 $countryname = $row["name"];
             }
         }
-        $countryname = str_replace(" ","+",$countryname);
         $query = trim($_POST["query"]);
         // $query= str_replace(" ","+",$_POST["query"]);
 ?>
@@ -34,43 +33,41 @@
         <center><table>
             <tbody>
 <?php
-            $sql = "SELECT name,img,attractionId,googleid FROM attraction, attraction_type WHERE name LIKE '%$query%' AND countryID = ".$_POST["country"]." AND attraction.attractionID = attraction_type.id AND type = 'lodging' GROUP BY attractionId";
-            $result = $conn->query($sql);
-            if ($result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
-                    if ($row["img"]!=null) {
-                        $img = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='.$row["img"].'&key='.$googleapi;
-                    } else {
-                        $img = "imgs/noimg.png";
-                    }
-?>
-                    <tr class="hotel" data="<?php echo $row["googleid"]?>">
-                        <td><a href="place?id=<?php echo $row["attractionId"]?>" target='_blank'><img src="<?php echo $img;?>" style="margin:10px"></a></td>
-                        <td><a href="place?id=<?php echo $row["attractionId"]?>" target='_blank'><b style="color:black"><?php echo $row["name"]?></b></a><br><button><?php echo $setHotelPlan_text["choosehotel"]?></button></td>
-                    </tr>
-<?php
+        $sql = "SELECT name,img,attractionId,googleid FROM attraction, attraction_type WHERE name LIKE '%$query%' AND countryID = ".$_POST["country"]." AND attraction.attractionID = attraction_type.id AND type = 'lodging' GROUP BY attractionId";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                if ($row["img"]!=null) {
+                    $img = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='.$row["img"].'&key='.$googleapi;
+                } else {
+                    $img = "imgs/noimg.png";
                 }
-            } else {
-                if ($query!="") {
 ?>
-                <script>
-                     $("#load").load("loadMoreHotel",{"query":"<?php echo $query.'+'.$countryname?>"});
-                </script>
+                <tr class="hotel" data="<?php echo $row["googleid"]?>">
+                    <td><a href="place?id=<?php echo $row["attractionId"]?>" target='_blank'><img src="<?php echo $img;?>" style="margin:10px"></a></td>
+                    <td><a href="place?id=<?php echo $row["attractionId"]?>" target='_blank'><b style="color:black"><?php echo $row["name"]?></b></a><br><button><?php echo $setHotelPlan_text["choosehotel"]?></button></td>
+                </tr>
 <?php
-                }
             }
+        } else {
+?>
+            <script>
+                $("#load").load("loadMoreHotel",{"query":"<?php echo $query.' '.$countryname?>",countryname: "<?php echo $countryname?>"});
+            </script>
+<?php
+        }
     }
     $conn->close();
 ?>
         </tbody>
-    </table><?php if ($query!="") {echo '<button class="loadMoreHotel">'.$setHotelPlan_text["loadmore"].'</button>';}?></center>
+    </table><button class="loadMoreHotel"><?php echo $setHotelPlan_text["loadmore"]?>></button></center>
 </div>
 
 
 
 <script>
     $(".loadMoreHotel").click(function() {
-        $("#load").load("loadMoreHotel",{"query":"<?php echo $query.'+'.$countryname?>"});
+        $("#load").load("loadMoreHotel",{"query":"<?php echo $query.' '.$countryname?>",countryname: "<?php echo $countryname?>"});
     })
     $(".hotel button").click(function() {
         var img = $(this).closest(".hotel").find("img").attr("src");

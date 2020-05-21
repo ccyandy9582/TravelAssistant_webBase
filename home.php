@@ -59,8 +59,8 @@
 </div>
 <script>
     $("#popular_country b").click(function() {
-        //$("#explore_places").load("explorePlace",{"country": $(this).closest("div").attr("data")});
+        $("#explore_places").load("explorePlace",{"country": $(this).closest("div").attr("data")});
     })
-        //$("#explore_places").load("explorePlace",{"country": $("#popular_country div div").eq(0).attr("data")});
+        $("#explore_places").load("explorePlace",{"country": $("#popular_country div div").eq(0).attr("data")});
 </script>
 <?php $conn->close();require("html_end.php");?>

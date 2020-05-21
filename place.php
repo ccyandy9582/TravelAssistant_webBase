@@ -179,52 +179,68 @@
 <?php
                 }
             } else {
-                $json = file_get_contents("https://maps.googleapis.com/maps/api/place/details/json?place_id=".$_GET["gid"]."&fields=photos/photo_reference,address_components/long_name,address_components/types,name,rating,international_phone_number,formatted_address,geometry/location&language=EN&key=".$googleapi);
+                $json = file_get_contents("https://maps.googleapis.com/maps/api/place/details/json?place_id=".$_GET["gid"]."&fields=types,photos/photo_reference,address_components/long_name,address_components/types,name,rating,international_phone_number,formatted_address,geometry/location&language=EN&key=".$googleapi);
                 $obj = json_decode($json,true);
                 if ($obj["status"] != "OK") {
                     echo "<h2>".$place_text["notFound"]."!</h2>";
                 } else {
-                    // print_r($obj["results"]["international_phone_number"]);
-                    for ($i = 0;$i <sizeof($obj["result"]["address_components"]);$i++) {
-                        if (in_array("country",$obj["result"]["address_components"][$i]["types"])) {
-                            $countryIndex = $i;
-                        }
-                    }
-                    if (isset($countryIndex)) {
-                        $country = $obj["result"]["address_components"][$countryIndex]["long_name"];
-                    }
-                    if (isset($country)) {
-                        $sql = "select countryid from country WHERE EN = '{$country}'";
-                        $result = $conn->query($sql);
-                        if ($result->num_rows > 0) {
-                            if ($row = $result->fetch_assoc()) {
-                                $countryid = $row["countryid"];
-                                $phone = "null";
-                                if (isset($obj["result"]["international_phone_number"])) {
-                                    $phone = "'".$obj["result"]["international_phone_number"]."'";
-                                }
-                                $lat = $obj["result"]["geometry"]["location"]["lat"];
-                                $lon = $obj["result"]["geometry"]["location"]["lng"];
-                                $address = $obj["result"]["formatted_address"];
-                                $name = $obj["result"]["name"];
-                                $rating = "null";
-                                if (isset($obj["result"]["rating"])) {
-                                    $rating = $obj["result"]["rating"];
-                                }
-                                $img = "null";
-                                if (isset($obj["result"]["photos"][0]["photo_reference"])) {
-                                    $img = "'".$obj["result"]["photos"][0]["photo_reference"]."'";
-                                }
-                                echo $sql = "INSERT INTO attraction (googleid,name,lat,lon,img,phone,address,rating,countryid) VALUES ('{$_GET["gid"]}','$name',$lat,$lon,$img,$phone,'$address',$rating,$countryid)";
-                                if ($conn->query($sql) === TRUE) {
-                                    echo "<script>location.reload();</script>";
-                                } else {
-                                    echo "<h2>".$place_text["notFound"]."!</h2>";
-                                }
+                    if (in_array("tourist_attraction",$obj["result"]["types"]) || 
+                    in_array("amusement_park",$obj["result"]["types"]) ||
+                    in_array("museum",$obj["result"]["types"]) ||
+                    in_array("aquarium",$obj["result"]["types"]) || 
+                    in_array("natural_feature",$obj["result"]["types"]) || 
+                    in_array("zoo",$obj["result"]["types"]) || 
+                    in_array("lodging",$obj["result"]["types"]) || 
+                    in_array("airport",$obj["result"]["types"])) {
+                        for ($i = 0;$i <sizeof($obj["result"]["address_components"]);$i++) {
+                            if (in_array("country",$obj["result"]["address_components"][$i]["types"])) {
+                                $countryIndex = $i;
                             }
-                        } else {
-                            echo "<h2>".$place_text["notFound"]."!</h2>";
                         }
+                        if (isset($countryIndex)) {
+                            $country = $obj["result"]["address_components"][$countryIndex]["long_name"];
+                        }
+                        if (isset($country)) {
+                            $sql = "select countryid from country WHERE EN = '{$country}'";
+                            $result = $conn->query($sql);
+                            if ($result->num_rows > 0) {
+                                if ($row = $result->fetch_assoc()) {
+                                    $countryid = $row["countryid"];
+                                    $phone = "null";
+                                    if (isset($obj["result"]["international_phone_number"])) {
+                                        $phone = "'".$obj["result"]["international_phone_number"]."'";
+                                    }
+                                    $lat = $obj["result"]["geometry"]["location"]["lat"];
+                                    $lon = $obj["result"]["geometry"]["location"]["lng"];
+                                    $address = addslashes($obj["result"]["formatted_address"]);
+                                    $name = addslashes($obj["result"]["name"]);
+                                    $rating = "null";
+                                    if (isset($obj["result"]["rating"])) {
+                                        $rating = $obj["result"]["rating"];
+                                    }
+                                    $img = "null";
+                                    if (isset($obj["result"]["photos"][0]["photo_reference"])) {
+                                        $img = "'".$obj["result"]["photos"][0]["photo_reference"]."'";
+                                    }
+                                    $sql = "INSERT INTO attraction (googleid,name,lat,lon,img,phone,address,rating,countryid) VALUES ('{$_GET["gid"]}','$name',$lat,$lon,$img,$phone,'$address',$rating,$countryid)";
+                                    if ($conn->query($sql) === TRUE) {
+                                        $sql = "INSERT INTO attraction_type (id,type) VALUES (".($conn->insert_id).",'".$obj["result"]["types"][0]."')";
+                                        for ($i = 1; $i < sizeof($obj["result"]["types"]) ;$i++) {
+                                            $sql .= ",(".($conn->insert_id).",'".$obj["result"]["types"][$i]."')";
+                                        }
+                                        if ($conn->query($sql) === TRUE) {
+                                            echo "<script>location.reload();</script>";
+                                        }
+                                    } else {
+                                        echo "<h2>".$place_text["notFound"]."!</h2>";
+                                    }
+                                }
+                            } else {
+                                echo "<h2>".$place_text["notFound"]."!</h2>";
+                            }
+                        }
+                    } else {
+                        echo "<h2>".$place_text["notFound"]."!</h2>";
                     }
                     // echo $obj["result"]["address_components"];    
                     // if (isset($obj["result"]["address_components"]))

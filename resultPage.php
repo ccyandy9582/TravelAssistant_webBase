@@ -1,4 +1,5 @@
 <?php 
+    $_POST["planid"]=2;
     if (!isset($_POST["planid"])) {
 ?>
         <script>

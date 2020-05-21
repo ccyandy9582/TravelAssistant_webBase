@@ -1,5 +1,5 @@
 <?php 
-    if (!((isset($_POST["query"]) && isset($_POST["type"]))xor isset($_POST["next"]))) {
+    if (!((isset($_POST["query"]) && isset($_POST["type"]) && isset($_POST["countryname"])) xor (isset($_POST["next"])))) {
         require("404.php");
     } else {
         if (session_status() == PHP_SESSION_NONE) {
@@ -9,17 +9,32 @@
         require("loadMoreAddPlace_text.php");
         require("api_key.php");
         if (isset($_POST["query"])) {
-            $_POST["query"]= str_replace(" ","+",trim($_POST["query"]));
-            if ($_POST["type"]=="any"){
-                $json = file_get_contents('https://maps.googleapis.com/maps/api/place/textsearch/json?query='.rawurlencode($_POST["query"]).'&language=en&key='.$googleapi);
-            } else {
-                $json = file_get_contents('https://maps.googleapis.com/maps/api/place/textsearch/json?query='.rawurlencode($_POST["query"]).'&language=en&key='.$googleapi.'&type='.$_POST["type"]);
+            $_POST["query"] = trim($_POST["query"]);
+            $temp = explode(" ",$_POST["query"]);
+            foreach ($temp as $val) {
+                $val = rawurlencode($val);
             }
+            $_POST["query"]= implode("+",$temp);
+            // if ($_POST["type"]=="any"){
+            //     $json = file_get_contents('https://maps.googleapis.com/maps/api/place/textsearch/json?query='.$_POST["query"].'&language=en&key='.$googleapi);
+            // } else {
+                $json = file_get_contents('https://maps.googleapis.com/maps/api/place/textsearch/json?query='.$_POST["query"].'&language=en&key='.$googleapi.'&type='.$_POST["type"]);
+            // }
+                
         } else {
             $json = file_get_contents('https://maps.googleapis.com/maps/api/place/textsearch/json?pagetoken='.$_POST["next"].'&language=en&key='.$googleapi);
         }
         $obj = json_decode($json,true);
         if ($obj["status"] == "OK") {
+            echo 1;
+        }
+        if ($obj["status"] == "ZERO_RESULTS") {
+?>
+            <script>
+                $(".loadMoreAddPlace").remove();
+            </script>
+<?php
+        } else if ($obj["status"] == "OK") {
 ?>
             <script>
                 $(".loadMoreAddPlace").remove();
@@ -37,11 +52,17 @@
                             skip = true;
                         }
                     })
+<?php
+                    $temp = explode($_POST["countryname"],$results["formatted_address"]);
+                    if (sizeof($temp) == 1 || $temp[sizeof($temp)-1] != "") {
+                        echo "skip = true;";
+                    }
+?>
                     if (!skip) {
-                        var html = '<tr class="place">'+
-                                        '<td><a href="place?gid=<?php echo $results["place_id"]?>" target="_blank"><img src="<?php echo $img?>" style="margin:10px"></a></td>'+
-                                        '<td><a href="place?gid=<?php echo $results["place_id"]?>"  target="_blank"><b style="color:black"><?php echo str_replace("'","\\'",$results["name"])?></b></a><br><button><?php echo $loadMoreAddPlace_text["add"]?></button></td>+'
-                                    '</tr>';
+                            var html = '<tr class="place">'+
+                                            '<td><a href="place?gid=<?php echo $results["place_id"]?>" target="_blank"><img src="<?php echo $img?>" style="margin:10px"></a></td>'+
+                                            '<td><a href="place?gid=<?php echo $results["place_id"]?>"  target="_blank"><b style="color:black"><?php echo str_replace("'","\\'",$results["name"])?></b></a><br><button><?php echo $loadMoreAddPlace_text["add"]?></button></td>+'
+                                        '</tr>';
                         $("#addPlacePlan .searchplace").find("tbody").append(html);
                     }
 <?php
@@ -51,7 +72,7 @@
 ?>
                         $("#addPlacePlan .searchplace").find("center").append('<button class="loadMoreAddPlace"><?php echo $loadMoreAddPlace_text["loadmore"]?></button>');
                         $(".loadMoreAddPlace").click(function() {
-                            $("#load").load("loadMoreAddPlace",{"next":"<?php echo $obj["next_page_token"]?>"});
+                            $("#load").load("loadMoreAddPlace",{"next":"<?php echo $obj["next_page_token"]?>","type": "<?php echo $_POST["type"];?>"});
                         })
 <?php
                     }

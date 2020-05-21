@@ -16,7 +16,6 @@
                 $countryname = $row["name"];
             }
         }
-        $countryname = str_replace(" ","+",$countryname);
         $query = trim($_POST["query"]);
 ?>
     <center><h2><?php echo $endPointPlan_text["choosetitle"]?></h2>
@@ -50,7 +49,7 @@
         } else {
 ?>
             <script>
-                $("#load").load("loadMoreEndPlace",{"query":"<?php echo $query.'+'.$countryname?>"});
+                $("#load").load("loadMoreEndPlace",{"query":"<?php echo $query.' '.$countryname?>",countryname: "<?php echo $countryname?>"});
             </script>
 <?php
         }
@@ -65,7 +64,7 @@
 
 <script>
     $(".loadMoreEndPlace").click(function() {
-        $("#load").load("loadMoreEndPlace",{"query":"<?php echo $query.'+'.$countryname?>"});
+        $("#load").load("loadMoreEndPlace",{"query":"<?php echo $query.' '.$countryname?>",countryname: "<?php echo $countryname?>"});
     })
     $(".endplace button").click(function() {
         var img = $(this).closest(".endplace").find("img").attr("src");

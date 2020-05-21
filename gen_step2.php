@@ -60,7 +60,7 @@
                                 $id_field = "googleId";
                                 $id = $_POST["hotel"]["place"][$i]["gid"];
                             }
-                            $sql = 'INSERT INTO plan_content (planID, '.$id_field.',day ,type) VALUES ("'.$_POST["plan"].'", "'.$id.'", '.($i+1).',2)';
+                            $sql = 'INSERT INTO plan_content (planID, '.$id_field.',day ,type,placeOrder) VALUES ("'.$_POST["plan"].'", "'.$id.'", '.($i+1).',2,-1)';
                             $conn->query($sql); 
                         }
                     }
