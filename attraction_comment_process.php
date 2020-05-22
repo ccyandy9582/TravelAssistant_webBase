@@ -19,7 +19,11 @@
                         $sql = "INSERT INTO attraction_comment (attractionID, userID, comment) VALUES ({$_POST["attractionid"]}, {$_SESSION["userid"]}, '{$_POST["val"]}')";
             
                         if ($conn->query($sql) === TRUE) {
-                            echo "<script>location.reload();</script>";
+                            echo "
+                                <script>
+                                    $('#place_commentSection_list').load('place_commentSection',{attractionid:".$_POST["attractionid"]."});
+                                </script>
+                            ";
                         }
                     } else {
 ?>

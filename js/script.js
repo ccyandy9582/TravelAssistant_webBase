@@ -11,6 +11,12 @@ $("document").ready(function() {
     modal1.style.display = "none";
     // location.reload();
     }
+    var modal2 = document.getElementById("popoutmap");
+    var span2 = document.getElementById("popoutmap_close");
+    span2.onclick = function() {
+    modal2.style.display = "none";
+    // location.reload();
+    }
     window.onclick = function(event) {
         if (event.target == modal) {
             // modal.style.display = "none";
@@ -18,6 +24,10 @@ $("document").ready(function() {
         }
         if (event.target == modal1) {
             modal1.style.display = "none";
+            // location.reload();
+        }
+        if (event.target == modal2) {
+            modal2.style.display = "none";
             // location.reload();
         }
     }

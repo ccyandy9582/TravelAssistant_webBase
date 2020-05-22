@@ -6,6 +6,9 @@
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
+        if (!isset($_POST["page"])) {
+            $_POST["page"] = 1;
+        }
         $required= true;
         require("place_commentSection_text.php");
         require("database.php");
@@ -45,7 +48,7 @@
         if ($row["num"] == 0) {
             echo $place_commentSection_text["noComment"];
         } else {
-            $sql = "select name,comment,commentid,banned,user.userid from attraction_comment,user where attraction_comment.userid = user.userid and attractionid = ".$_POST["attractionid"]." Order by commentid desc Limit ".($currentpage*10-10).",".$commentPerPage;
+            $sql = "select name,comment,commentid,banned,user.userid from attraction_comment,user where attraction_comment.userid = user.userid and attractionid = ".$_POST["attractionid"]." Order by commentid desc Limit ".($currentpage*$commentPerPage-$commentPerPage).",".$commentPerPage;
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
@@ -70,14 +73,16 @@
                     ";
                     if (isset($_SESSION["admin"])) {
                         echo "
-                            $('.ban').click(function() {
-                                $('#load').load('ban',{banned: $(this).attr('banned'), user: $(this).attr('user')});
-                            })
+                        $('.ban').off('click');
+                        $('.ban').click(function() {
+                            $('#load').load('ban',{banned: $(this).attr('banned'), user: $(this).attr('user')});
+                        })
                         ";
                     }
                     echo "
+                        $('.remove').off('click');
                         $('.remove').click(function() {
-                            $('#load').load('remove_attraction_comment',{commentid: $(this).attr('comment')});
+                            $('#load').load('remove_attraction_comment',{commentid: $(this).attr('comment'), attractionid:".$_POST["attractionid"]."});
                         })
                         </script>
                     ";

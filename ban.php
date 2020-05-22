@@ -6,9 +6,10 @@
         $required = true;
         require("database.php");
         if ($_POST["banned"] == 0) {
-            $sql = "UPDATE user set banned = 1 WHERE userid = ".$_POST["user"];
+            //echo "<script>alert('"."UPDATE user set banned = 1 WHERE userid = ".$_POST["user"]." AND type <> 'A'"."')</script>";
+            echo $sql = "UPDATE user set banned = 1 WHERE userid = ".$_POST["user"]." AND type <> 'A'";
         } else {
-            $sql = "UPDATE user set banned = 0 WHERE userid = ".$_POST["user"];
+            $sql = "UPDATE user set banned = 0 WHERE userid = ".$_POST["user"]." AND type <> 'A'";
         }
         if ($conn->query($sql) === TRUE) {
             echo "

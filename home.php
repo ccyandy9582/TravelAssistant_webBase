@@ -22,7 +22,7 @@
                 </formline>
                 <formline><?php echo $home_text["participant"]?> <input type="number" style="width:100px" value="1"></formline>
                 <formline><?php echo $home_text["from"]?> <input type="date" data="start"> <?php echo $home_text["to"]?> <input type="date" data="end"></formline>
-                <formline><input type="checkbox"> <?php echo $home_text["transport"]?></formline>
+                <formline style="display:none"><input type="checkbox"> <?php echo $home_text["transport"]?></formline>
                 <button><?php echo $home_text["nextstep"]?></button>
             </form>
             <?php //print_r($_SERVER)?>
@@ -36,7 +36,7 @@
     <h2><?php echo $home_text["popularcountries"]?></h2>
     <center>
         <?php
-            $sql = "SELECT country.countryID,".$_SESSION["lang"]." AS name, EN FROM country left join plan on country.countryID = plan.countryID AND state = 2 GROUP BY country.countryID ORDER BY count(EN) DESC, name";
+            $sql = "SELECT country.countryID,".$_SESSION["lang"]." AS name, EN from country left join plan on country.countryID = plan.countryID and state = 2 group by country.countryid order by count(country.countryid) DESC, EN";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 echo "<div class='drag'>";

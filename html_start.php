@@ -51,6 +51,9 @@
                     <div class="menu_ac_dropdown">
                         <a class="dropdown_item"><?php echo $html_start_text["myplan"]?></a>
                         <a class="dropdown_item" href="setting"><?php echo $html_start_text["setting"]?></a>
+                        <?php if(isset($_SESSION["admin"])) {?>
+                            <a class="dropdown_item" href="unbanuser"><?php echo $html_start_text["unban"]?></a>
+                        <?php }?>
                         <span class="dropdown_item logout"><?php echo $html_start_text["logout"]?></span>
                         <div style="background-color: white; width: 8px;height:8px;position:absolute;top:-3; left:71 ; transform: rotateZ(45deg);"></div>
                     </div>

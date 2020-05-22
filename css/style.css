@@ -36,7 +36,7 @@ button {
 input:focus::placeholder{
     color:transparent;
 }
-#popout,#popout1 {
+#popout,#popout1,#popoutmap {
     display: none;
     position: fixed;
     z-index: 20;
@@ -48,22 +48,38 @@ input:focus::placeholder{
     background-color: rgb(0,0,0); 
     background-color: rgba(0,0,0,0.4); 
 }
-#popout_content,#popout1_content {
+#popoutmap {
+    padding-bottom: 100px; 
+}
+#popout_content,#popout1_content,#popoutmap_content {
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
-  }
-#popout_close,#popout1_close {
+}
+#popoutmap_content {
+    height: 100%;
+    /* height: calc(100% - 100px); */
+}
+#popout_close,#popout1_close,#popoutmap_close {
     color: #aaaaaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
 }
+#popoutmap_close {
+    position:fixed;
+    right:5px;
+    top:0;
+}
 
 #popout_close:hover,
-#popout_close:focus {
+#popout_close:focus,
+#popout1_close:hover,
+#popout1_close:focus,
+#popoutmap_close:hover,
+#popoutmap_close:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;
@@ -476,6 +492,10 @@ input:focus::placeholder{
 }
 .remove, .ban {
     color:red;
+    cursor: pointer;
+}
+.viewroute {
+    color:blue;
     cursor: pointer;
 }
 .remove:hover {

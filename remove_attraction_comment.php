@@ -2,7 +2,7 @@
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
-    if (!(isset($_SESSION["userid"]) && isset($_POST["commentid"]))) {
+    if (!(isset($_SESSION["userid"]) && isset($_POST["commentid"]) && isset($_POST["attractionid"]))) {
         require("404.php");
     } else {
         $required = true;
@@ -15,7 +15,7 @@
         if ($conn->query($sql) === TRUE) {
             echo "
                 <script>
-                    location.reload();
+                    $('#place_commentSection_list').load('place_commentSection',{attractionid:".$_POST["attractionid"].", page: $('#page').val()});
                 </script>
             ";
         } else {
