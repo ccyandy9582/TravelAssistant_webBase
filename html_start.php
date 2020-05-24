@@ -35,6 +35,11 @@
                 <p></p>
             </div>
         </div>
+        <div id="popoutmap">
+            <span id="popoutmap_close">&times;</span>
+            <div id="popoutmap_content">
+            </div>
+        </div>
         <div id="menu">
             <a href="/fyp/"><img id="icon" src="imgs/hochilltrip_logo.svg" height="75px"></a>
             <!-- <a class="menu_item">Plan</a> -->
@@ -49,7 +54,7 @@
             <?php if (isset($_SESSION["userid"])) {?>
                 <div class="menu_item menu_ac"><?php echo $html_start_text["myaccount"]?>
                     <div class="menu_ac_dropdown">
-                        <a class="dropdown_item"><?php echo $html_start_text["myplan"]?></a>
+                        <a class="dropdown_item" href="myplan"><?php echo $html_start_text["myplan"]?></a>
                         <a class="dropdown_item" href="setting"><?php echo $html_start_text["setting"]?></a>
                         <?php if(isset($_SESSION["admin"])) {?>
                             <a class="dropdown_item" href="unbanuser"><?php echo $html_start_text["unban"]?></a>

@@ -134,35 +134,39 @@
                         </h2>
                         <h2><?php echo $place_text["comments"];?>:</h2>
 <?php
-                            if (isset($_SESSION["userid"])) {
-                                $sql = "select userid from user where userID = ".$_SESSION["userid"];
-                                $result = $conn->query($sql);
-                                if ($result->num_rows > 0) {
-                                    if ($row = $result->fetch_assoc()) {
-                                        echo "
-                                            <textarea id='command_input' rows='4'></textarea>
-                                            <button  style='width: 100px' id='post_comment'>".$place_text["post"]."</button>
-                                            <script>
-                                                function autoResize() { 
-                                                    this.style.height = 'auto'; 
-                                                    this.style.height = this.scrollHeight + 'px'; 
-                                                } 
-                                                textarea = document.querySelector('#command_input'); 
-                                                textarea.addEventListener('input', autoResize, false);
-                                            </script>
-                                        ";
-                                    }
+                        if (isset($_SESSION["userid"])) {
+                            $sql = "select userid from user where userID = ".$_SESSION["userid"];
+                            $result = $conn->query($sql);
+                            if ($result->num_rows > 0) {
+                                if ($row = $result->fetch_assoc()) {
+                                    echo "
+                                        <textarea id='command_input' rows='4'></textarea>
+                                        <button  style='width: 100px' id='post_comment'>".$place_text["post"]."</button>
+                                        <script>
+                                            function autoResize() { 
+                                                this.style.height = 'auto'; 
+                                                this.style.height = this.scrollHeight + 'px'; 
+                                            } 
+                                            textarea = document.querySelector('#command_input'); 
+                                            textarea.addEventListener('input', autoResize, false);
+                                        </script>
+                                    ";
+?>
+                                    <script>
+                                        $('#post_comment').click(function() {
+                                            $('#load').load('attraction_comment_process',{'val':$('#command_input').val(),'attractionid':<?php echo$_GET["id"];?>});
+                                            $('#place_commentSection_list').load('place_commentSection',{'attractionid':<?php echo$_GET["id"];?>});
+                                        })
+                                    </script>
+<?php
                                 }
                             }
+                        }
 ?>
-                            <div id="place_commentSection_list"></div>
-                            <script>
-                                $('#post_comment').click(function() {
-                                    $('#load').load('attraction_comment_process',{'val':$('#command_input').val(),'attractionid':<?php echo$_GET["id"];?>});
-                                    $('#place_commentSection_list').load('place_commentSection',{'attractionid':<?php echo$_GET["id"];?>});
-                                })
-                                $('#place_commentSection_list').load('place_commentSection',{'attractionid':<?php echo$_GET["id"];?>});
-                            </script>
+                        <div id="place_commentSection_list"></div>
+                        <script>
+                            $('#place_commentSection_list').load('place_commentSection',{'attractionid':<?php echo$_GET["id"];?>});
+                        </script>
                     </div>
                 </div>
 <?php 

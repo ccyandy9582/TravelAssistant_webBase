@@ -2,20 +2,20 @@
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
-    if (!(isset($_SESSION["userid"]) && isset($_POST["commentid"]) && isset($_POST["attractionid"]))) {
+    if(!(isset($_POST["planid"]) && isset($_SESSION["userid"]))) {
         require("404.php");
     } else {
         $required = true;
         require("database.php");
         if (isset($_SESSION["admin"])) {
-            $sql = "DELETE FROM attraction_comment where commentid = ".$_POST["commentid"];
+            $sql = "DELETE FROM user_plan WHERE userid = {$_POST["userid"]} and planid = {$_POST["planid"]}";
         } else {
-            $sql = "DELETE FROM attraction_comment where commentid = ".$_POST["commentid"]." and userid = ".$_SESSION["userid"];
+            $sql = "DELETE FROM user_plan WHERE userid = {$_SESSION["userid"]} and planid = {$_POST["planid"]}";
         }
         if ($conn->query($sql) === TRUE) {
             echo "
                 <script>
-                    $('#place_commentSection_list').load('place_commentSection',{attractionid:".$_POST["attractionid"].", page: $('#page').val()});
+                location.reload();
                 </script>
             ";
         } else {

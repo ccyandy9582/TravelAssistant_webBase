@@ -29,7 +29,7 @@
         <center><table>
             <tbody>
 <?php
-        $sql = "SELECT name,img,attractionId,googleid FROM attraction, attraction_type WHERE name LIKE '%$query%' AND countryID = ".$_POST["country"]." AND attraction.attractionID = attraction_type.id AND type = 'airport' GROUP BY attractionId";
+        $sql = "SELECT name,img,attractionId,googleid FROM attraction, attraction_type WHERE name LIKE"." '%".addslashes($query)."%' AND countryID = ".$_POST["country"]." AND attraction.attractionID = attraction_type.id AND type = 'airport' GROUP BY attractionId";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {

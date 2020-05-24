@@ -18,8 +18,8 @@
                 </script>
             ";
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
-          }
+            echo "<script>alert('Error');</script>";
+        }
         $conn->close();
     }
 ?>

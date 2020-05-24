@@ -45,7 +45,7 @@
         if ($_POST["type"]!="any") {
             $sql_type="AND type = '".$_POST["type"]."'";
         }
-        $sql = "SELECT name,img,attractionId,googleid FROM attraction, attraction_type WHERE name LIKE '%$query%' AND countryID = ".$_POST["country"]." AND attraction.attractionID = attraction_type.id $sql_type GROUP BY attractionId";
+        $sql = "SELECT name,img,attractionId,googleid FROM attraction, attraction_type WHERE name LIKE"." '%".addslashes($query)."%' AND countryID = ".$_POST["country"]." AND attraction.attractionID = attraction_type.id $sql_type GROUP BY attractionId";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
@@ -89,7 +89,7 @@
                         "<td><a href="+link+" target='_blank'><b style='color:black;'>"+name+"</b></a><br><?php echo $addPlacePlan_text["starttime"]?><br>"+
                         "<input style='width:70'>:<input style='width:70'><br><?php echo $addPlacePlan_text["timespend"]?> <input><br><?php echo $addPlacePlan_text["type"]?><br><span class='remove'><?php echo $addPlacePlan_text["remove"]?></span></td></tr>";
         $(".ptg tbody").append(html);
-        $('.ptg tbody').find('.remove').click(function() {
+        $('.addPlace').find('.remove').click(function() {
             $(this).closest('tr').remove();
         })
     })

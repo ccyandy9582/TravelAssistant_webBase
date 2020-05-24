@@ -5,24 +5,24 @@
         }
         if ($_SESSION["lang"] == "EN") {
             $home_text["plantrip"] = "PLAN YOUR TRIP";
-            $home_text["country"] = "Country";
+            $home_text["country"] = "Location";
             $home_text["selectcountry"] = "------ SELECT A COUNTRY ------";
             $home_text["participant"] = "Number of participant";
             $home_text["from"] = "From";
             $home_text["to"] = "To";
             $home_text["transport"] = "I will travel by transport in this trip.";
             $home_text["nextstep"] = "Next Step";
-            $home_text["popularcountries"] = "Popular countries";
+            $home_text["popularcountries"] = "Popular locations";
         } else if ($_SESSION["lang"] == "ZH") {
             $home_text["plantrip"] = "計劃你的行程";
-            $home_text["country"] = "城市";
+            $home_text["country"] = "地點";
             $home_text["selectcountry"] = "--------------- 選擇城市 ---------------";
             $home_text["participant"] = "人數";
             $home_text["from"] = "由";
             $home_text["to"] = "到";
             $home_text["transport"] = "我會使用交通工具";
             $home_text["nextstep"] = "下一步";
-            $home_text["popularcountries"] =  "熱門城市";
+            $home_text["popularcountries"] =  "熱門地點";
         }
         
     }

@@ -16,7 +16,7 @@
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             if ($row = $result->fetch_assoc()) {
-                echo "<tr><td>".$row["email"]."</td><td>".$row["name"]."</td><td><span class='ban' user='".$row["userid"]."'>unban</span></td></tr>";
+                echo "<tr><td>".$row["email"]."</td><td><a href='myplan?id=".$row["userid"]."'>".$row["name"]."</a></td><td><span class='ban' user='".$row["userid"]."'>unban</span></td></tr>";
             }
         }
         $conn->close();

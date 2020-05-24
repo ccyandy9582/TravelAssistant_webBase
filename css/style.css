@@ -1,4 +1,6 @@
-
+h2 {
+    word-break: break-word;
+}
 a {
     text-decoration: inherit;
     cursor: pointer;
@@ -36,7 +38,7 @@ button {
 input:focus::placeholder{
     color:transparent;
 }
-#popout,#popout1,#popoutmap {
+#popout,#popout1,#popoutmap,#popoutdate {
     display: none;
     position: fixed;
     z-index: 20;
@@ -51,7 +53,7 @@ input:focus::placeholder{
 #popoutmap {
     padding-bottom: 100px; 
 }
-#popout_content,#popout1_content,#popoutmap_content {
+#popout_content,#popout1_content,#popoutmap_content, #popoutdate_content {
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
@@ -62,7 +64,7 @@ input:focus::placeholder{
     height: 100%;
     /* height: calc(100% - 100px); */
 }
-#popout_close,#popout1_close,#popoutmap_close {
+#popout_close,#popout1_close,#popoutmap_close,#popoutdate_close {
     color: #aaaaaa;
     float: right;
     font-size: 28px;
@@ -79,7 +81,9 @@ input:focus::placeholder{
 #popout1_close:hover,
 #popout1_close:focus,
 #popoutmap_close:hover,
-#popoutmap_close:focus {
+#popoutmap_close:focus,
+#popoutdate_close:hover,
+#popoutdate_close:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;
@@ -304,15 +308,23 @@ input:focus::placeholder{
 .hidden {
     display:none;
 }
-#login form button,#login_switch button ,#forget_pw form button, #recovery_pw_form button, #ch_pw_frm button, #ch_displayName_frm button,#post_comment{
+#login form button,#login_switch button ,#forget_pw form button, #recovery_pw_form button, #ch_pw_frm button, #ch_displayName_frm button,#post_comment,
+.save,.regen, .duplicate, .toblog, .viewplan, .post, .preview, .edit{
     background-color: white;
     border-radius: 12px;
     border: solid 1px #8DC8FA;
     padding: 12px;
     width:30%;
 }
+.save,.regen, .duplicate, .toblog {
+    width:20%;
+}
+.viewplan, .post, .preview {
+    width:100px;
+}
 #login form button:hover,#login_switch button:hover,#forget_pw form button:hover,
-#recovery_pw_form button:hover, #ch_pw_frm button:hover, #ch_displayName_frm button:hover,#post_comment:hover { 
+#recovery_pw_form button:hover, #ch_pw_frm button:hover, #ch_displayName_frm button:hover,#post_comment:hover,
+.save:hover,.regen:hover, .duplicate:hover, .toblog:hover, .viewplan:hover, .post:hover, .preview:hover, .edit:hover { 
     border-width: 2px;
     background-color: gainsboro;
 }
@@ -451,7 +463,7 @@ input:focus::placeholder{
     text-decoration: underline;
 }
 #blog {
-    margin: 0 20% 0 20%;
+    margin: 0 50px;
 }
 #page {
     text-align: center;
@@ -490,11 +502,11 @@ input:focus::placeholder{
     width:100%;
     height: 100%;
 }
-.remove, .ban {
+.remove, .ban, .undo {
     color:red;
     cursor: pointer;
 }
-.viewroute {
+.viewroute, .view, .blogedit {
     color:blue;
     cursor: pointer;
 }
@@ -542,6 +554,10 @@ input:focus::placeholder{
     flex-basis: 100%;
     padding: 0 20%;
 }
+#blog_commentSection {
+    padding: 0 50px;
+
+}
 .comment_user {
     background-color: #64B4F6 ;
     display: inline-block;
@@ -563,6 +579,23 @@ input:focus::placeholder{
     font-size: 50px;
     position:relative;
     top: 10px;
+}
+#plantable, #blogtable {
+    width: calc(100% - 20px);
+    border: 1px solid black;
+    border-collapse: collapse;
+    margin: 0 10px;
+}
+#plantable td,#plantable th{
+    border: 1px solid black;
+    text-align: center;
+}
+#blogtable td,#blogtable th {
+    border: 1px solid black;
+}
+#createblog_content {
+    height: calc(100% - 250px);
+    min-height: 400px;
 }
 .loading {
     position: fixed;

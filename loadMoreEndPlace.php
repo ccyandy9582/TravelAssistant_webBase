@@ -1,5 +1,5 @@
 <?php 
-    if (!((isset($_POST["query"]) && isset($_POST["countryname"])) xor isset($_POST["next"]))) {
+    if (!((isset($_POST["query"]) && isset($_POST["countryname"])) xor (isset($_POST["next"]) && isset($_POST["countryname"])))) {
         require("404.php");
     } else {
         if (session_status() == PHP_SESSION_NONE) {
@@ -64,7 +64,7 @@
 ?>
                         $("#endPointPlan .searchplace").find("center").append('<button class="loadMoreEndPlace"><?php echo $loadMoreEndPlace_text["loadmore"]?></button>');
                         $(".loadMoreEndPlace").click(function() {
-                            $("#load").load("loadMoreEndPlace",{"next":"<?php echo $obj["next_page_token"]?>"});
+                            $("#load").load("loadMoreEndPlace",{"next":"<?php echo $obj["next_page_token"]?>, countryname: '<?php echo $_POST["countryname"]?>'"});
                         })
 <?php
                     }

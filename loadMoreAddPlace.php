@@ -1,5 +1,5 @@
 <?php 
-    if (!((isset($_POST["query"]) && isset($_POST["type"]) && isset($_POST["countryname"])) xor (isset($_POST["next"])))) {
+    if (!((isset($_POST["query"]) && isset($_POST["type"]) && isset($_POST["countryname"])) xor (isset($_POST["next"]) && isset($_POST["countryname"])))) {
         require("404.php");
     } else {
         if (session_status() == PHP_SESSION_NONE) {
@@ -25,9 +25,6 @@
             $json = file_get_contents('https://maps.googleapis.com/maps/api/place/textsearch/json?pagetoken='.$_POST["next"].'&language=en&key='.$googleapi);
         }
         $obj = json_decode($json,true);
-        if ($obj["status"] == "OK") {
-            echo 1;
-        }
         if ($obj["status"] == "ZERO_RESULTS") {
 ?>
             <script>
@@ -69,10 +66,10 @@
                 }
                 if (isset($obj["next_page_token"])) {
                     if ($obj["next_page_token"] != null) {
-?>
+?> 
                         $("#addPlacePlan .searchplace").find("center").append('<button class="loadMoreAddPlace"><?php echo $loadMoreAddPlace_text["loadmore"]?></button>');
                         $(".loadMoreAddPlace").click(function() {
-                            $("#load").load("loadMoreAddPlace",{"next":"<?php echo $obj["next_page_token"]?>","type": "<?php echo $_POST["type"];?>"});
+                            $("#load").load("loadMoreAddPlace",{"next":"<?php echo $obj["next_page_token"]?>",countryname: '<?php echo $_POST["countryname"]?>'});
                         })
 <?php
                     }
@@ -87,7 +84,7 @@
                                     "<td><a href="+link+" target='_blank'><b style='color:black;'>"+name+"</b></a><br><?php echo $loadMoreAddPlace_text["starttime"]?><br>"+
                                     "<input style='width:70'>:<input style='width:70'><br><?php echo $loadMoreAddPlace_text["timespend"]?> <input><br><?php echo $loadMoreAddPlace_text["type"]?><br><span class='remove'><?php echo $loadMoreAddPlace_text["remove"]?></span></td></tr>";
                     $(".ptg tbody").append(html);
-                    $('.ptg tbody').find('.remove').click(function() {
+                    $('.addPlace').find('.remove').click(function() {
                         $(this).closest('tr').remove();
                     })
                 })

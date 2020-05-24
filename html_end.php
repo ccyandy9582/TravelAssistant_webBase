@@ -14,20 +14,22 @@
     </body>
 </html>
 <?php
-        require("database.php");
-        $sql = "select banned from user where userid = ".$_SESSION["userid"];
-        $result = $conn->query($sql);
-        if ($result->num_rows > 0) {
-            if ($row = $result->fetch_assoc()) {
-                if ($row["banned"] == 1) {
-                    echo '
-                        <script>
-                            $("#load").load("logout", {"a": 1});
-                        </script>
-                    ';
+        if (isset($_SESSION["userid"])) {
+            require("database.php");
+            $sql = "select banned from user where userid = ".$_SESSION["userid"];
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                if ($row = $result->fetch_assoc()) {
+                    if ($row["banned"] == 1) {
+                        echo '
+                            <script>
+                                $("#load").load("logout", {"a": 1});
+                            </script>
+                        ';
+                    }
                 }
             }
+            $conn->close();
         }
-        $conn->close();
     }
 ?>

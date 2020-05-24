@@ -2,20 +2,20 @@ $("document").ready(function() {
     var modal = document.getElementById("popout");
     var span = document.getElementById("popout_close");
     span.onclick = function() {
-    // modal.style.display = "none";
-    window.location.replace("login");
+        // modal.style.display = "none";
+        window.location.replace("login");
     }
     var modal1 = document.getElementById("popout1");
     var span1 = document.getElementById("popout1_close");
     span1.onclick = function() {
-    modal1.style.display = "none";
-    // location.reload();
+        modal1.style.display = "none";
+        // location.reload();
     }
     var modal2 = document.getElementById("popoutmap");
     var span2 = document.getElementById("popoutmap_close");
     span2.onclick = function() {
-    modal2.style.display = "none";
-    // location.reload();
+        modal2.style.display = "none";
+        // location.reload();
     }
     window.onclick = function(event) {
         if (event.target == modal) {
