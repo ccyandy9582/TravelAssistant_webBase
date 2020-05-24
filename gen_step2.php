@@ -16,7 +16,7 @@
                         $id_field = "googleId";
                         $id = $_POST["start"]["place"]["gid"];
                     }
-                    $sql = 'INSERT INTO plan_content (planID, '.$id_field.', duration, start_time, type) VALUES ("'.$_POST["plan"].'", "'.$id.'", "'.$_POST["start"]["place"]["spend"].'", "';
+                    $sql = 'INSERT INTO plan_content (planID, '.$id_field.', duration, start_time, type) VALUES ("'.$_POST["plan"].'", "'.$id.'", "'.($_POST["start"]["place"]["spend"]*60).'", "';
                     $sql .= str_pad($_POST["start"]["place"]["start_h"], 2, 0, STR_PAD_LEFT).":".str_pad($_POST["start"]["place"]["start_m"], 2, 0, STR_PAD_LEFT).'",0)';
                     $conn->query($sql); 
                 }
@@ -43,7 +43,7 @@
                                     $id_field = "googleId";
                                     $id = $_POST["place"]["place"][$i][$j]["gid"];
                                 }
-                                $sql = 'INSERT INTO plan_content (planID, '.$id_field.', duration, start_time,day,placeOrder, type) VALUES ("'.$_POST["plan"].'", "'.$id.'", "'.$_POST["place"]["place"][$i][$j]["spend"].'", "';
+                                $sql = 'INSERT INTO plan_content (planID, '.$id_field.', duration, start_time,day,placeOrder, type) VALUES ("'.$_POST["plan"].'", "'.$id.'", "'.($_POST["place"]["place"][$i][$j]["spend"]*60).'", "';
                                 $sql .= str_pad($_POST["place"]["place"][$i][$j]["start_h"], 2, 0, STR_PAD_LEFT).":".str_pad($_POST["place"]["place"][$i][$j]["start_m"], 2, 0, STR_PAD_LEFT).'",'.$i.','.($j+1).',1)';
                                 $conn->query($sql); 
                             }

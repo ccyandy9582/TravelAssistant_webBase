@@ -15,6 +15,7 @@
             $plan_text["end"] = "Ending point";
             $plan_text["startTime"] = "starting time";
             $plan_text["viewRoute"] = "View route";
+            $plan_text["choosestartdate"] = "Choose start date";
         } else if ($_SESSION["lang"] == "ZH") {
             $plan_text["notFound"]="此行程不存在";
             $plan_text["duplicate"] = "編輯並儲存為新行程";
@@ -27,6 +28,7 @@
             $plan_text["end"] = "結束地點";
             $plan_text["startTime"] = "開始時間";
             $plan_text["viewRoute"] = "檢視路線";
+            $plan_text["choosestartdate"] = " 選擇開始日期";
         }
     }
 ?>

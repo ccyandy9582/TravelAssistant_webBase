@@ -39,7 +39,7 @@
             <div id="popoutdate">
                 <div id="popoutdate_content">
                     <span id="popoutdate_close">&times;</span>
-                    Choose start date: <input type="date" id="popoutdate_date"><br>
+                    <?php echo $plan_text["choosestartdate"]?>: <input type="date" id="popoutdate_date"><br>
                     <button class="edit">Edit</button>
                 </div>
             </div>
