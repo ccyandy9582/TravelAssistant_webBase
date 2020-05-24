@@ -46,9 +46,9 @@
         <select><br><br><br>
 <?php
         if ($_POST["sort"] == "newest") {
-            $sql = "SELECT name,content,title,blogid from user, blog where blog.userid = user.userid and blog.state = 1 order by blogid desc limit ".($currentpage*$blogPerPage-$blogPerPage).",".$blogPerPage;
+            $sql = "SELECT name,content,title,blogid from user, blog where title like"." '%".addslashes($_POST["query"])."%' and blog.userid = user.userid and blog.state = 1 order by blogid desc limit ".($currentpage*$blogPerPage-$blogPerPage).",".$blogPerPage;
         } else if ($_POST["sort"] == "rating") {
-            $sql = "SELECT name,content,title,blog.blogid from user, blog, userrate_blog where blog.userid = user.userid and blog.state = 1 and userrate_blog.blogid = blog.blogid  group by blog.blogid order by avg(rating) desc limit ".($currentpage*$blogPerPage-$blogPerPage).",".$blogPerPage;
+            $sql = "SELECT name,content,title,blog.blogid from user, blog, userrate_blog where title like"." '%".addslashes($_POST["query"])."%' and  blog.userid = user.userid and blog.state = 1 and userrate_blog.blogid = blog.blogid  group by blog.blogid order by avg(rating) desc limit ".($currentpage*$blogPerPage-$blogPerPage).",".$blogPerPage;
         }
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
@@ -88,6 +88,10 @@
             })
             $("#page").off("change");
             $("#page").change(function() {
+                $("#blog_load").load("blogload",{sort: $("#blog_sort").val(),page: $("#page").val(), query: $("#blog_search_container input").eq(0).val()});
+            })
+            $("#blog_search_container button").off("click");
+            $("#blog_search_container button").click(function() {
                 $("#blog_load").load("blogload",{sort: $("#blog_sort").val(),page: $("#page").val(), query: $("#blog_search_container input").eq(0).val()});
             })
         </script>
