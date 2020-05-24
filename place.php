@@ -108,7 +108,10 @@
 ?>
                     </div></div>
                     <div id="place_commentSection">
-                        <h2><?php echo $place_text["myrating"];?>:
+<?php
+                        if (isset($_SESSION["userid"])) {
+?>
+                            <h2><?php echo $place_text["myrating"];?>:
 <?php
                             $sql = "select rating from userrate_attraction where attractionID = ".$_GET["id"]." and userid = ".$_SESSION["userid"];
                             $result = $conn->query($sql);
@@ -126,12 +129,15 @@
                                 echo '<span class="rating" val="'.$i.'">☆</span>';
                             }
 ?>
-                        <script>
-                            $(".rating").click(function() {
-                                $("#load").load("rate_attraction_process.php",{rating: $(this).attr("val"),attractionid: <?php echo $_GET["id"]?>});
-                            })
-                        </script>
-                        </h2>
+                            </h2>
+                            <script>
+                                $(".rating").click(function() {
+                                    $("#load").load("rate_attraction_process.php",{rating: $(this).attr("val"),attractionid: <?php echo $_GET["id"]?>});
+                                })
+                            </script>
+<?php
+                        }
+?>
                         <h2><?php echo $place_text["comments"];?>:</h2>
 <?php
                         if (isset($_SESSION["userid"])) {

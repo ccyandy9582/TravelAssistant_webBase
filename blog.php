@@ -65,7 +65,10 @@
                     $("#blog .content").html($("#quill .ql-editor").html());
                 </script>
                 <div id="blog_commentSection">
-                    <h2><?php echo $blog_text["myrating"];?>:
+<?php
+                    if (isset($_SESSION["userid"])) {
+?>
+                        <h2><?php echo $blog_text["myrating"];?>:
 <?php
                         $sql = "select rating from userrate_blog where blogid = ".$_GET["id"]." and userid = ".$_SESSION["userid"];
                         $result = $conn->query($sql);
@@ -83,12 +86,15 @@
                             echo '<span class="rating" val="'.$i.'">☆</span>';
                         }
 ?>
-                    <script>
-                        $(".rating").click(function() {
-                            $("#load").load("rate_blog_process.php",{rating: $(this).attr("val"),blogid: <?php echo $_GET["id"]?>});
-                        })
-                    </script>
-                    </h2>
+                        </h2>
+                        <script>
+                            $(".rating").click(function() {
+                                $("#load").load("rate_blog_process.php",{rating: $(this).attr("val"),blogid: <?php echo $_GET["id"]?>});
+                            })
+                        </script>
+<?php
+                        }
+?>
                     <h2><?php echo $blog_text["comments"];?>:</h2>
 <?php
                     if (isset($_SESSION["userid"])) {
